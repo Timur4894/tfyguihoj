@@ -114,7 +114,7 @@ const investmentPlans = [
         title: "Standard",
         rate: "+1.3%",
         type: "Daily",
-        desc: "Daily accruals available for withdrawal",
+        desc: "Ежедневные начисления доступные к выводу",
         deposits: "from 100$ to 1000$",
         days: "100 business days",
         dark: false,
@@ -123,7 +123,7 @@ const investmentPlans = [
         title: "Growth",
         rate: "+1.7%",
         type: "Daily",
-        desc: "Daily accruals available for withdrawal",
+        desc: "Ежедневные начисления доступные к выводу",
         deposits: "from 1000$ to 10000$",
         days: "85 business days",
         dark: false,
@@ -132,7 +132,7 @@ const investmentPlans = [
         title: "Compound",
         rate: "+2.3%",
         type: "Cumulative",
-        desc: "Daily increases in the deposit body",
+        desc: "Ежедневные увеличения тела депозита",
         deposits: "from 10000$ to 50000$",
         days: "40 business days",
         dark: true,
@@ -141,7 +141,7 @@ const investmentPlans = [
         title: "Accumulation",
         rate: "+2.9%",
         type: "Cumulative",
-        desc: "Daily increases in the deposit body",
+        desc: "Ежедневные увеличения тела депозита",
         deposits: "from 100000$",
         days: "20 business days",
         dark: true,
@@ -152,8 +152,8 @@ export default function InvestmentProposals() {
     return (
         <section style={styles.section}>
             <div style={{display: "flex", alignItems: 'flex-start', flexDirection: "column"}}>
-                <div style={styles.subTitle}>Profitable investments with WHITE LION</div>
-                <h1 style={styles.title}>Investment proposals</h1>
+                <div style={styles.subTitle}>Выгодные инвестиции с Prudential Invest</div>
+                <h1 style={styles.title}>Инвестиционные <br/>предложения</h1>
             </div>
             <Cards/>
             <div style={{width: '80%', height: 1, backgroundColor: '#aaa', marginLeft: '10%', marginTop: 40}}/>

@@ -10,9 +10,11 @@ export default function ProfHeader() {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "20px 20px",
-            backgroundColor: "#fff",
+            // backgroundColor: "#000",
             color: "white",
             position: "relative",
+            width: "100%",
+            marginLeft: -24,
             marginBottom: 40
         }}>
             <div style={{ fontSize: "18px", fontWeight: "bold", color: '#000' }}></div>

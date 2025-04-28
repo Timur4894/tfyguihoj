@@ -6,27 +6,27 @@ const Header = () => {
     // const navItems = ['Home', 'Company', 'Investments', 'Partners', 'FAQ', 'Contacts'];
 
     const navItems = [
-        { label: "Home", href: "/" },
-        { label: "Company", href: "/aboutcompany" },
-        { label: "Investments", href: "/investments" },
-        { label: "Partners", href: "/partners" },
+        { label: "Главная", href: "/" },
+        { label: "Компании", href: "/aboutcompany" },
+        { label: "Инвестиции", href: "/investments" },
+        { label: "Партнёрам", href: "/partners" },
         { label: "FAQ", href: "/faq" },
-        { label: "Contacts", href: "/contact" },
+        { label: "Контакты", href: "/contact" },
     ];
 
     return (
-        <header style={{marginLeft: '10px',marginRight: '10px',  borderBottom: '1px solid #1a1a1a',backgroundImage: `url(${bg})`,
+        <header style={{borderBottom: '1px solid #1a1a1a',backgroundImage: `url(${bg})`,
             backgroundSize: 'cover',
             }}>
             <div style={styles.topBar}>
                 <div style={styles.topLinks}>
-                    <a href="#" style={styles.navLink}>Terms of cooperation</a>
-                    <a href="#" style={styles.navLink}>Privacy Policy</a>
+                    <a href="#" style={styles.navLink}>Условия сотрудничества</a>
+                    <a href="#" style={styles.navLink}>Политика конфиденциальности</a>
                 </div>
                 <div style={styles.contactInfo}>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <ion-icon name="globe-outline"></ion-icon>
-                        <span style={{...styles.navLink, marginLeft: 4}}>English</span>
+                        {/*<ion-icon name="globe-outline"></ion-icon>*/}
+                        {/*<span style={{...styles.navLink, marginLeft: 4}}>English</span>*/}
                     </div>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <ion-icon name="mail-outline"></ion-icon>
@@ -59,10 +59,10 @@ const Header = () => {
                 </nav>
 
                 <div style={styles.buttons}>
-                    <a href="/createaccountscreen" style={styles.button}>Registration <ion-icon
+                    <a href="/createaccountscreen" style={styles.button}>Регистрация <ion-icon
                         name="caret-forward-outline"></ion-icon></a>
 
-                    <a href="/login" style={styles.button}>Cabinet <ion-icon
+                    <a href="/login" style={styles.button}>Кабинет <ion-icon
                         name="caret-forward-outline"></ion-icon></a>
                 </div>
             </div>

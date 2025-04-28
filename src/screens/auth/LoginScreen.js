@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
+import {AuthContext} from "../../context/AuthContext";
+import mainUrl from "../../constants";
 
 const styles = {
     container: {
@@ -65,52 +67,109 @@ const styles = {
     bold: {
         fontWeight: '600',
         fontFamily: "Ubuntu",
+        textDecoration: 'none',
+        color: '#374151',
     },
 };
 
 const LoginScreen = () => {
+    const { login } = useContext(AuthContext);
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`${mainUrl}/api/v1/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert(`Ошибка входа: ${errorData.message || 'Проверьте email и пароль'}`);
+                return;
+            }
+
+            const data = await response.json();
+            console.log('Успешный вход:', data);
+
+            if (data.token) {
+                login(data.token);
+            }
+
+            window.location.href = '/cabinetscreen';
+
+        } catch (error) {
+            console.error('Ошибка входа:', error);
+            alert('Ошибка сети. Попробуйте позже.');
+        }
+    };
+
     return (
         <>
-            <AboutCompanyHeader title='Вход в кабинет' subtitle='Вход'/>
+            <AboutCompanyHeader title='Вход в кабинет' subtitle='Вход' />
             <div style={styles.container}>
                 <div style={styles.formWrapper}>
-                    {/*<p style={styles.paragraph}>*/}
-                    {/*    Заполните необходимые данные ниже и нажмите "Продолжить". Вы будете перенаправлены в личный кабинет, а важная информация также будет отправлена на вашу электронную почту.*/}
-                    {/*</p>*/}
-                    {/*<p style={styles.paragraph}>*/}
-                    {/*    Если Вы уже зарегистрированы, перейдите на страницу входа в систему.*/}
-                    {/*</p>*/}
 
-                    {/*<h2 style={styles.heading}>Основная информация</h2>*/}
-
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label style={styles.label}>E-Mail:</label>
-                        <input type="text" placeholder="E-Mail" style={styles.input}/>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="E-Mail"
+                            value={formData.email}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
                         <label style={styles.label}>Пароль:</label>
-                        <input type="email" placeholder="Пароль" style={styles.input}/>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Пароль"
+                            value={formData.password}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
-                        {/*<label style={styles.label}>Подтвердите пароль</label>*/}
-                        {/*<input type="password" placeholder="Подтвердите пароль" style={styles.input} />*/}
                         <p style={{
-                            // display: 'flex',
                             fontWeight: '900',
                             justifyContent: 'center',
                             alignItems: 'center',
                             marginBottom: -10,
+
                             marginTop: 0,
                             backgroundColor: '#fff',
                         }}>
                             Забыли пароль?
                         </p>
+
                         <button type="submit" style={styles.button}>Продолжить</button>
                     </form>
 
                     <p style={styles.bottomText}>
-                        Ещё нет аккаунта? Воспользуйтесь формой <span style={styles.bold}>Регистрации</span>
+                        Ещё нет аккаунта? Воспользуйтесь формой <a style={styles.bold} href='/createaccountscreen'>Регистрации</a>
                     </p>
                     <p style={styles.bottomText}>
-                        Забыли пароль? Воспользуйтесь формой <span style={styles.bold}>Восстановления</span>
+                        Забыли пароль? Воспользуйтесь формой <a style={styles.bold} href='/forgotpassword'>Восстановления</a>
                     </p>
                 </div>
             </div>

@@ -96,26 +96,27 @@ const CompanyInfoSection = () => {
     return (
         <section style={styles.section}>
             <div style={styles.left}>
-                <p style={styles.subtitle}>Officially registered company in England</p>
-                <h2 style={styles.title}>WHITE LION<br />INVESTMENTS LIMITED</h2>
-                <p style={styles.companyNumber}>Company number OE026801</p>
+                <p style={styles.subtitle}>Официально зарегистрированная компания в Англии</p>
+                <h2 style={styles.title}>WHITE LION<br/>INVESTMENTS LIMITED</h2>
+                <p style={styles.companyNumber}>Регистрационный номер компании: OE026801</p>
                 <p style={styles.description}>
-                    We are an officially registered company operating in accordance with the laws of the countries of registration.
-                    We have offices in London and Hong Kong. Review our documents by following the links below.
+                    Мы — официально зарегистрированная компания, работающая в соответствии с законодательством стран
+                    регистрации.
+                    У нас есть офисы в Лондоне и Гонконге. Ознакомьтесь с нашими документами по ссылкам ниже.
                 </p>
                 <div style={styles.buttons}>
                     <a href="https://www.gov.uk" target="_blank" rel="noreferrer" style={styles.button}>
-                        Link to gov.uk ↗
+                        Ссылка на gov.uk ↗
                     </a>
                     {/*<a href="/docs/company.pdf" target="_blank" rel="noreferrer" style={styles.button}>*/}
-                    {/*    Open .PDF document ↗*/}
+                    {/*    Открыть .PDF документ ↗*/}
                     {/*</a>*/}
                 </div>
             </div>
 
             <div style={styles.right}>
-                {/*<img src={certificate1} alt="Document 1" style={styles.docImage} />*/}
-                <img src={certificate2} alt="Document 2" style={styles.docImage2} />
+                {/*<img src={certificate1} alt="Документ 1" style={styles.docImage} />*/}
+                <img src={certificate2} alt="Документ 2" style={styles.docImage2}/>
             </div>
         </section>
     );

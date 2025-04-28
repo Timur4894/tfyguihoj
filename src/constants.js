@@ -1,2 +1,2 @@
-const mainUrl = 'https://afternoon-tundra-33115-06b0afaad55a.herokuapp.com'
+const mainUrl = 'https://mysterious-tundra-55767-5981c8ec21ac.herokuapp.com'
 export default mainUrl

@@ -1,5 +1,6 @@
 import React from 'react';
 import img from '../../assets/img/partner02.jpg'
+import dots from "../../assets/img/pattern.png";
 
 const styles = {
     section: {
@@ -11,13 +12,14 @@ const styles = {
     },
     sectionMd: {
         display: 'flex',
+        position: 'relative',
         flexDirection: 'column',
         // gridTemplateColumns: '1fr',
         padding: '2rem',
         // alignItems: 'center',
     },
     image: {
-        width: '100%',
+        width: '110%',
         // boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
     },
     heading: {
@@ -46,11 +48,13 @@ const styles = {
         marginBottom: '0.5rem',
     },
     percentages: {
-        fontSize: '2.5rem',
+        fontSize: '4.5rem',
         fontFamily: "Ubuntu",
+        color: 'transparent',
+        WebkitTextStroke: '1px rgba(0, 0, 0)',
         marginLeft: '20%',
         fontWeight: '300',
-        color: '#1f2937',
+        // color: '#1f2937',
     },
 };
 
@@ -58,12 +62,20 @@ export default function ClassicProgramSection2() {
     return (
         <section style={styles.section}>
             <div style={styles.sectionMd}>
-                <h2 style={styles.heading}>Matching bonus</h2>
+                <img src={dots} alt="Cyber Lion" style={{
+                    width: "30%",
+                    height: "auto",
+                    position: "absolute",
+                    right: '-20%',
+                    top: '30%',
+                    zIndex: 0
+                }}/>
+                <h2 style={styles.heading}>Матчинг-бонус</h2>
                 <p style={styles.paragraph}>
-                    Earn even more with a matching bonus! Every time your first level partner receives income, you earn along with him. Receive an additional bonus of 5% of his profits and increase your income without limits!
+                    Зарабатывайте ещё больше с матчинг-бонусом! Каждый раз, когда ваш партнёр первого уровня получает доход, вы зарабатываете вместе с ним. Получайте дополнительный бонус в размере 5% от его прибыли и увеличивайте свой доход без ограничений!
                 </p>
                 <div>
-                    <h3 style={styles.subheading}>1st level of structure</h3>
+                    <h3 style={styles.subheading}>1-й уровень структуры</h3>
                     <p style={styles.percentages}>
                         5%
                     </p>

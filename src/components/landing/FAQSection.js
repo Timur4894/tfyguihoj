@@ -1,13 +1,30 @@
 import React, { useState } from "react";
 
 const faqData = [
-    { question: "What is your platform?", answer: "Our platform is a powerful tool with which each partner of the company can use our unique software and advanced technologies to create a stable income. Thanks to the platform, users gain access to innovative solutions based on artificial intelligence, which open up opportunities for growth and profitable investment." },
-    { question: "What benefits can I get from the affiliate program?", answer: "Our three-level affiliate program allows you to earn from the income of invited participants: 5% from the first level, 3% from the second and 2% from the third. In addition, we offer a matching bonus, thanks to which you will earn money every time your referral receives income. You can find out more at Affiliate program page ." },
-    { question: "How does your artificial intelligence work and what does it do?", answer: "Our artificial intelligence analyzes the market, tracks trends and provides accurate forecasts for various assets. But most importantly, our AI is constantly learning and improving to provide even higher accuracy. Additionally, an experienced team of specialists works on its training in order to maximize the efficiency of the algorithms." },
-    { question: "Who is your investment proposal suitable for?", answer: "Our investment packages are suitable for both private investors and professional brokers and funds. We offer a variety of tariffs, from basic to cumulative, with flexible terms and conditions, so that every client can find a suitable option." },
-    { question: "How can I join the platform and start earning money?", answer: "\n" +
-            "You can register on our platform to choose a suitable investment package or take advantage of the affiliate program. Once registered, you will have access to unique AI-powered investing tools that will help you maximize your profits and strengthen your position in the market." },
-    { question: "How is profit withdrawn and are there any restrictions?", answer: "Withdrawals are possible at any time after reaching the minimum amount of $5 equivalent. We guarantee strict compliance with all regulations and secure transfers to the account you specify." },
+    {
+        question: "Что представляет собой ваша платформа?",
+        answer: "Наша платформа — это мощный инструмент, с помощью которого каждый партнёр компании может использовать уникальное программное обеспечение и передовые технологии для создания стабильного дохода. Благодаря платформе пользователи получают доступ к инновационным решениям на базе искусственного интеллекта, которые открывают возможности для роста и выгодных инвестиций."
+    },
+    {
+        question: "Какие преимущества я получу от партнёрской программы?",
+        answer: "Наша трёхуровневая партнёрская программа позволяет зарабатывать на доходе приглашённых участников: 5% с первого уровня, 3% со второго и 2% с третьего. Кроме того, мы предлагаем matching-бонус, благодаря которому вы будете получать деньги каждый раз, когда ваш реферал получает доход. Подробнее вы можете узнать на странице партнёрской программы."
+    },
+    {
+        question: "Как работает ваш искусственный интеллект и что он делает?",
+        answer: "Наш искусственный интеллект анализирует рынок, отслеживает тренды и предоставляет точные прогнозы по различным активам. Но самое главное — наш ИИ постоянно обучается и совершенствуется, чтобы обеспечивать ещё более высокую точность. Дополнительно над его обучением работает команда опытных специалистов, чтобы максимально повысить эффективность алгоритмов."
+    },
+    {
+        question: "Кому подходит ваше инвестиционное предложение?",
+        answer: "Наши инвестиционные пакеты подходят как частным инвесторам, так и профессиональным брокерам и фондам. Мы предлагаем различные тарифы — от базовых до накопительных, с гибкими условиями, чтобы каждый клиент мог найти подходящий вариант."
+    },
+    {
+        question: "Как присоединиться к платформе и начать зарабатывать?",
+        answer: "Вы можете зарегистрироваться на нашей платформе, чтобы выбрать подходящий инвестиционный пакет или воспользоваться партнёрской программой. После регистрации вам будут доступны уникальные инвестиционные инструменты на базе ИИ, которые помогут вам максимизировать прибыль и укрепить свои позиции на рынке."
+    },
+    {
+        question: "Как производится вывод прибыли и есть ли ограничения?",
+        answer: "Вывод средств возможен в любое время после достижения минимальной суммы в эквиваленте 5$. Мы гарантируем строгое соблюдение всех регламентов и безопасные переводы на указанный вами счёт."
+    },
 ];
 
 const styles = {
@@ -26,6 +43,7 @@ const styles = {
     title: {
         fontSize: "48px",
         fontWeight: "700",
+        color: "#374151",
         fontFamily: "Ubuntu",
         marginBottom: "40px",
     },
@@ -41,6 +59,7 @@ const styles = {
         padding: "20px 24px",
         fontSize: "20px",
         fontWeight: "700",
+        color: "#374151",
         fontFamily: "Ubuntu",
         cursor: "pointer",
         display: "flex",
@@ -50,7 +69,7 @@ const styles = {
     answer: {
         padding: "0 24px 20px 24px",
         fontSize: "16px",
-        color: "#000",
+        color: "#374151",
         lineHeight: "1.6",
         fontFamily: "Ubuntu",
     },

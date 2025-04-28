@@ -39,12 +39,13 @@ export default function Sidebar() {
                 Открыть депозит</Link>
             <Link to="/mydeps" style={{ ...navItem, ...(location.pathname === "/mydeps" ? activeStyle : {}) }}><ion-icon name="analytics-outline"></ion-icon>
                 Мои депозиты</Link>
-            <Link to="/refprogram" style={{ ...navItem, ...(location.pathname === "/refprogram" ? activeStyle : {}) }}><ion-icon name="accessibility-outline"></ion-icon>
+            <Link to="/refprogram" style={{...navItem, ...(location.pathname === "/refprogram" ? activeStyle : {})}}>
+                <ion-icon name="people-outline"></ion-icon>
                 Моя команда</Link>
-            <Link to="/support" style={{ ...navItem, ...(location.pathname === "/support" ? activeStyle : {}) }}><ion-icon name="help-outline"></ion-icon>
+            <Link to="/support" style={{...navItem, ...(location.pathname === "/support" ? activeStyle : {}) }}><ion-icon name="help-outline"></ion-icon>
                 Поддержка</Link>
             <Link to="/wallets" style={{ ...navItem, ...(location.pathname === "/wallets" ? activeStyle : {}) }}><ion-icon name="settings-outline"></ion-icon>
-                Моя кошельки</Link>
+                Настройки</Link>
         </div>
     );
 }

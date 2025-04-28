@@ -15,7 +15,7 @@ const styles = {
 export default function Map() {
     return (
         <section style={styles.section}>
-            <img src={img1}/>
+            <img src={img1} style={{width:'100%'}} />
         </section>
     );
 }

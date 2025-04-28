@@ -59,15 +59,17 @@ const WalletSettings = () => {
     );
 
     return (
-        <div style={{ display: "flex", gap: "24px", padding: "24px", fontFamily: "Arial, sans-serif" }}>
+        <div style={{ display: "flex", gap: "24px", padding: "24px", fontFamily: "Arial, sans-serif", marginTop: -40 }}>
             <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>Мои кошельки</h2>
                 <div
                     style={{
                         backgroundColor: "#fff",
                         padding: "24px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
+                        // border: "1px solid #ddd",
+                        // boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+
+                        // borderRadius: "8px",
                         boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                 >
@@ -105,10 +107,12 @@ const WalletSettings = () => {
                 style={{
                     width: "360px",
                     backgroundColor: "#fff",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                    marginTop: 55,
                     padding: "24px",
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                    // border: "1px solid #ddd",
+                    // borderRadius: "8px",
+                    // boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     alignSelf: "start",
                 }}
             >

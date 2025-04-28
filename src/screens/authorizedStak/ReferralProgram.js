@@ -11,27 +11,31 @@ const ReferralProgram = () => {
     };
 
     return (
-        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111" }}>
+        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111" , marginTop: -40}}>
             <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>Моя команда</h2>
 
             <div
                 style={{
                     backgroundColor: "#777",
                     color: "#fff",
-                    borderRadius: "8px",
+                    // borderRadius: "8px",
                     padding: "24px",
                     marginBottom: "24px",
+                    display: 'flex',
+                    flexDirection: "column",
+                    alignItems: 'center'
                 }}
             >
-                <h3 style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: '2rem', fontWeight: "bold", marginBottom: "8px", }}>
                     Классическая программа
                 </h3>
-                <p style={{ fontSize: "14px", lineHeight: "1.6" }}>
+                <p style={{ fontSize: '0.9rem', lineHeight: "1.6", textAlign: "center", fontWeight: '800' }}>
                     Присоединяйтесь к партнёрской программе, приглашайте новых участников и получайте стабильный доход с их депозитов.
                     Программа охватывает три уровня структуры, так что каждый новый партнёр приносит вам прибыль.
                     Создайте свою команду и наблюдайте, как ваш доход растёт с каждым новым шагом!
                 </p>
-                <div style={{ fontSize: "24px", fontWeight: "bold", marginTop: "12px" }}>5% - 3% - 2%</div>
+                <div style={{ fontSize: '2.5rem', fontWeight: "bold", marginTop: "12px",         color: 'transparent',
+                    WebkitTextStroke: '1px rgba(255, 255, 255)', }}>5% - 3% - 2%</div>
             </div>
 
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "24px" }}>
@@ -55,7 +59,7 @@ const ReferralProgram = () => {
                             display: "flex",
                             alignItems: "center",
                             border: "1px solid #ccc",
-                            borderRadius: "4px",
+                            // borderRadius: "4px",
                             padding: "6px 10px",
                         }}
                     >
@@ -93,8 +97,9 @@ const ReferralProgram = () => {
                     style={{
                         flex: 1,
                         minWidth: "200px",
-                        border: "1px solid #ccc",
-                        borderRadius: "8px",
+                        // border: "1px solid #ccc",
+                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                        // borderRadius: "8px",
                         display: "flex",
                         padding: "16px",
                         backgroundColor: "#fff",
@@ -115,8 +120,9 @@ const ReferralProgram = () => {
                         flex: 1,
                         minWidth: "200px",
                         display: "flex",
-                        border: "1px solid #ccc",
-                        borderRadius: "8px",
+                        // border: "1px solid #ccc",
+                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                        // borderRadius: "8px",
                         padding: "16px",
                         flexDirection: "column",
                         backgroundColor: "#fff",
@@ -134,8 +140,9 @@ const ReferralProgram = () => {
 
             <div
                 style={{
-                    border: "1px solid #ccc",
-                    borderRadius: "8px",
+                    // border: "1px solid #ccc",
+                    // borderRadius: "8px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
                     padding: "16px",
                     backgroundColor: "#fff",
                 }}

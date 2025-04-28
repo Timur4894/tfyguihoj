@@ -93,24 +93,51 @@ const plan =
         dark: false,
     }
 
+    const tableStyle = {
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginBottom: '20px'
+    };
+
+    const thTdStyle = {
+        border: '1px solid #ddd',
+        padding: '8px',
+        textAlign: 'center'
+    };
+
+    const headerStyle = {
+        backgroundColor: '#f2f2f2',
+        fontWeight: 'bold'
+    };
+
+    const waitingStyle = {
+        color: '#1E90FF', // голубой цвет "Ожидание"
+        fontWeight: 'bold'
+    };
+
+    const sectionTitleStyle = {
+        fontSize: '20px',
+        fontWeight: 'bold',
+        margin: '20px 0 10px'
+    };
 
 const MyDepsScreen = () => {
 
-
     return (
-        <div style={{padding: "24px", fontFamily: "Arial, sans-serif", width: "140vh" }}>
+        <div style={{padding: "40px", paddingTop: 0,marginTop: -40, fontFamily: "Arial, sans-serif", width: "140vh" }}>
             <h2 style={{fontSize: "20px", fontWeight: "bold", marginBottom: "16px"}}>Мои депозиты</h2>
 
             <div
                 style={{
                     backgroundColor: "#fff",
-                    border: "1px solid #333",
-                    borderRadius: "6px",
+                    borderRadius: "0px",
                     padding: "16px",
                     fontSize: "14px",
                     lineHeight: "1.6",
                     textAlign: "center",
                     marginBottom: "32px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                    border: "1px solid #000",
                 }}
             >
                 Ознакомьтесь с нашими инвестиционными предложениями, выберите подходящее и активируйте его. Перед
@@ -127,46 +154,57 @@ const MyDepsScreen = () => {
                 сложного процента.
             </div>
 
-            <div
-                style={{
-                    ...styles.card,
-                    position: "relative",
-                }}
-            >
+            <div style={{ padding: '20px' }}>
+                {/* Первая таблица */}
+                <table style={tableStyle}>
+                    <thead>
+                    <tr>
+                        <th style={{ ...thTdStyle, ...headerStyle }}>№ Заказа</th>
+                        <th style={{ ...thTdStyle, ...headerStyle }}>Депозит</th>
+                        <th style={{ ...thTdStyle, ...headerStyle }}>Статус заказа</th>
+                        <th style={{ ...thTdStyle, ...headerStyle }}>Выплачено</th>
+                        <th style={{ ...thTdStyle, ...headerStyle }}>Активирован</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style={thTdStyle}>№1194</td>
+                        <td style={thTdStyle}>1050.00 $</td>
+                        <td style={{ ...thTdStyle, ...waitingStyle }}>Ожидание</td>
+                        <td style={thTdStyle}>0.00 / 1050.00 $</td>
+                        <td style={thTdStyle}>20.03.2025</td>
+                    </tr>
+                    </tbody>
+                </table>
 
-                    <div
-                        style={{
-                            ...styles.label,
-                        }}
-                    >
-                        {plan.type}
-                    </div>
+                {/* Заголовок второй секции */}
+                {/*<div style={sectionTitleStyle}>Последние 5 событий</div>*/}
 
-                <div style={styles.planTitle}>{plan.title}</div>
-                <div style={styles.description}>{plan.desc}</div>
-                <div style={{
-                    ...styles.percent
-
-                }}>
-                    {plan.rate}
-                </div>
-
-
-                <div style={styles.perDay}>PER DAY</div>
-                <div style={styles.details}>
-                    Deposits <strong>{plan.deposits}</strong>
-                    <br/>
-                    <br/>
-                    Working period <strong>{plan.days}</strong>
-                </div>
-                <button
-                    style={{
-                        ...styles.button,
-                        ...(plan.dark ? styles.darkButton : {}),
-                    }}
-                >
-                    More details
-                </button>
+                {/* Вторая таблица */}
+                {/*<table style={tableStyle}>*/}
+                {/*    <thead>*/}
+                {/*    <tr>*/}
+                {/*        <th style={{ ...thTdStyle, ...headerStyle }}>№ Заказа</th>*/}
+                {/*        <th style={{ ...thTdStyle, ...headerStyle }}>Депозит</th>*/}
+                {/*        <th style={{ ...thTdStyle, ...headerStyle }}>Статус заказа</th>*/}
+                {/*        <th style={{ ...thTdStyle, ...headerStyle }}>Покупатель</th>*/}
+                {/*    </tr>*/}
+                {/*    </thead>*/}
+                {/*    <tbody>*/}
+                {/*    <tr>*/}
+                {/*        <td style={thTdStyle}>№1194</td>*/}
+                {/*        <td style={thTdStyle}>1 050 $</td>*/}
+                {/*        <td style={{ ...thTdStyle, ...waitingStyle }}>Ожидание</td>*/}
+                {/*        <td style={thTdStyle}>NetWorth</td>*/}
+                {/*    </tr>*/}
+                {/*    <tr>*/}
+                {/*        <td style={thTdStyle}>№1193</td>*/}
+                {/*        <td style={thTdStyle}>1 111 $</td>*/}
+                {/*        <td style={thTdStyle}>Пополнение баланса успешно</td>*/}
+                {/*        <td style={thTdStyle}>NetWorth</td>*/}
+                {/*    </tr>*/}
+                {/*    </tbody>*/}
+                {/*</table>*/}
             </div>
         </div>
     );

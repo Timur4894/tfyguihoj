@@ -107,24 +107,24 @@ export default function HeroSection() {
             <div style={styles.content}>
                 <div style={styles.badge}>Leader of the direction since 2019</div>
                 <h1 style={styles.headline}>
-                    Opportunities for <br />
-                    growth with WHITE LION
+                    Возможности роста <br />
+                    с Prudential Invest
                 </h1>
                 <p style={styles.paragraph}>
-                    We are the leading AI-powered platform built to support brokers and investors. Our technology analyzes the market and provides accurate forecasts, helping you make informed decisions and increase profits.
+                    Мы — ведущая платформа на основе искусственного интеллекта, созданная для поддержки брокеров и инвесторов. Наша технология анализирует рынок и предоставляет точные прогнозы, помогая принимать обоснованные решения и увеличивать прибыль.
                 </p>
                 <p style={styles.paragraph}>
-                    We develop solutions not only for the financial sector, but also for other industries, such as the agricultural sector and medicine, making our product universal and innovative.
+                    Мы развиваем решения не только для финансового сектора, но и для других отраслей, таких как агросектор и медицина, делая наш продукт универсальным и инновационным.
                 </p>
                 <p style={styles.paragraph}>
-                    The company receives its main income through leasing our unique software to other companies, as well as commissions for providing services to private investors and funds.
+                    Основной доход компания получает за счёт сдачи в аренду нашего уникального софта другим компаниям, а также комиссий за предоставление услуг частным инвесторам и фондам.
                 </p>
                 <div style={styles.linkGroup}>
           <span style={styles.smallText}>
-            Find out more about us and the opportunities we offer
+            Узнайте больше о нас и тех возможностях, которые мы предлагаем
           </span>
                 <button style={styles.button}>
-                    More about the company <ion-icon name="caret-forward-outline"></ion-icon>
+                    Больше о компании <ion-icon name="caret-forward-outline"></ion-icon>
                 </button>
                 </div>
             </div>

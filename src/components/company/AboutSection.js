@@ -116,25 +116,23 @@ export default function AboutSection() {
             <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%",}}>
                 <div style={styles.textBlock}>
                     <p style={styles.paragraph}>
-                        Welcome to the platform where artificial intelligence opens up new opportunities for brokers,
-                        investors and businesses! We offer state-of-the-art technology for accurate market analysis and
-                        forecasting to help you make confident decisions and increase your revenue. Find out how our
-                        innovative solutions can be your advantage!
+                        Добро пожаловать на платформу, где искусственный интеллект открывает новые возможности для брокеров, инвесторов и бизнеса! Мы предлагаем современные технологии для точного анализа рынка и прогнозирования, которые помогут вам принимать уверенные решения и увеличивать доход. Узнайте, как наши инновационные решения могут стать вашим преимуществом!
                     </p>
                     <div style={styles.statsContainer}>
                         <div>
-                            <div style={styles.statBlock}>120+</div>
-                            <div style={styles.statText}>Partners using our software</div>
+                            <div style={styles.statBlock}>70+</div>
+                            <div style={styles.statText}>Партнёров, использующих наш софт
+                            </div>
                         </div>
                         <div style={{width: '100%', backgroundColor: "#aaa", height: 1, marginTop: 20}}/>
                         <div>
-                            <div style={styles.statBlock}>15+</div>
-                            <div style={styles.statText}>Years of professional experience</div>
+                            <div style={styles.statBlock}>150+</div>
+                            <div style={styles.statText}>Лет профессионального опыта</div>
                         </div>
                     </div>
                 </div>
                 <a href="#contact" style={styles.button}>
-                    Contact us <span style={{marginLeft: "0.5rem"}}>↗</span>
+                    Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}>↗</span>
                 </a>
             </div>
         </section>

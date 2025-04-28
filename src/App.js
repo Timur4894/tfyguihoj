@@ -32,8 +32,8 @@ import MyDepsScreen from "./screens/authorizedStak/MyDepsScreen";
 import ProfHeader from "./components/ProfHeader";
 
 const ProtectedRoute = ({ element }) => {
-    // const { isAuthenticated } = useContext(AuthContext);
-    const isAuthenticated = true
+    const { isAuthenticated } = useContext(AuthContext);
+    // const isAuthenticated = true
     return isAuthenticated ? element : <Navigate to="/login" replace />;
 };
 

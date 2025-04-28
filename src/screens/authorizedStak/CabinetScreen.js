@@ -57,6 +57,7 @@ export default function CabinetScreen() {
             {/*</div>*/}
             <div style={{...boxStyle, width: '40%',   borderWidth: 2,
                 borderColor: '#000',
+                marginTop: -40,
                 borderStyle: 'solid' }}>
                 <h3 style={titleStyle}>Ваши балансы</h3>
                 <p>Общий баланс: <strong>0.00 $</strong></p>

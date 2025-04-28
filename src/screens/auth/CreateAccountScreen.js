@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
+import {AuthContext} from "../../context/AuthContext";
+import mainUrl from "../../constants";
 
 const styles = {
     container: {
         display: 'flex',
         minHeight: '90vh',
+        paddingTop: '5%',
+        paddingBottom: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -65,46 +69,146 @@ const styles = {
     bold: {
         fontWeight: '600',
         fontFamily: "Ubuntu",
+        textDecoration: 'none',
+        color: '#374151',
     },
 };
-
 export default function CreateAccountScreen() {
+    const { login } = useContext(AuthContext);
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        ref: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (formData.password !== formData.confirmPassword) {
+            alert('Пароли не совпадают!');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${mainUrl}/api/v1/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password,
+                    ref: formData.ref || undefined,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert(`Ошибка: ${errorData.message || 'Не удалось зарегистрироваться'}`);
+                return;
+            }
+
+            const data = await response.json();
+            console.log('Успех:', data);
+            alert('Регистрация прошла успешно!');
+
+            if (data.token) {
+                login(data.token); // 🚀 Используем login из контекста
+            }
+
+            window.location.href = '/cabinetscreen';
+
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+            alert('Произошла ошибка сети.');
+        }
+    };
+
     return (
         <>
-        <AboutCompanyHeader title='Регистрация партнёра' subtitle='Регистрация'/>
-        <div style={styles.container}>
-            <div style={styles.formWrapper}>
-                <p style={styles.paragraph}>
-                    Заполните необходимые данные ниже и нажмите "Продолжить". Вы будете перенаправлены в личный кабинет, а важная информация также будет отправлена на вашу электронную почту.
-                </p>
-                <p style={styles.paragraph}>
-                    Если Вы уже зарегистрированы, перейдите на страницу входа в систему.
-                </p>
+            <AboutCompanyHeader title='Регистрация партнёра' subtitle='Регистрация' />
+            <div style={styles.container}>
+                <div style={styles.formWrapper}>
+                    <p style={styles.paragraph}>
+                        Заполните необходимые данные ниже и нажмите "Продолжить". Вы будете перенаправлены в личный кабинет, а важная информация также будет отправлена на вашу электронную почту.
+                    </p>
+                    <p style={styles.paragraph}>
+                        Если Вы уже зарегистрированы, перейдите на страницу входа в систему.
+                    </p>
 
-                <h2 style={styles.heading}>Основная информация</h2>
+                    <h2 style={styles.heading}>Основная информация</h2>
 
-                <form>
-                    <label style={styles.label}>Имя пользователя</label>
-                    <input type="text" placeholder="Имя пользователя" style={styles.input} />
+                    <form onSubmit={handleSubmit}>
+                        <label style={styles.label}>Имя пользователя</label>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Имя пользователя"
+                            value={formData.username}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
-                    <label style={styles.label}>Email</label>
-                    <input type="email" placeholder="Email" style={styles.input} />
+                        <label style={styles.label}>Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
-                    <label style={styles.label}>Пароль</label>
-                    <input type="password" placeholder="Пароль" style={styles.input} />
+                        <label style={styles.label}>Пароль</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Пароль"
+                            value={formData.password}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
-                    <label style={styles.label}>Подтвердите пароль</label>
-                    <input type="password" placeholder="Подтвердите пароль" style={styles.input} />
+                        <label style={styles.label}>Подтвердите пароль</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Подтвердите пароль"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            style={styles.input}
+                            required
+                        />
 
-                    <button type="submit" style={styles.button}>Продолжить</button>
-                </form>
+                        {/* Опциональное поле для реферала */}
+                        <label style={styles.label}>Реферальный код (необязательно)</label>
+                        <input
+                            type="text"
+                            name="ref"
+                            placeholder="Реферальный код"
+                            value={formData.ref}
+                            onChange={handleChange}
+                            style={styles.input}
+                        />
 
-                <p style={styles.bottomText}>
-                    Уже есть аккаунт? Воспользуйтесь формой <span style={styles.bold}>Авторизации</span>
-                </p>
+                        <button type="submit" style={styles.button}>Продолжить</button>
+                    </form>
+
+                    <p style={styles.bottomText}>
+                        Уже есть аккаунт? Воспользуйтесь формой <a style={styles.bold} href='/login'>Авторизации</a>
+                    </p>
+                </div>
             </div>
-        </div>
         </>
     );
 }
-

@@ -3,11 +3,11 @@ import usd from '../../assets/img/usd.png'
 
 const boxStyle = {
     backgroundColor: "#fff",
-    borderRadius: "12px",
+    borderRadius: "0px",
     padding: "20px",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
     marginBottom: "20px",
-    border: "1px solid #ccc",
+    border: "1px solid #000",
 };
 
 const balanceValueStyle = {
@@ -62,7 +62,7 @@ const actionButtonStyle = {
 
 export default function BalanceScreen() {
     return (
-        <div>
+        <div style={{marginTop: -40}}>
             <h2 style={{ fontSize: "20px", fontWeight: 600, marginBottom: "12px" }}>Мои балансы</h2>
 
             <div style={boxStyle}>
@@ -77,7 +77,7 @@ export default function BalanceScreen() {
                 </div>
             </div>
 
-            <div style={cardStyle}>
+            <div style={{...cardStyle, border: "0px solid #000",}}>
                 <img
                     src={usd}
                     alt="USD"

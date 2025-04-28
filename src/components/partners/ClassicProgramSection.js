@@ -1,5 +1,6 @@
 import React from 'react';
 import img from '../../assets/img/partner01.jpg'
+import dots from "../../assets/img/pattern.png";
 
 const styles = {
     section: {
@@ -12,12 +13,14 @@ const styles = {
     sectionMd: {
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
         // gridTemplateColumns: '1fr',
         padding: '2rem',
         // alignItems: 'center',
     },
     image: {
-        width: '100%',
+        width: '110%',
+        zIndex: 1
         // boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
     },
     heading: {
@@ -46,11 +49,13 @@ const styles = {
         marginBottom: '0.5rem',
     },
     percentages: {
-        fontSize: '2.5rem',
+        fontSize: '4.5rem',
         fontFamily: "Ubuntu",
         marginLeft: '20%',
+        color: 'transparent',
+        WebkitTextStroke: '1px rgba(0, 0, 0)',
         fontWeight: '300',
-        color: '#1f2937',
+        // color: '#1f2937',
     },
 };
 
@@ -66,15 +71,20 @@ export default function ClassicProgramSection() {
             </div>
 
             <div style={styles.sectionMd}>
-                <h2 style={styles.heading}>Classic program</h2>
+                <img src={dots} alt="Cyber Lion" style={{
+                    width: "30%",
+                    height: "auto",
+                    position: "absolute",
+                    left: '-20%',
+                    top: '30%',
+                    zIndex: 0
+                }}/>
+                <h2 style={styles.heading}>Классическая <br/>программа</h2>
                 <p style={styles.paragraph}>
-                    Join the affiliate program, invite new members and receive a stable income
-                    from their deposits. The program covers three levels of structure, so that each
-                    new partner brings you profit. Create your team and watch your income grow
-                    with every new step!
+                    Присоединяйтесь к партнёрской программе, приглашайте новых участников и получайте стабильный доход с их депозитов. Программа охватывает три уровня структуры, так что каждый новый партнёр приносит вам прибыль. Создайте свою команду и наблюдайте, как ваш доход растёт с каждым новым шагом!
                 </p>
                 <div>
-                    <h3 style={styles.subheading}>3 levels of structure</h3>
+                    <h3 style={styles.subheading}>3 уровня структуры</h3>
                     <p style={styles.percentages}>
                         5% - 3% - 2%
                     </p>

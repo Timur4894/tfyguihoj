@@ -12,7 +12,7 @@ const SupportForm = () => {
     };
 
     return (
-        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111" }}>
+        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111", marginTop: -40 }}>
             <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>
                 Техническая поддержка
             </h2>
@@ -20,13 +20,13 @@ const SupportForm = () => {
             <div
                 style={{
                     border: "1px solid #000",
-                    borderRadius: "6px",
+                    // borderRadius: "6px",
                     padding: "16px",
                     marginBottom: "24px",
                     backgroundColor: "#fefefe",
                 }}
             >
-                <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#222" }}>
+                <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#222", textAlign: "center" }}>
                     Добро пожаловать в поддержку платформы! Если у вас возникли вопросы, проблемы, идеи или пожелания,
                     пожалуйста, обратитесь к нашей команде поддержки. Чтобы создать новый диалог, заполните форму ниже,
                     указав тему обращения, и как можно подробнее опишите вашу ситуацию в поле 'Ваше сообщение'!
@@ -37,9 +37,11 @@ const SupportForm = () => {
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
+                    // border: "1px solid #ddd",
+                    // borderRadius: "8px",
                     backgroundColor: "#fff",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+
                     padding: "24px",
                     maxWidth: "100%",
                 }}

@@ -25,6 +25,7 @@ const styles = {
     cardsContainer: {
         display: "flex",
         // flexWrap: "wrap",
+        // backgroundColor: "#fff",
         gap: "24px",
         justifyContent: "center",
     },
@@ -41,7 +42,7 @@ const styles = {
         alignItems: "center",
     },
     darkCard: {
-        backgroundColor: "#111827",
+        backgroundColor: "#1e2428",
         color: "#fff",
         border: "none",
     },
@@ -73,7 +74,7 @@ const styles = {
         fontFamily: "Ubuntu",
     },
     percent: {
-        fontSize: '6rem',
+        fontSize: '5rem',
         fontWeight: "500",
         marginBottom: "8px",
     },
@@ -110,44 +111,45 @@ const styles = {
 
 const investmentPlans = [
     {
-        title: "Standard",
+        title: "Стандарт",
         rate: "+1.3%",
-        type: "Daily",
-        desc: "Daily accruals available for withdrawal",
-        deposits: "from 100$ to 1000$",
-        days: "100 business days",
+        type: "Ежедневно",
+        desc: "Ежедневные начисления доступны для вывода",
+        deposits: "от 100$ до 1000$",
+        days: "100 рабочих дней",
         dark: false,
     },
     {
-        title: "Growth",
+        title: "Рост",
         rate: "+1.7%",
-        type: "Daily",
-        desc: "Daily accruals available for withdrawal",
-        deposits: "from 1000$ to 10000$",
-        days: "85 business days",
+        type: "Ежедневно",
+        desc: "Ежедневные начисления доступны для вывода",
+        deposits: "от 1000$ до 10000$",
+        days: "85 рабочих дней",
         dark: false,
     },
     {
-        title: "Compound",
+        title: "Композит",
         rate: "+2.3%",
-        type: "Cumulative",
-        desc: "Daily increases in the deposit body",
-        deposits: "from 10000$ to 50000$",
-        days: "40 business days",
+        type: "Накопительный",
+        desc: "Ежедневное увеличение тела депозита",
+        deposits: "от 10000$ до 50000$",
+        days: "40 рабочих дней",
         dark: true,
     },
     {
-        title: "Accumulation",
+        title: "Накопление",
         rate: "+2.9%",
-        type: "Cumulative",
-        desc: "Daily increases in the deposit body",
-        deposits: "from 100000$",
-        days: "20 business days",
+        type: "Накопительный",
+        desc: "Ежедневное увеличение тела депозита",
+        deposits: "от 100000$",
+        days: "20 рабочих дней",
         dark: true,
     },
 ];
 
-const Cards = () => {
+
+const Cards = ({authTrue = false}) => {
     return (
         <div style={styles.cardsContainer}>
             {investmentPlans.map((plan, index) => (
@@ -176,12 +178,13 @@ const Cards = () => {
                         ...((index === 1 || index === 0)
                             ? {color: 'transparent', WebkitTextStroke: '1px rgba(0, 0, 0, 0.5)'}
                             : {}),
+                        ...authTrue && {fontSize: '4rem',}
                     }}>
                         {plan.rate}
                     </div>
 
 
-                    <div style={styles.perDay}>PER DAY</div>
+                    <div style={styles.perDay}>{(index === 1 || index === 0) ? 'В ДЕНЬ' : ''}</div>
                     <div style={styles.details}>
                         Deposits <strong>{plan.deposits}</strong>
                         <br/>
@@ -194,7 +197,7 @@ const Cards = () => {
                             ...(plan.dark ? styles.darkButton : {}),
                         }}
                     >
-                        More details
+                        {authTrue ? 'Активировать' : 'More details'}
                     </button>
                 </div>
             ))}

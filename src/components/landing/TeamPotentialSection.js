@@ -76,17 +76,13 @@ export default function TeamPotentialSection() {
                 style={styles.image}
             />
             <div style={styles.content}>
-                <div style={styles.subtitle}>Multiply your earnings with each partner</div>
-                <div style={styles.title}>Your team is your potential</div>
+                <div style={styles.subtitle}>Умножай свой заработок с каждым партнёром</div>
+                <div style={styles.title}>Твоя команда — твой потенциал</div>
                 <div style={styles.paragraph}>
-                    Unlock your income potential with our unique three-level affiliate program! Each level brings you
-                    solid bonuses. And that's not all! We offer a matching bonus that allows you to earn money every
-                    time your referral generates income. Join us, invite partners and build your team, where every step
-                    increases your earnings. This program was created so that your success grows along with the success
-                    of your partners!
+                    Раскройте потенциал дохода с нашей уникальной трёхуровневой партнёрской программой! Каждый уровень приносит вам солидные бонусы. И это ещё не всё! Мы предлагаем матчинг-бонус, который позволяет зарабатывать каждый раз, когда ваш реферал получает доход. Присоединяйтесь к нам, приглашайте партнёров и стройте свою команду, где каждый шаг увеличивает ваш заработок. Эта программа создана, чтобы ваш успех рос вместе с успехом ваших партнёров!
                 </div>
                 <button style={styles.button}>
-                    Find out more &rarr;
+                    Узнать больше &rarr;
                 </button>
             </div>
         </section>

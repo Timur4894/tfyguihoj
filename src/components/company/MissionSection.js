@@ -44,32 +44,48 @@ const styles = {
 const MissionSection = () => {
     return (
         <section style={styles.section}>
-            <h2 style={styles.heading}>Our mission and goals</h2>
+            <h2 style={styles.heading}>Наша миссия и цели</h2>
             <p style={styles.text}>
-                Our mission is to make cutting-edge technology available to everyone who strives for success in the financial markets and other significant sectors. We are confident that intelligent solutions can not only increase profits, but also minimize risks and open up new business opportunities. The main goal of our work is to provide reliable tools that can be integrated into daily asset management and decision-making processes.
+                Наша миссия — сделать передовые технологии доступными для каждого, кто стремится к успеху на финансовых
+                рынках и в других важных отраслях. Мы уверены, что интеллектуальные решения могут не только увеличить
+                прибыль, но и минимизировать риски, а также открыть новые возможности для бизнеса. Главная цель нашей
+                работы — предоставить надёжные инструменты, которые можно интегрировать в повседневное управление
+                активами и процессы принятия решений.
             </p>
 
-            <h3 style={styles.subheading}>Key directions and innovations</h3>
+            <h3 style={styles.subheading}>Ключевые направления и инновации</h3>
             <ul style={styles.list}>
                 <li style={styles.listItem}>
-                    <span style={styles.bold}>Financial sector</span>: Our solutions are in demand among brokers and private investors, to whom we provide access to intelligent algorithms for analyzing financial data, market forecasting and asset management.
+                    <span style={styles.bold}>Финансовый сектор</span>: Наши решения востребованы среди брокеров и
+                    частных инвесторов, которым мы предоставляем доступ к интеллектуальным алгоритмам анализа финансовых
+                    данных, прогнозирования рынка и управления активами.
                 </li>
                 <li style={styles.listItem}>
-                    <span style={styles.bold}>Agricultural sector</span>: Using our artificial intelligence, companies in the agribusiness sector can receive accurate crop yield forecasts, crop recommendations, and tips to improve productivity.
+                    <span style={styles.bold}>Сельскохозяйственный сектор</span>: С помощью нашего искусственного
+                    интеллекта компании агробизнеса получают точные прогнозы урожайности, рекомендации по посевам и
+                    советы по повышению продуктивности.
                 </li>
                 <li style={styles.listItem}>
-                    <span style={styles.bold}>Medicine</span>: In medicine, our artificial intelligence helps in the development of vaccines and medical solutions, accelerating the process of creating effective drugs and treatments.
+                    <span style={styles.bold}>Медицина</span>: В медицине наш искусственный интеллект помогает в
+                    разработке вакцин и медицинских решений, ускоряя процесс создания эффективных препаратов и методов
+                    лечения.
                 </li>
             </ul>
 
-            <h3 style={styles.subheading}>Revenue and growth strategy</h3>
+            <h3 style={styles.subheading}>Доход и стратегия роста</h3>
             <p style={styles.text}>
-                We offer unique software that companies can rent to optimize their work processes and gain a competitive advantage. This allows us to earn income from software rentals as well as fees for providing services to private investors and funds that use our asset management tools.
+                Мы предлагаем уникальное программное обеспечение, которое компании могут арендовать для оптимизации
+                рабочих процессов и получения конкурентных преимуществ. Это позволяет нам получать доход как от аренды
+                ПО, так и от предоставления услуг частным инвесторам и фондам, использующим наши инструменты управления
+                активами.
             </p>
             <p style={styles.text}>
-                Our strategy is based on long-term cooperation and expanding the areas of use of our software. We are actively developing new solutions and integrating them into different industries, which makes our product even more versatile and in demand.
+                Наша стратегия основана на долгосрочном сотрудничестве и расширении сфер применения нашего программного
+                обеспечения. Мы активно разрабатываем новые решения и внедряем их в различные отрасли, что делает наш
+                продукт ещё более универсальным и востребованным.
             </p>
         </section>
+
     );
 };
 

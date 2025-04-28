@@ -67,19 +67,19 @@ export default function HowItWorks() {
 
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: 'row'}}>
                 <div style={{display: "flex", alignItems: 'flex-start', flexDirection: "column"}}>
-                    <div style={styles.titleSmall}>Why us</div>
-                    <h2 style={styles.titleLarge}>Benefits of working with us</h2>
+                    <div style={styles.titleSmall}>Почему мы</div>
+                    <h2 style={styles.titleLarge}>Преимущества работы с нами</h2>
                 </div>
                 <div style={styles.stepsContainer}>
                     <div style={styles.step}>
                         <img src={grow} alt="Create account" style={styles.stepImage}/>
-                        <div style={styles.stepTitle}>Effective forecast</div>
-                        <div style={styles.stepDescription}>High-level analytics and software for stable growth of client profits</div>
+                        <div style={styles.stepTitle}>Эффективный прогноз</div>
+                        <div style={styles.stepDescription}>Аналитика и софт высокого уровня для стабильного роста прибыли клиентов</div>
                     </div>
                     <div style={styles.step}>
                         <img src={skala} alt="Top up balance" style={styles.stepImage}/>
-                        <div style={styles.stepTitle}>Achieving results</div>
-                        <div style={styles.stepDescription}>We train and help clients achieve goals and success in investments</div>
+                        <div style={styles.stepTitle}>Достижение результатов</div>
+                        <div style={styles.stepDescription}>Обучаем и помогаем клиентам достигать целей и успеха в инвестициях</div>
                     </div>
                 </div>
             </div>
@@ -87,23 +87,23 @@ export default function HowItWorks() {
             <div style={styles.stepsContainer}>
                 <div style={styles.step}>
                     <img src={man} alt="Create account" style={styles.stepImage}/>
-                    <div style={styles.stepTitle}>Professional team</div>
-                    <div style={styles.stepDescription}>Experienced experts with deep knowledge in finance and AI</div>
+                    <div style={styles.stepTitle}>Профессиональная команда</div>
+                    <div style={styles.stepDescription}>Опытные эксперты с глубокими знаниями в финансах и ИИ</div>
                 </div>
                 <div style={styles.step}>
                     <img src={rock} alt="Top up balance" style={styles.stepImage}/>
-                    <div style={styles.stepTitle}>Dynamic development</div>
-                    <div style={styles.stepDescription}>Continuous implementation of new technologies for growth and efficiency</div>
+                    <div style={styles.stepTitle}>Динамичное развитие</div>
+                    <div style={styles.stepDescription}>Постоянное внедрение новых технологий для роста и эффективности</div>
                 </div>
                 <div style={styles.step}>
                     <img src={light} alt="Choose a plan" style={styles.stepImage}/>
-                    <div style={styles.stepTitle}>Trusted choice</div>
-                    <div style={styles.stepDescription}>We provide stability and protection of your investments</div>
+                    <div style={styles.stepTitle}>Надёжный выбор</div>
+                    <div style={styles.stepDescription}>Обеспечиваем стабильность и защиту ваших инвестиций</div>
                 </div>
                 <div style={styles.step}>
                     <img src={qwf} alt="Receive income" style={styles.stepImage}/>
-                    <div style={styles.stepTitle}>Accurate forecasts</div>
-                    <div style={styles.stepDescription}>Advanced technology for precision and risk reduction</div>
+                    <div style={styles.stepTitle}>Точные прогнозы</div>
+                    <div style={styles.stepDescription}>Передовые технологии для точности и снижения рисков</div>
                 </div>
             </div>
         </section>
