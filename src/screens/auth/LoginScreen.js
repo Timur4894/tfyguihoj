@@ -1,7 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import {AuthContext} from "../../context/AuthContext";
 import mainUrl from "../../constants";
+import AboutCompHedMob from "../../components/AboutCompHedMob";
 
 const styles = {
     container: {
@@ -107,10 +108,9 @@ const LoginScreen = () => {
             }
 
             const data = await response.json();
-            console.log('Успешный вход:', data);
 
-            if (data.token) {
-                login(data.token);
+            if (data.data.token) {
+                login(data.data.token);
             }
 
             window.location.href = '/cabinetscreen';
@@ -121,9 +121,25 @@ const LoginScreen = () => {
         }
     };
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <>
-            <AboutCompanyHeader title='Вход в кабинет' subtitle='Вход' />
+            {isMobile ? <AboutCompHedMob title='Вход в кабинет' subtitle='Вход'/> : <AboutCompanyHeader title='Вход в кабинет' subtitle='Вход'/>}
             <div style={styles.container}>
                 <div style={styles.formWrapper}>
 

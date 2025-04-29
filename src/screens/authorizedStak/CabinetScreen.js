@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import BTC from '../../assets/img/btc.png'
 import ETH from '../../assets/img/eth.png'
 import LTC from '../../assets/img/ltc.png'
@@ -6,6 +6,8 @@ import TRX from '../../assets/img/trx.png'
 import USDT from '../../assets/img/usdt.png'
 import f from '../../assets/img/tyuw2.png'
 import f2 from '../../assets/img/fqwf.png'
+import axios from "axios";
+import mainUrl from "../../constants";
 
 
 const boxStyle = {
@@ -38,13 +40,84 @@ const buttonStyle = {
     color: "#000",
     padding: "10px 20px",
     borderRadius: "8px",
+    textDecoration: "none",
     fontWeight: 500,
-    marginTop: "12px",
     border: "none",
+    fontSize: "14px",
     cursor: "pointer",
 };
 
 export default function CabinetScreen() {
+    const [cabinetData, setCabinetData] = useState(null);
+    const [balance, setBalance] = useState(999);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const token = localStorage.getItem('authToken');
+
+
+    useEffect(() => {
+        const fetchCabinetData = async () => {
+            try {
+                const response = await axios.get(`${mainUrl}/api/v1/user/cabinet`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setCabinetData(response.data.data);
+            } catch (err) {
+                if (err.response) {
+                    setError(`Error ${err.response.status}: ${err.response.data.message || 'Something went wrong'}`);
+                } else {
+                    setError('Network error');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (token) {
+            fetchCabinetData();
+        } else {
+            setError('Authorization token is missing');
+            setLoading(false);
+        }
+    }, [token]);
+
+    // useEffect(() => {
+    //     const fetchCabinetBal = async () => {
+    //         try {
+    //             const response = await axios.get(`${mainUrl}/api/v1/user/available-for-withdrawal`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //             setBalance(response.data.data);
+    //         } catch (err) {
+    //             if (err.response) {
+    //                 setError(`Error ${err.response.status}: ${err.response.data.message || 'Something went wrong'}`);
+    //             } else {
+    //                 setError('Network error');
+    //             }
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //
+    //     if (token) {
+    //         fetchCabinetBal();
+    //     } else {
+    //         setError('Authorization token is missing');
+    //         setLoading(false);
+    //     }
+    // }, [token]);
+
+
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+
     return (
         <div>
             {/*<div style={boxStyle}>*/}
@@ -60,8 +133,8 @@ export default function CabinetScreen() {
                 marginTop: -40,
                 borderStyle: 'solid' }}>
                 <h3 style={titleStyle}>Ваши балансы</h3>
-                <p>Общий баланс: <strong>0.00 $</strong></p>
-                <div style={{display: "flex", gap: 16, marginTop: 12}}>
+                <p>Общий баланс: <strong>{balance} $</strong></p>
+                <div style={{display: "flex", gap: 16, marginTop: 12,  marginBottom: "12px",}}>
                     {["BTC", "ETH", "LTC", "TRX", "USDT"].map(coin => {
                         let iconSrc = "";
 
@@ -95,18 +168,18 @@ export default function CabinetScreen() {
                     })}
 
                 </div>
-                <button style={buttonStyle}>Пополнить / Вывести →</button>
+                <a href='/balance' style={buttonStyle}>Пополнить / Вывести →</a>
             </div>
 
             <div style={{display: "flex", gap: "20px", flexWrap: "wrap"}}>
                 <div style={{...boxStyle, flex: "1 1 300px", position: "relative"}}>
-                    <h3 style={valueStyle}>0</h3>
-                    <p style={labelStyle}>Всего инвестировано, $</p>
+                    <h3 style={valueStyle}>{cabinetData.invested}</h3>
+                    <p style={labelStyle}>Всего инвестировано, {cabinetData.invested} $</p>
                     <img src={f} style={{width: '7%', position: 'absolute', right: 22, bottom: '30%'}}/>
                 </div>
                 <div style={{...boxStyle, flex: "1 1 300px", position: "relative"}}>
-                    <h3 style={valueStyle}>0</h3>
-                    <p style={labelStyle}>Всего заработано, $</p>
+                    <h3 style={valueStyle}>{cabinetData.totalEarned}</h3>
+                    <p style={labelStyle}>Всего заработано, {cabinetData.totalEarned} $</p>
                     <img src={f2} style={{width: '7%', position: 'absolute', right: 22, bottom: '30%'}}/>
                 </div>
             </div>
@@ -115,7 +188,7 @@ export default function CabinetScreen() {
             <div style={boxStyle}>
                 <h3 style={titleStyle}>Последние 5 событий</h3>
                 <div style={{backgroundColor: "#fef2f2", color: "#b91c1c", padding: "10px", borderRadius: "6px"}}>
-                    У вас ещё нет активных событий. Откройте новый депозит на вкладке <a href="/newdepositscreen"
+                    У вас ещё нет активных событий. Откройте новый депозит на вкладке <a href="/opendep"
                                                                                          style={{color: "#2563eb"}}>Открыть
                     депозит</a>
                 </div>
@@ -138,7 +211,7 @@ export default function CabinetScreen() {
                         <p style={valueStyle}>00:00:00</p>
                     </div>
                 </div>
-                <button style={buttonStyle}>Мои депозиты →</button>
+                <a href='/mydeps' style={buttonStyle}>Мои депозиты →</a>
             </div>
         </div>
     );

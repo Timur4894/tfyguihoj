@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Cards from "../Cards";
 
 const styles = {
     section: {
-        padding: "80px 40px",
+        padding: "80px 20px",
         backgroundColor: "#fff",
         textAlign: "center",
     },
@@ -15,7 +15,7 @@ const styles = {
         // marginBottom: "12px",
     },
     title: {
-        fontSize: "48px",
+        fontSize: "4rem",
         fontWeight: "600",
         fontFamily: "Ubuntu",
         width: "40%",
@@ -149,11 +149,26 @@ const investmentPlans = [
 ];
 
 export default function InvestmentProposals() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
     return (
         <section style={styles.section}>
             <div style={{display: "flex", alignItems: 'flex-start', flexDirection: "column"}}>
                 <div style={styles.subTitle}>Выгодные инвестиции с Prudential Invest</div>
-                <h1 style={styles.title}>Инвестиционные <br/>предложения</h1>
+                <h1 style={{...styles.title, ...( isMobile && {fontSize: "25px", marginTop: 50})}}>Инвестиционные <br/>предложения</h1>
             </div>
             <Cards/>
             <div style={{width: '80%', height: 1, backgroundColor: '#aaa', marginLeft: '10%', marginTop: 40}}/>

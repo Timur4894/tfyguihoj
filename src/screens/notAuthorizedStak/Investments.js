@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import InvestmentCalculator from "../../components/investments/InvestmentCalculator";
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import Cards from "../../components/Cards";
 import CryptoScroll from "../../components/investments/CryptoScroll";
+import AboutCompHedMob from "../../components/AboutCompHedMob";
 
 
 const styles = {
@@ -64,9 +65,25 @@ const styles = {
 };
 
 const Investments = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <div>
-            <AboutCompanyHeader title='Инвестиции' subtitle='Инвестиции'/>
+            {isMobile ? <AboutCompHedMob title='Инвестиции' subtitle='Инвестиции'/> : <AboutCompanyHeader title='Инвестиции' subtitle='Инвестиции'/>}
             <div style={{height: 100}}/>
             <div style={styles.content}>
                 <div style={{width: '30%',}}>

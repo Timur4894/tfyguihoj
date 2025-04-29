@@ -131,7 +131,7 @@ export default function AboutSection() {
                         </div>
                     </div>
                 </div>
-                <a href="#contact" style={styles.button}>
+                <a href="/contact" style={styles.button}>
                     Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}>↗</span>
                 </a>
             </div>

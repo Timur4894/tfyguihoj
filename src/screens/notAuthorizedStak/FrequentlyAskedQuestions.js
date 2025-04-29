@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
+import AboutCompHedMob from "../../components/AboutCompHedMob";
 
 const faqData = [
     {
@@ -46,9 +47,25 @@ const FrequentlyAskedQuestions = () => {
     const leftColumn = faqData.filter((_, idx) => idx % 2 === 0);
     const rightColumn = faqData.filter((_, idx) => idx % 2 !== 0);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <div>
-            <AboutCompanyHeader title="F.A.Q." subtitle="Вопрос-Ответ" />
+            {isMobile ? <AboutCompHedMob title="F.A.Q." subtitle="Вопрос-Ответ"/> : <AboutCompanyHeader title="F.A.Q." subtitle="Вопрос-Ответ"/>}
             <section style={{ padding: "80px 24px", background: "white" }}>
                 <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
                     <h2 style={{

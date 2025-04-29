@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 const styles = {
     section: {
@@ -149,15 +149,35 @@ const investmentPlans = [
 ];
 
 
-const Cards = ({authTrue = false}) => {
+const Cards = ({authTrue = false, onActivate = null}) => {
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
+
     return (
-        <div style={styles.cardsContainer}>
+        <div style={{...styles.cardsContainer, ...(isMobile && {flexDirection: "column"}) }}>
             {investmentPlans.map((plan, index) => (
                 <div
                     key={index}
                     style={{
                         ...styles.card,
                         ...(plan.dark ? styles.darkCard : {}),
+                        ...(isMobile && {maxWidth: '85%',
+                            width: '85%',}),
                         position: "relative",
                     }}
                 >
@@ -192,6 +212,7 @@ const Cards = ({authTrue = false}) => {
                         Working period <strong>{plan.days}</strong>
                     </div>
                     <button
+                        onClick={authTrue ? onActivate : null}
                         style={{
                             ...styles.button,
                             ...(plan.dark ? styles.darkButton : {}),

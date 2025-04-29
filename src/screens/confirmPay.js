@@ -82,7 +82,7 @@ const ConfirmPay = () => {
     const location = useLocation();
     const emailUser = localStorage.getItem("emailUser");
     const nicknameUser = localStorage.getItem("nicknameUser");
-    const { system, price, packageName } = location.state || {};
+    const { price, packageName } = location.state || {};
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -107,7 +107,6 @@ const ConfirmPay = () => {
 📋 **🟡💰Нужно подтвердить оплату💰🟡**
 - Email: ${emailUser}
 - Nickname: ${nicknameUser}
-- Система: ${system}
 - Цена: ${price}
 - Пакет: ${packageName}
         `;
@@ -141,7 +140,6 @@ const ConfirmPay = () => {
         <div style={styles.container(isMobile)}>
             <h2 style={styles.invoiceTitle}>{t("Invoice ID")}: #7865727 <span
                 style={styles.status}>{t("Waiting")}</span></h2>
-            <h3 style={styles.paymentMethod}>{system}</h3>
             <h3 style={styles.paymentMethod}>{packageName}</h3>
 
             <div style={styles.paymentDetails}>
@@ -150,7 +148,7 @@ const ConfirmPay = () => {
                     <input type="text" value={price} readOnly style={styles.input(isMobile)}/>
                 </div>
                 <div style={styles.detailItem}>
-                    <label>Wallet address {system}: </label>
+                    <label>Wallet address USDT TRC 20: </label>
                     <div style={styles.walletContainer}>
                         <input
                             type="text"

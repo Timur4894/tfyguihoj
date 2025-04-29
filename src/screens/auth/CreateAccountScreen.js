@@ -1,7 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import {AuthContext} from "../../context/AuthContext";
 import mainUrl from "../../constants";
+import AboutCompHedMob from "../../components/AboutCompHedMob";
 
 const styles = {
     container: {
@@ -114,15 +115,10 @@ export default function CreateAccountScreen() {
                 alert(`Ошибка: ${errorData.message || 'Не удалось зарегистрироваться'}`);
                 return;
             }
-
             const data = await response.json();
-            console.log('Успех:', data);
-            alert('Регистрация прошла успешно!');
-
-            if (data.token) {
-                login(data.token); // 🚀 Используем login из контекста
+            if (data.data.token) {
+                login(data.data.token);
             }
-
             window.location.href = '/cabinetscreen';
 
         } catch (error) {
@@ -131,9 +127,25 @@ export default function CreateAccountScreen() {
         }
     };
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <>
-            <AboutCompanyHeader title='Регистрация партнёра' subtitle='Регистрация' />
+            {isMobile ? <AboutCompHedMob title='Регистрация партнёра' subtitle='Регистрация'/> : <AboutCompanyHeader title='Регистрация партнёра' subtitle='Регистрация'/>}
             <div style={styles.container}>
                 <div style={styles.formWrapper}>
                     <p style={styles.paragraph}>

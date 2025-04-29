@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Home from "./screens/notAuthorizedStak/Home";
 import Contact from "./screens/notAuthorizedStak/Contact";
@@ -30,6 +30,10 @@ import SupportForm from "./screens/authorizedStak/SupportForm";
 import WalletSettings from "./screens/authorizedStak/WalletSettings";
 import MyDepsScreen from "./screens/authorizedStak/MyDepsScreen";
 import ProfHeader from "./components/ProfHeader";
+import ChangePasswordScreen from "./screens/auth/ChangePasswordScreen";
+import PrivacyPolicyScreen from "./screens/PPScreen";
+import CooperationTermsScreen from "./screens/CooperationTermsScreen";
+import HeaderMobile from "./components/HeaderMobile";
 
 const ProtectedRoute = ({ element }) => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -60,9 +64,24 @@ const App = () => {
 const AppContent = () => {
     const location = useLocation();
 
-    // Hide Header and Footer for specific routes
     const hideHeaderFooterRoutes = ["/confirmPay", "/adminPanel", "/logInAsAdmin", "/test", '/cabinetscreen', '/balance', '/opendep', '/mydeps', '/refprogram', '/support', '/wallets'];
     const shouldHideHeaderFooter = hideHeaderFooterRoutes.includes(location.pathname);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
 
     return (
         <div style={appContainerStyle}>
@@ -73,7 +92,10 @@ const AppContent = () => {
                 rel="stylesheet"/>
 
             {/* Show Header unless explicitly hidden */}
-            {!shouldHideHeaderFooter && <Header/>}
+            {!shouldHideHeaderFooter && (
+                isMobile ? <HeaderMobile /> : <Header />
+            )}
+
             <main style={mainContentStyle}>
                 <ScrollToTop/>
                 <Routes>
@@ -85,11 +107,15 @@ const AppContent = () => {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/faq" element={<FrequentlyAskedQuestions />} />
                     <Route path="/investments" element={<Investments />} />
+                    <Route path="/privacypolicyscreen" element={<PrivacyPolicyScreen />} />
+                    <Route path="/cooperationtermsscreen" element={<CooperationTermsScreen />} />
 
                     {/*/!* Login stack *!/*/}
                     <Route path="/login" element={<LoginScreen />} />
                     <Route path="/forgotpassword" element={<ForgotPassword />} />
-                    <Route path="/createaccountscreen" element={<CreateAccountScreen />} />
+                    <Route path="/createaccountscreen" element={
+                            <CreateAccountScreen />
+                        } />
                     {/*/!* Auth stack *!/*/}
                         <Route
                             path="/cabinetscreen"
@@ -104,6 +130,20 @@ const AppContent = () => {
                                 />
                             }
                         />
+                    {/*<Route*/}
+                    {/*    path="/changepassword"*/}
+                    {/*    element={*/}
+                    {/*        <ProtectedRoute*/}
+                    {/*            element={*/}
+                    {/*                <AuthorizedLayout>*/}
+                    {/*                    <ProfHeader/>*/}
+                    {/*                    <ChangePasswordScreen />*/}
+                    {/*                </AuthorizedLayout>*/}
+                    {/*            }*/}
+                    {/*        />*/}
+                    {/*    }*/}
+                    {/*/>*/}
+                    <Route path="/changepassword" element={<ChangePasswordScreen />} />
                     <Route
                         path="/balance"
                         element={
@@ -183,7 +223,7 @@ const AppContent = () => {
                         }
                     />
 
-                    {/*<Route path="/confirmPay" element={<ProtectedRoute element={<ConfirmPay />} />} />*/}
+                    <Route path="/confirmPay" element={<ProtectedRoute element={<ConfirmPay />} />} />
 
                     {/*<Route path="/logInAsAdmin" element={<LogInAsAdmin />} />*/}
                     {/*<Route*/}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import img from '../../assets/img/partner01.jpg'
 import dots from "../../assets/img/pattern.png";
 
@@ -57,12 +57,51 @@ const styles = {
         fontWeight: '300',
         // color: '#1f2937',
     },
+    section: {
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "60px 40px",
+        backgroundColor: "#fff",
+        opacity: 0,
+        transform: "translateY(50px)",
+        transition: "opacity 1.5s ease, transform 0.8s ease",
+    },
+    sectionVisible: {
+        opacity: 1,
+        transform: "translateY(0)",
+    },
 };
 
 export default function ClassicProgramSection() {
+    const sectionRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.disconnect(); // отключаем, чтобы не срабатывало повторно
+                }
+            },
+            { threshold: 0.2 }
+        );
+
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <section style={styles.section}>
-            <div style={{width:'100%', marginLeft: 50}}>
+        <section
+            ref={sectionRef}
+            style={{
+                ...styles.section,
+                ...(isVisible ? styles.sectionVisible : {}),
+            }}
+        >
+            <div style={{width: '100%', marginLeft: 50}}>
                 <img
                     src={img}
                     alt="Two businessmen shaking hands"
@@ -81,7 +120,9 @@ export default function ClassicProgramSection() {
                 }}/>
                 <h2 style={styles.heading}>Классическая <br/>программа</h2>
                 <p style={styles.paragraph}>
-                    Присоединяйтесь к партнёрской программе, приглашайте новых участников и получайте стабильный доход с их депозитов. Программа охватывает три уровня структуры, так что каждый новый партнёр приносит вам прибыль. Создайте свою команду и наблюдайте, как ваш доход растёт с каждым новым шагом!
+                    Присоединяйтесь к партнёрской программе, приглашайте новых участников и получайте стабильный доход с
+                    их депозитов. Программа охватывает три уровня структуры, так что каждый новый партнёр приносит вам
+                    прибыль. Создайте свою команду и наблюдайте, как ваш доход растёт с каждым новым шагом!
                 </p>
                 <div>
                     <h3 style={styles.subheading}>3 уровня структуры</h3>

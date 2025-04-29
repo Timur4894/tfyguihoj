@@ -30,8 +30,10 @@ export default function Sidebar() {
 
     return (
         <div style={sidebarStyle}>
-            <img src={logo} style={{width: '45%', marginLeft: 20, marginBottom: 40}} />
-            <Link to="/cabinetscreen" style={{ ...navItem, ...(location.pathname === "/cabinetscreen" ? activeStyle : {}) }}><ion-icon name="home-outline"></ion-icon>
+            <Link to='/'>
+                <img src={logo} style={{width: '55%', marginLeft: 20, marginBottom: 40}}/>
+            </Link>
+            <Link to="/cabinetscreen" style={{...navItem, ...(location.pathname === "/cabinetscreen" ? activeStyle : {}) }}><ion-icon name="home-outline"></ion-icon>
                 Панель управления</Link>
             <Link to="/balance" style={{ ...navItem, ...(location.pathname === "/balance" ? activeStyle : {}) }}><ion-icon name="wallet-outline"></ion-icon>
                 Баланс</Link>

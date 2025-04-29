@@ -52,6 +52,7 @@ const styles = {
     linkGroup: {
         marginTop: "32px",
         display: "flex",
+        flexDirection: 'column',
         alignItems: "center",
         gap: "20px",
     },
@@ -79,10 +80,10 @@ const styles = {
     section: {
         display: "flex",
         flexWrap: "wrap",
+        // flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "60px 20px",
-        backgroundColor: "#fff",
+        padding: "60px 0px",
         opacity: 0,
         transform: "translateY(50px)",
         transition: "opacity 1.5s ease, transform 0.8s ease",
@@ -93,7 +94,7 @@ const styles = {
     },
 };
 
-export default function HeroSection() {
+export default function HeroSecMob() {
     const sectionRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 

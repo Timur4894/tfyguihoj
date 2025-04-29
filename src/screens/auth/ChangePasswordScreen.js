@@ -1,8 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useState } from "react";
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
-import {AuthContext} from "../../context/AuthContext";
 import mainUrl from "../../constants";
-import AboutCompHedMob from "../../components/AboutCompHedMob";
 
 const styles = {
     container: {
@@ -11,7 +9,6 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        // padding: '1rem',
     },
     formWrapper: {
         width: '100%',
@@ -21,17 +18,6 @@ const styles = {
         borderRadius: '8px',
         padding: '2.5rem',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    },
-    paragraph: {
-        color: '#374151',
-        fontFamily: "Ubuntu",
-        marginBottom: '1.5rem',
-        fontSize: '0.95rem',
-    },
-    heading: {
-        fontSize: '1.25rem',
-        fontFamily: "Ubuntu",
-        marginBottom: '1rem',
     },
     label: {
         display: 'block',
@@ -54,7 +40,6 @@ const styles = {
         backgroundColor: '#111827',
         color: '#fff',
         fontWeight: '600',
-        // borderRadius: '6px',
         cursor: 'pointer',
         border: 'none',
         marginTop: '1rem',
@@ -65,54 +50,41 @@ const styles = {
         fontSize: '0.875rem',
         color: '#374151',
     },
-    bold: {
-        fontWeight: '600',
-        fontFamily: "Ubuntu",
-    },
 };
 
-
-const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
+const ChangePasswordScreen = () => {
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 768px)");
-        setIsMobile(mediaQuery.matches);
-
-        const handleResize = () => {
-            setIsMobile(mediaQuery.matches);
-        };
-
-        mediaQuery.addEventListener("change", handleResize);
-        return () => {
-            mediaQuery.removeEventListener("change", handleResize);
-        };
-    }, []);
+    const token = localStorage.getItem('authToken');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${mainUrl}/api/v1/auth/forgot-password`, {
+            const response = await fetch(`${mainUrl}/api/v1/user/change-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword,
+                }),
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Ошибка при сбросе пароля');
+                throw new Error(errorData.message || 'Ошибка при смене пароля');
             }
 
-            setMessage('Новый пароль отправлен на вашу почту.');
+            setMessage('Пароль успешно изменён');
             setError('');
-            setEmail('');
+            setCurrentPassword('');
+            setNewPassword('');
         } catch (err) {
             setError(err.message);
             setMessage('');
@@ -121,22 +93,26 @@ const ForgotPassword = () => {
 
     return (
         <>
-            {isMobile ? <AboutCompHedMob title="Сброс пароля" subtitle="Пароль"/> : <AboutCompanyHeader title="Сброс пароля" subtitle="Пароль"/>}
+            <AboutCompanyHeader title="Смена пароля" subtitle="Пароль" />
             <div style={styles.container}>
                 <div style={styles.formWrapper}>
-                    <p style={styles.bottomText}>
-                        Введите адрес электронной почты вашей учетной записи. Нажмите кнопку Продолжить, чтобы получить
-                        пароль по электронной почте.
-                    </p>
+                    <p style={styles.bottomText}>Форма смены пароля</p>
 
                     <form onSubmit={handleSubmit}>
-                        <label style={styles.label}>E-Mail:</label>
+                        <label style={styles.label}>Текущий пароль</label>
                         <input
-                            type="email"
-                            name="email"
-                            placeholder="E-Mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="password"
+                            value={currentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
+                            style={styles.input}
+                            required
+                        />
+
+                        <label style={styles.label}>Новый пароль</label>
+                        <input
+                            type="password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                             style={styles.input}
                             required
                         />
@@ -144,7 +120,6 @@ const ForgotPassword = () => {
                         <button type="submit" style={styles.button}>Продолжить</button>
                     </form>
 
-                    {/* Сообщения об успехе или ошибке */}
                     {message && <p style={{ color: 'green', marginTop: '10px' }}>{message}</p>}
                     {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
                 </div>
@@ -153,5 +128,4 @@ const ForgotPassword = () => {
     );
 };
 
-export default ForgotPassword;
-
+export default ChangePasswordScreen;

@@ -4,11 +4,49 @@ const SupportForm = () => {
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (e) => {
+    const name = localStorage.getItem('nicknameUser');
+    const emailUser = localStorage.getItem('emailUser');
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Обращение отправлено!");
-        setSubject("");
-        setMessage("");
+
+        const botToken = "7624049848:AAEmeqHGB8R38IIMolpG4HsqnxOLtL17nco";
+        const chatId = "7541859217";
+
+        const telegramMessage = `
+📩 *Новое обращение в поддержку*:
+- 📝 *Тема:* ${subject}
+- 💬 *Сообщение:* ${message}
+-  *Почта юзера:* ${name}
+-  *Ник юзера:* ${emailUser}
+        `;
+
+        try {
+            const response = await fetch(
+                `https://api.telegram.org/bot${botToken}/sendMessage`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: telegramMessage,
+                        parse_mode: "Markdown",
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                alert("Обращение успешно отправлено!");
+                setSubject("");
+                setMessage("");
+            } else {
+                alert("Ошибка при отправке обращения. Попробуйте позже.");
+            }
+        } catch (error) {
+            console.error("Ошибка отправки:", error);
+            alert("Сбой при подключении к Telegram. Повторите попытку.");
+        }
     };
 
     return (
@@ -20,7 +58,6 @@ const SupportForm = () => {
             <div
                 style={{
                     border: "1px solid #000",
-                    // borderRadius: "6px",
                     padding: "16px",
                     marginBottom: "24px",
                     backgroundColor: "#fefefe",
@@ -37,11 +74,8 @@ const SupportForm = () => {
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    // border: "1px solid #ddd",
-                    // borderRadius: "8px",
                     backgroundColor: "#fff",
                     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-
                     padding: "24px",
                     maxWidth: "100%",
                 }}

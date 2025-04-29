@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import logo from '../assets/img/logo.png'
 import bg from "../assets/img/download.jpg";
+import {AuthContext} from "../context/AuthContext";
+
 const Header = () => {
     const [hoveredLink, setHoveredLink] = useState(null);
     // const navItems = ['Home', 'Company', 'Investments', 'Partners', 'FAQ', 'Contacts'];
-
+    const { isAuthenticated } = useContext(AuthContext);
     const navItems = [
         { label: "Главная", href: "/" },
         { label: "Компании", href: "/aboutcompany" },
@@ -13,15 +15,15 @@ const Header = () => {
         { label: "FAQ", href: "/faq" },
         { label: "Контакты", href: "/contact" },
     ];
-
+    console.log('isAuthenticated: ', isAuthenticated);
     return (
         <header style={{borderBottom: '1px solid #1a1a1a',backgroundImage: `url(${bg})`,
             backgroundSize: 'cover',
             }}>
             <div style={styles.topBar}>
                 <div style={styles.topLinks}>
-                    <a href="#" style={styles.navLink}>Условия сотрудничества</a>
-                    <a href="#" style={styles.navLink}>Политика конфиденциальности</a>
+                    <a href="/cooperationtermsscreen" style={styles.navLink}>Условия сотрудничества</a>
+                    <a href="/privacypolicyscreen" style={styles.navLink}>Политика конфиденциальности</a>
                 </div>
                 <div style={styles.contactInfo}>
                     <div style={{display: 'flex', alignItems: 'center'}}>
@@ -38,9 +40,9 @@ const Header = () => {
             </div>
 
             <div style={styles.mainHeader}>
-                <div style={styles.logoContainer}>
-                    <img src={logo} alt="White Lion" style={{width: '40%'}}/>
-                </div>
+                <a href='/' style={styles.logoContainer}>
+                    <img src={logo} alt="White Lion" style={{width: '50%'}}/>
+                </a>
                 <nav style={styles.nav}>
                     {navItems.map((item, index) => (
                         <a
@@ -57,13 +59,14 @@ const Header = () => {
                         </a>
                     ))}
                 </nav>
-
                 <div style={styles.buttons}>
-                    <a href="/createaccountscreen" style={styles.button}>Регистрация <ion-icon
-                        name="caret-forward-outline"></ion-icon></a>
+                    {!isAuthenticated && <a href="/createaccountscreen" style={styles.button}>Регистрация <ion-icon
+                        name="caret-forward-outline"></ion-icon></a>}
 
-                    <a href="/login" style={styles.button}>Кабинет <ion-icon
-                        name="caret-forward-outline"></ion-icon></a>
+                    {!isAuthenticated ? <a href="/login" style={styles.button}>Кабинет <ion-icon
+                            name="caret-forward-outline"></ion-icon></a> :
+                        <a href="/cabinetscreen" style={styles.button}>Кабинет <ion-icon
+                            name="caret-forward-outline"></ion-icon></a>}
                 </div>
             </div>
         </header>
