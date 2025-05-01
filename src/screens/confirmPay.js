@@ -131,9 +131,13 @@ const ConfirmPay = () => {
         };
     }, []);
 
+    const botToken2 = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
+    const chatId2 = process.env.REACT_APP_TELEGRAM_CHAT_ID;
+
+
     const handleConfirmPayment = async () => {
-        const botToken = "7655654388:AAHLayDxJNQoiD9DCiBKDXvZLGKMt6PSZjA"; // Замените на токен вашего бота
-        const chatId = "-4719639762"; // ID чата администратора (можно получить через Bot API)
+        const botToken = botToken2; // Замените на токен вашего бота
+        const chatId = chatId2; // ID чата администратора (можно получить через Bot API)
         const message = `
 📋 **🟡💰Нужно подтвердить оплату💰🟡**
 - Email: ${emailUser}

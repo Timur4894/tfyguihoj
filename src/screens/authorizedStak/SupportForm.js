@@ -11,8 +11,9 @@ const SupportForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const botToken = "7655654388:AAHLayDxJNQoiD9DCiBKDXvZLGKMt6PSZjA";
-        const chatId = "-4719639762";
+
+        const botToken = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
+        const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
 
         const telegramMessage = `
 📩 *Новое обращение в поддержку*:

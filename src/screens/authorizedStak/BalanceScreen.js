@@ -198,10 +198,12 @@ export default function BalanceScreen() {
         setChoosenWallet(wallets[selectedKey]);
     };
 
+    const botToken2 = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
+    const chatId2 = process.env.REACT_APP_TELEGRAM_CHAT_ID;
 
     const handleConfirmPayment = async () => {
-        const botToken = ""; // Замените на токен вашего бота
-        const chatId = ""; // ID чата администратора (можно получить через Bot API)
+        const botToken = botToken2; // Замените на токен вашего бота
+        const chatId = chatId2; // ID чата администратора (можно получить через Bot API)
         const message = `
 📋 **🟡💰 ЮЗЕР ХОЧЕТ ВЫВЕСТИ 💰🟡**
 - Email: ${emailUser}
