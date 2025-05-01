@@ -1,12 +1,23 @@
 import React from "react";
 import logo from "../assets/img/logo2.png";
+import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaPinterestP } from "react-icons/fa";
+import { MdEmail, MdLocationOn } from "react-icons/md";
 
 const styles = {
     footer: {
-        backgroundColor: "#1E2329",
+        backgroundColor: "#1a1d20",
         color: "#fff",
-        padding: "48px 32px",
+        padding: "48px 24px",
+        fontFamily: "Ubuntu",
         fontSize: "14px",
+    },
+    topIcons: {
+        display: "flex",
+        justifyContent: "center",
+        gap: "16px",
+        fontFamily: "Ubuntu",
+        marginBottom: "32px",
+        fontSize: "20px",
     },
     container: {
         maxWidth: "1200px",
@@ -14,117 +25,126 @@ const styles = {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
         gap: "32px",
+        textAlign: "left",
     },
     logoBlock: {
         display: "flex",
+        fontFamily: "Ubuntu",
         flexDirection: "column",
+        gap: "16px",
     },
-    logo: {
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        fontSize: "20px",
-        fontWeight: "bold",
-    },
-    subLogo: {
-        fontSize: "10px",
-        backgroundColor: "#fff",
-        color: "#000",
-        padding: "2px 6px",
-        borderRadius: "4px",
-        letterSpacing: "2px",
-    },
-    text: {
-        marginTop: "16px",
-        textDecoration: 'none',
-        alignItems: 'center',
-        color: '#aaa',
-        fontFamily: "Ubuntu"
+    slogan: {
+        fontSize: "14px",
+        fontFamily: "Ubuntu",
+        color: "#ccc",
+        lineHeight: "1.6",
     },
     linkColumn: {
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        fontFamily: "Ubuntu",
+        gap: "12px",
+    },
+    navLink: {
+        textDecoration: "none",
         color: "#ccc",
+        fontFamily: "Ubuntu",
+        fontWeight: "400",
     },
     contactBlock: {
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
+        gap: "12px",
         color: "#ccc",
     },
-    navLink: {
-        textDecoration: 'none',
-        alignItems: 'center',
-        color: '#aaa',
-        fontWeight: 'bold',
-        fontFamily: "Ubuntu"
-    },
-    iconRow: {
+    iconText: {
         display: "flex",
+        alignItems: "center",
         gap: "8px",
-        alignItems: "flex-start",
+        fontFamily: "Ubuntu",
     },
-    bottomBar: {
-        marginTop: "48px",
-        borderTop: "1px solid #333",
-        paddingTop: "16px",
-        display: "flex",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        color: "#888",
+    legal: {
+        marginTop: "40px",
         fontSize: "12px",
-    },
-    policyLinks: {
-        display: "flex",
-        gap: "16px",
-        marginTop: "8px",
-    },
+        fontFamily: "Ubuntu",
+        color: "#888",
+        lineHeight: "1.6",
+    }
 };
 
 export default function Footer() {
     return (
         <footer style={styles.footer}>
+            <div style={styles.topIcons}>
+                <a href="https://www.facebook.com/Prudential/" target="_blank" rel="noopener noreferrer" style={{color: "white"}}>
+                    <FaFacebookF/>
+                </a>
+                <a href="https://www.linkedin.com/company/prudential-financial/" target="_blank" rel="noopener noreferrer" style={{color: "white"}}>
+                    <FaLinkedinIn/>
+                </a>
+                <a href="https://www.instagram.com/prudential/" target="_blank" rel="noopener noreferrer" style={{color: "white"}}>
+                    <FaInstagram/>
+                </a>
+                <a href="https://www.youtube.com/user/Prudential/" target="_blank" rel="noopener noreferrer" style={{color: "white"}}>
+                    <FaYoutube/>
+                </a>
+                <a href="https://www.pinterest.com/prudential/" target="_blank" rel="noopener noreferrer" style={{color: "white"}}>
+                    <FaPinterestP/>
+                </a>
+            </div>
+
+
             <div style={styles.container}>
                 <div style={styles.logoBlock}>
-                    <img src={logo} alt="White Lion" style={{width: '100%'}}/>
+                    <img src={logo} alt="Logo" style={{width: "160px"}}/>
+                    <div style={styles.slogan}>
+                        Соединяем технологии и опыт для создания новых<br/>возможностей финансового роста.
+                    </div>
                 </div>
 
                 <div style={styles.linkColumn}>
-                <a href="#" style={styles.navLink}>Home</a>
-                    <a href="#" style={styles.navLink}>Company</a>
-                    <a href="#" style={styles.navLink}>Investments</a>
-                    <a href="#" style={styles.navLink}>To partners</a>
-                    <a href="#" style={styles.navLink}>Contacts</a>
-                </div>
-
-                <div style={styles.linkColumn}>
-                    <a href="#" style={styles.navLink}>Partner registration</a>
-                    <a href="#" style={styles.navLink}>Login to your personal account</a>
-                    <a href="#" style={styles.navLink}>Recover password</a>
-                    <a href="#" style={styles.navLink}>FAQ</a>
+                    <a href="/" style={styles.navLink}>Главная</a>
+                    <a href="/aboutcompany" style={styles.navLink}>Компания</a>
+                    <a href="/investments" style={styles.navLink}>Инвестиции</a>
+                    <a href="/partners" style={styles.navLink}>Партнёрам</a>
+                    <a href="/contact" style={styles.navLink}>Контакты</a>
+                    <a href="/faq" style={styles.navLink}>FAQ</a>
                 </div>
 
                 <div style={styles.contactBlock}>
-                    <div style={styles.iconRow}>
-                        <span>support@whitelion-invest.com</span>
+                    <div style={styles.iconText}>
+                        <MdEmail/>
+                        <span>support@prudential-invest.com</span>
                     </div>
-                    <div style={styles.iconRow}>
+                    <div style={styles.iconText}>
+                        <MdLocationOn/>
                         <span>
-              Zetland Secretaries Ltd 8/F<br />
-              On Hing Building, 1 On Hing Terrace,<br />
-              Central, Hong Kong
-            </span>
+                            800 Boylston St, Boston, MA 02199,<br/>
+                            United States of America
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div style={styles.bottomBar}>
-                <span>© 2024, All rights reserved. WHITE LION INVESTMENTS LIMITED</span>
-                <div style={styles.policyLinks}>
-                    <a href="#" style={{...styles.navLink, color: '#fff'}}>Terms of cooperation</a>
-                    <a href="#" style={{...styles.navLink, color: '#fff'}}>Privacy Policy</a>
-                </div>
+            <div style={styles.legal}>
+                <p>
+                    Investments and AI Trading Services are provided by Prudential Investment and its affiliated
+                    entities...
+                </p>
+                <p>
+                    This website is for informational and educational purposes only and does not take into account
+                    individual investment objectives...
+                </p>
+                <p>
+                    Not Insured by FDIC or Any Government Agency | May Lose Value | No Bank Guarantee.
+                </p>
+                <p>
+                    Prudential Investment, Inc. of the United States is not affiliated with Prudential plc or any of its
+                    international subsidiaries.
+                </p>
+                <p>
+                    By using this website, you confirm that you have read and agree to our Terms and Conditions.
+                </p>
             </div>
         </footer>
     );

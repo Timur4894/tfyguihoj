@@ -47,10 +47,10 @@ const HeaderMobile = () => {
                         </div>
 
                         <div style={styles.actions}>
-                            <a href="/createaccountscreen" style={{ ...styles.actionButton, borderTopRightRadius: 20, borderBottomRightRadius: 20 }}>
+                            <a href="/createaccountscreen" style={{ ...styles.actionButton, borderRadius: 20 }}>
                                 Регистрация <span style={styles.arrow}>↗</span>
                             </a>
-                            <a href="/login" style={{ ...styles.actionButton, borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }}>
+                            <a href="/login" style={{ ...styles.actionButton, borderRadius: 20 }}>
                                 Кабинет <span style={styles.arrow}>↗</span>
                             </a>
                         </div>
@@ -96,16 +96,19 @@ const styles = {
         backgroundColor: 'rgba(0,0,0,0.5)',
         zIndex: 1000,
         display: 'flex',
-        justifyContent: 'flex-end',
+        // justifyContent: 'flex-end',
+        // alignItems: 'space-between',
     },
     menu: {
         width: 280,
         height: '100%',
         backgroundColor: '#fff',
         padding: 20,
+        gap: 30,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        // alignItems: 'center',
+        justifyContent: 'flex-start',
     },
     menuTop: {
         display: 'flex',
@@ -140,7 +143,8 @@ const styles = {
     actions: {
         display: 'flex',
         gap: 10,
-        marginTop: 40,
+        marginTop: 0,
+        marginBottom: 100,
         justifyContent: 'center',
     },
     actionButton: {

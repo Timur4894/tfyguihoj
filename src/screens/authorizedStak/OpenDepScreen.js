@@ -10,7 +10,7 @@ const OpenDepScreen = () => {
 
 
     return (
-        <div style={{ width: "140vh", marginTop: -40 }}>
+        <div style={{ marginTop: -40 }}>
             <h2 style={{ fontSize: "20px", fontWeight: 600, marginBottom: "12px" }}>
                 Открыть новый депозит
             </h2>

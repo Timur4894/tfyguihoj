@@ -8,6 +8,8 @@ const styles = {
     container: {
         display: 'flex',
         minHeight: '70vh',
+        paddingLeft: '5%',
+        paddingRight: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -41,7 +43,7 @@ const styles = {
         fontSize: '0.95rem',
     },
     input: {
-        width: '100%',
+        width: '95%',
         padding: '0.5rem 1rem',
         border: '1px solid #d1d5db',
         borderRadius: '6px',
@@ -94,6 +96,7 @@ const LoginScreen = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true',
                 },
                 body: JSON.stringify({
                     email: formData.email,

@@ -26,6 +26,7 @@ const styles = {
         textAlign: "left",
         marginBottom: 40,
         display: "flex",
+        flexDirection: "row",
         justifyContent: "space-around",
     },
     subtitle: {
@@ -84,16 +85,16 @@ const Investments = () => {
     return (
         <div>
             {isMobile ? <AboutCompHedMob title='Инвестиции' subtitle='Инвестиции'/> : <AboutCompanyHeader title='Инвестиции' subtitle='Инвестиции'/>}
-            <div style={{height: 100}}/>
-            <div style={styles.content}>
-                <div style={{width: '30%',}}>
+            <div style={{height: 100,}}/>
+            <div style={{...styles.content, ...(isMobile && {flexDirection: 'column',paddingLeft: '1rem'}) }}>
+                <div style={{width: '30%', ...(isMobile && {width: '90%'})}}>
                     <div style={styles.subtitle}>Инвестиционные предложения с оптимальными условиями и высокой
                         доходностью.
                     </div>
-                    <div style={styles.title}>Выгодные инвестиции</div>
+                    <div style={{...styles.title, ...(isMobile && { fontSize: "24px",})}}>Выгодные инвестиции</div>
                 </div>
 
-                <div style={styles.paragraph}>
+                <div style={{...styles.paragraph, ...(isMobile && {width: '90%'})}}>
                     Мы предлагаем несколько типов инвестиционных пакетов, подходящих как начинающим, так и опытным
                     инвесторам. Наши стандартные пакеты "Standard" и "Growth" позволяют получать до +1.7% дохода
                         ежедневно с возможностью моментального вывода на счёт. Для тех, кто предпочитает накопительный
@@ -102,7 +103,9 @@ const Investments = () => {
                     </div>
 
             </div>
-            <Cards/>
+            <div style={{...(isMobile && { paddingLeft: '0.7rem', paddingRight: '1rem'}) }}>
+                <Cards/>
+            </div>
             <div style={{height: 100}}/>
             <CryptoScroll/>
             <InvestmentCalculator/>

@@ -12,8 +12,7 @@ import CabinetScreen from "./screens/authorizedStak/CabinetScreen";
 import ConfirmPay from "./screens/confirmPay";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
 import i18n from "./i18n";
-import AdminPanel from "./screens/adminAuth/adminPanel";
-import LogInAsAdmin from "./screens/adminAuth/logInAsAdmin";
+import AdminPanel from "./screens/adminpanel";
 import {AdminAuthProvider, useAdminAuth} from "./context/AdminAuthContext";
 import {RefProvider} from "./context/RefContext";
 import ScrollToTop from "./tools/ScrollToTop";
@@ -64,7 +63,7 @@ const App = () => {
 const AppContent = () => {
     const location = useLocation();
 
-    const hideHeaderFooterRoutes = ["/confirmPay", "/adminPanel", "/logInAsAdmin", "/test", '/cabinetscreen', '/balance', '/opendep', '/mydeps', '/refprogram', '/support', '/wallets'];
+    const hideHeaderFooterRoutes = ["/confirmPay", "/aduygihijfyyy", "/logInAsAdmin", "/test", '/cabinetscreen', '/balance', '/opendep', '/mydeps', '/refprogram', '/support', '/wallets'];
     const shouldHideHeaderFooter = hideHeaderFooterRoutes.includes(location.pathname);
 
     const [isMobile, setIsMobile] = useState(false);
@@ -85,6 +84,12 @@ const AppContent = () => {
 
     return (
         <div style={appContainerStyle}>
+            <style>{`
+        ::selection {
+          color: white;
+          background: gray;
+        }
+      `}</style>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
             <link
@@ -93,43 +98,45 @@ const AppContent = () => {
 
             {/* Show Header unless explicitly hidden */}
             {!shouldHideHeaderFooter && (
-                isMobile ? <HeaderMobile /> : <Header />
+                isMobile ? <HeaderMobile/> : <Header/>
             )}
 
             <main style={mainContentStyle}>
                 <ScrollToTop/>
                 <Routes>
+
                     {/* Non-auth stack */}
                     <Route path="/" element={<Home/>}/>
                     {/*<Route path="/frequentlyAskedQuestions" element={<FrequentlyAskedQuestions />} />*/}
                     <Route path="/aboutcompany" element={<Company/>}/>
                     <Route path="/partners" element={<Partners/>}/>
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/faq" element={<FrequentlyAskedQuestions />} />
-                    <Route path="/investments" element={<Investments />} />
-                    <Route path="/privacypolicyscreen" element={<PrivacyPolicyScreen />} />
-                    <Route path="/cooperationtermsscreen" element={<CooperationTermsScreen />} />
+                    <Route path="/contact" element={<Contact/>}/>
+                    <Route path="/faq" element={<FrequentlyAskedQuestions/>}/>
+                    <Route path="/investments" element={<Investments/>}/>
+                    <Route path="/privacypolicyscreen" element={<PrivacyPolicyScreen/>}/>
+                    <Route path="/cooperationtermsscreen" element={<CooperationTermsScreen/>}/>
 
                     {/*/!* Login stack *!/*/}
-                    <Route path="/login" element={<LoginScreen />} />
-                    <Route path="/forgotpassword" element={<ForgotPassword />} />
+                    <Route path="/login" element={<LoginScreen/>}/>
+                    <Route path="/aduygihijfyyy" element={<AdminPanel/>}/>
+                    <Route path="/forgotpassword" element={<ForgotPassword/>}/>
                     <Route path="/createaccountscreen" element={
-                            <CreateAccountScreen />
-                        } />
+                        <CreateAccountScreen/>
+                    }/>
                     {/*/!* Auth stack *!/*/}
-                        <Route
-                            path="/cabinetscreen"
-                            element={
-                                <ProtectedRoute
-                                    element={
-                                        <AuthorizedLayout>
-                                            <ProfHeader/>
-                                            <CabinetScreen />
-                                        </AuthorizedLayout>
-                                    }
-                                />
-                            }
-                        />
+                    <Route
+                        path="/cabinetscreen"
+                        element={
+                            <ProtectedRoute
+                                element={
+                                    <AuthorizedLayout>
+                                        <ProfHeader/>
+                                        <CabinetScreen/>
+                                    </AuthorizedLayout>
+                                }
+                            />
+                        }
+                    />
                     {/*<Route*/}
                     {/*    path="/changepassword"*/}
                     {/*    element={*/}
@@ -143,7 +150,7 @@ const AppContent = () => {
                     {/*        />*/}
                     {/*    }*/}
                     {/*/>*/}
-                    <Route path="/changepassword" element={<ChangePasswordScreen />} />
+                    <Route path="/changepassword" element={<ChangePasswordScreen/>}/>
                     <Route
                         path="/balance"
                         element={
@@ -151,7 +158,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <BalanceScreen />
+                                        <BalanceScreen/>
                                     </AuthorizedLayout>
                                 }
                             />
@@ -164,7 +171,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <OpenDepScreen />
+                                        <OpenDepScreen/>
                                     </AuthorizedLayout>
                                 }
                             />
@@ -177,7 +184,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <MyDepsScreen />
+                                        <MyDepsScreen/>
                                     </AuthorizedLayout>
                                 }
                             />
@@ -190,7 +197,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <ReferralProgram />
+                                        <ReferralProgram/>
                                     </AuthorizedLayout>
                                 }
                             />
@@ -203,7 +210,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <SupportForm />
+                                        <SupportForm/>
                                     </AuthorizedLayout>
                                 }
                             />
@@ -216,14 +223,14 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <WalletSettings />
+                                        <WalletSettings/>
                                     </AuthorizedLayout>
                                 }
                             />
                         }
                     />
 
-                    <Route path="/confirmPay" element={<ProtectedRoute element={<ConfirmPay />} />} />
+                    <Route path="/confirmPay" element={<ProtectedRoute element={<ConfirmPay/>}/>}/>
 
                     {/*<Route path="/logInAsAdmin" element={<LogInAsAdmin />} />*/}
                     {/*<Route*/}

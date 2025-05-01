@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Sidebar from "./Sidebar";
 
 const layoutStyle = {
@@ -14,9 +14,26 @@ const contentStyle = {
 };
 
 export default function AuthorizedLayout({ children }) {
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <div style={layoutStyle}>
-            <Sidebar />
+            {!isMobile && <Sidebar/>}
             <div style={contentStyle}>{children}</div>
         </div>
     );

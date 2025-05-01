@@ -5,11 +5,12 @@ import mainUrl from "../../constants";
 
 const ReferralProgram = () => {
     const name = localStorage.getItem('nicknameUser');
-    const referralLink = `https://prudential-invest.com/?ref=${name}`;
+    const referralLink = `http://localhost:3000/createaccountscreen/?ref=${name}`;
     const [affiliateData, setAffiliateData] = useState({
         partnersInvited: 0,
         activePartners: 0,
         earningsFromPartners: 0,
+        referals: []
     });
 
     const copyToClipboard = () => {
@@ -25,6 +26,7 @@ const ReferralProgram = () => {
         fetch(`${mainUrl}/api/v1/user/affiliateProgram`, {
             headers: {
                 Authorization: `Bearer ${token}`,
+                'ngrok-skip-browser-warning': 'true',
             },
         })
             .then((res) => {
@@ -38,8 +40,6 @@ const ReferralProgram = () => {
                 console.error(err);
             });
     }, []);
-
-    console.log('referralLink: ', affiliateData);
 
     return (
         <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111", marginTop: -40 }}>
@@ -170,18 +170,31 @@ const ReferralProgram = () => {
                     <tr style={{ backgroundColor: "#f0f0f0" }}>
                         <th style={{ padding: "10px", borderBottom: "1px solid #ccc", textAlign: "left" }}>Регистрация</th>
                         <th style={{ padding: "10px", borderBottom: "1px solid #ccc", textAlign: "left" }}>Логин</th>
-                        <th style={{ padding: "10px", borderBottom: "1px solid #ccc", textAlign: "left" }}>Доход</th>
+                        <th style={{ padding: "10px", borderBottom: "1px solid #ccc", textAlign: "left" }}>Уровень</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td colSpan="3" style={{ textAlign: "center", padding: "16px", color: "#999" }}>
-                            Нет данных
-                        </td>
-                    </tr>
+                    {affiliateData.referals && affiliateData.referals.length > 0 ? (
+                        affiliateData.referals.map((ref, index) => (
+                            <tr key={index}>
+                                <td style={{ padding: "10px", borderBottom: "1px solid #eee" }}>
+                                    {new Date(ref.createdAt).toLocaleDateString()}
+                                </td>
+                                <td style={{ padding: "10px", borderBottom: "1px solid #eee" }}>{ref.username}</td>
+                                <td style={{ padding: "10px", borderBottom: "1px solid #eee" }}>{ref.referralLevel}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="3" style={{ textAlign: "center", padding: "16px", color: "#999" }}>
+                                Нет данных
+                            </td>
+                        </tr>
+                    )}
                     </tbody>
                 </table>
             </div>
+
         </div>
     );
 };

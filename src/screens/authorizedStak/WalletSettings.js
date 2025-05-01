@@ -19,6 +19,22 @@ const WalletSettings = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     const token = localStorage.getItem('authToken');
 
     useEffect(() => {
@@ -27,6 +43,7 @@ const WalletSettings = () => {
                 const response = await axios.get(`${mainUrl}/api/v1/user/wallets`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
                     },
                 });
                 console.log(response);
@@ -76,6 +93,7 @@ const WalletSettings = () => {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true',
                 },
             });
 
@@ -131,7 +149,7 @@ const WalletSettings = () => {
     if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
     return (
-        <div style={{ display: 'flex', gap: '24px', padding: '24px', fontFamily: 'Arial, sans-serif', marginTop: -40 }}>
+        <div style={{ display: 'flex', gap: '24px', padding: '24px', fontFamily: 'Arial, sans-serif', marginTop: -40, ...(isMobile && {flexDirection: 'column'}) }}>
             <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Мои кошельки</h2>
                 <div

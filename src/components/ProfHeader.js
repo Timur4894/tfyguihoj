@@ -1,11 +1,70 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ava from "../assets/img/avatar.jpg";
 import {AuthContext} from "../context/AuthContext";
+
+const styles = {
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '12px 20px',
+        borderBottom: '1px solid #ccc',
+    },
+    logoContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    burgerButton: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 5,
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+    },
+    burgerLine: {
+        width: 25,
+        height: 3,
+        backgroundColor: '#1a1a1a',
+        borderRadius: 2,
+    },
+}
 
 export default function ProfHeader() {
     const [open, setOpen] = useState(false);
     const { logout } = useContext(AuthContext);
     const name = localStorage.getItem('nicknameUser');
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isAuthenticated } = useContext(AuthContext);
+
+    const navItems = [
+        { label: "Главная", href: "/" },
+        { label: "О Компании", href: "/aboutcompany" },
+        { label: "Инвестиции", href: "/investments" },
+        { label: "Партнёрам", href: "/partners" },
+        { label: "FAQ", href: "/faq" },
+        { label: "Контакты", href: "/contact" },
+    ];
+
+    const toggleMenu = () => setIsMenuOpen(prev => !prev);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
         <div style={{
             display: "flex",
@@ -19,9 +78,15 @@ export default function ProfHeader() {
             marginLeft: -24,
             marginBottom: 40
         }}>
-            <div style={{ fontSize: "18px", fontWeight: "bold", color: '#000' }}></div>
+            {!isMobile && <div style={{fontSize: "18px", fontWeight: "bold", color: '#000'}}></div>}
+            {isMobile &&
+                <button onClick={toggleMenu} style={styles.burgerButton}>
+                <div style={styles.burgerLine}></div>
+                <div style={styles.burgerLine}></div>
+                <div style={styles.burgerLine}></div>
+            </button>}
 
-            <div style={{ position: "relative" }}>
+            <div style={{position: "relative"}}>
                 <button
                     onClick={() => setOpen(!open)}
                     style={{
@@ -100,6 +165,57 @@ export default function ProfHeader() {
                     </div>
                 )}
             </div>
+            {isMobile && isMenuOpen && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '70vw',
+                    height: '100vh',
+                    backgroundColor: '#fff',
+                    boxShadow: '2px 0 10px rgba(0, 0, 0, 0.2)',
+                    zIndex: 2000,
+                    padding: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}>
+                    <h4 style={{marginBottom: '20px', color: '#999'}}>МЕНЮ КАБИНЕТА</h4>
+                    <a href="/cabinetscreen" style={sidebarLinkStyle}>
+                        <ion-icon name="home-outline"></ion-icon>
+                        Панель управления</a>
+                    <a href="/balance" style={sidebarLinkStyle}>
+                        <ion-icon name="wallet-outline"></ion-icon>
+                        Балансы</a>
+                    <a href="/opendep" style={sidebarLinkStyle}>
+                        <ion-icon name="add-outline"></ion-icon>
+                        Открыть депозит</a>
+                    <a href="/mydeps" style={sidebarLinkStyle}>
+                        <ion-icon name="analytics-outline"></ion-icon>
+                        Мои депозиты</a>
+                    <a href="/refprogram" style={sidebarLinkStyle}>
+                        <ion-icon name="people-outline"></ion-icon>
+                        Моя команда</a>
+                    <a href="/support" style={sidebarLinkStyle}>
+                        <ion-icon name="help-outline"></ion-icon>
+                        Поддержка</a>
+                    <a href="/wallets" style={sidebarLinkStyle}>
+                        <ion-icon name="settings-outline"></ion-icon>
+                        Мои кошельки</a>
+
+                    <button onClick={toggleMenu} style={{
+                        marginTop: 'auto',
+                        padding: '10px',
+                        backgroundColor: '#f9b233',
+                        border: 'none',
+                        borderRadius: '4px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                    }}>
+                        Закрыть меню
+                    </button>
+                </div>
+            )}
+
         </div>
     );
 }
@@ -116,4 +232,16 @@ const menuItemStyle = {
     borderBottom: "1px solid #f0f0f0",
     transition: "background 0.2s",
     backgroundColor: "white"
+};
+
+const sidebarLinkStyle = {
+    padding: '12px 0',
+    display: 'flex',
+    gap: 4,
+    alignItems: "center",
+    color: '#1a1a1a',
+    textDecoration: 'none',
+    fontSize: '16px',
+    fontWeight: 500,
+    borderBottom: '1px solid #eee',
 };

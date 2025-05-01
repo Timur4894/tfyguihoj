@@ -59,7 +59,7 @@ const styles = {
     },
     section: {
         display: "flex",
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
         alignItems: "center",
         justifyContent: "space-between",
         padding: "60px 40px",
@@ -93,15 +93,33 @@ export default function ClassicProgramSection() {
         return () => observer.disconnect();
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
+
     return (
         <section
             ref={sectionRef}
             style={{
                 ...styles.section,
                 ...(isVisible ? styles.sectionVisible : {}),
+                ...(isMobile ? {flexDirection: 'column'} : {}),
             }}
         >
-            <div style={{width: '100%', marginLeft: 50}}>
+            <div style={{width: '100%', marginLeft: 50, ...(isMobile && { marginLeft: 0})}}>
                 <img
                     src={img}
                     alt="Two businessmen shaking hands"
@@ -109,7 +127,7 @@ export default function ClassicProgramSection() {
                 />
             </div>
 
-            <div style={styles.sectionMd}>
+            <div style={{...styles.sectionMd,  ...(isMobile && {padding: '0rem',})}}>
                 <img src={dots} alt="Cyber Lion" style={{
                     width: "30%",
                     height: "auto",
@@ -118,15 +136,15 @@ export default function ClassicProgramSection() {
                     top: '30%',
                     zIndex: 0
                 }}/>
-                <h2 style={styles.heading}>Классическая <br/>программа</h2>
-                <p style={styles.paragraph}>
+                <h2 style={{...styles.heading, ...(isMobile && {fontSize: '34px'})}}>Классическая <br/>программа</h2>
+                <p style={{...styles.paragraph,...(isMobile && {width: '100%',})}}>
                     Присоединяйтесь к партнёрской программе, приглашайте новых участников и получайте стабильный доход с
                     их депозитов. Программа охватывает три уровня структуры, так что каждый новый партнёр приносит вам
                     прибыль. Создайте свою команду и наблюдайте, как ваш доход растёт с каждым новым шагом!
                 </p>
                 <div>
                     <h3 style={styles.subheading}>3 уровня структуры</h3>
-                    <p style={styles.percentages}>
+                    <p style={{...styles.percentages, ...(isMobile && {fontSize: '34px'})}}>
                         5% - 3% - 2%
                     </p>
                 </div>

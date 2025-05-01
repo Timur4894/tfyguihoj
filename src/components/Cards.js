@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const styles = {
     section: {
@@ -97,6 +98,7 @@ const styles = {
         width: "100%",
         border: "1px solid #D1D5DB",
         backgroundColor: "#fff",
+        color: "#6B7280",
         fontWeight: "bold",
         fontSize: "14px",
         // borderRadius: "6px",
@@ -167,6 +169,7 @@ const Cards = ({authTrue = false, onActivate = null}) => {
         };
     }, []);
 
+    const navigate = useNavigate();
 
     return (
         <div style={{...styles.cardsContainer, ...(isMobile && {flexDirection: "column"}) }}>
@@ -212,13 +215,13 @@ const Cards = ({authTrue = false, onActivate = null}) => {
                         Working period <strong>{plan.days}</strong>
                     </div>
                     <button
-                        onClick={authTrue ? onActivate : null}
+                        onClick={authTrue ? onActivate : () => navigate('/investments')}
                         style={{
                             ...styles.button,
                             ...(plan.dark ? styles.darkButton : {}),
                         }}
                     >
-                        {authTrue ? 'Активировать' : 'More details'}
+                        {authTrue ? 'Активировать' : 'Детали'}
                     </button>
                 </div>
             ))}

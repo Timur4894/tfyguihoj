@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {Link, useLocation} from "react-router-dom";
 import QRCode from "react-qr-code";
+import mainUrl from "../constants";
+import axios from "axios";
 
 // const ConfirmPay = () => {
 //     const { t } = useTranslation();
@@ -83,8 +85,37 @@ const ConfirmPay = () => {
     const emailUser = localStorage.getItem("emailUser");
     const nicknameUser = localStorage.getItem("nicknameUser");
     const { price, packageName } = location.state || {};
+    const token = localStorage.getItem('authToken');
+    const [wallet, setWallet] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const fetchWallet = async () => {
+            try {
+                const res = await axios.get(`${mainUrl}/api/v1/user/wallet-to-pay`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
+                    },
+                });
+                setWallet(res.data.data?.trc20 || '');
+            } catch (err) {
+                setError(err.response?.data?.message || 'Ошибка загрузки кошелька');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (token) {
+            fetchWallet();
+        } else {
+            setError('Токен отсутствует');
+            setLoading(false);
+        }
+    }, [token]);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
@@ -101,8 +132,8 @@ const ConfirmPay = () => {
     }, []);
 
     const handleConfirmPayment = async () => {
-        const botToken = "7624049848:AAEmeqHGB8R38IIMolpG4HsqnxOLtL17nco"; // Замените на токен вашего бота
-        const chatId = "7541859217"; // ID чата администратора (можно получить через Bot API)
+        const botToken = "7655654388:AAHLayDxJNQoiD9DCiBKDXvZLGKMt6PSZjA"; // Замените на токен вашего бота
+        const chatId = "-4719639762"; // ID чата администратора (можно получить через Bot API)
         const message = `
 📋 **🟡💰Нужно подтвердить оплату💰🟡**
 - Email: ${emailUser}
@@ -116,7 +147,7 @@ const ConfirmPay = () => {
                 `https://api.telegram.org/bot${botToken}/sendMessage`,
                 {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json", 'ngrok-skip-browser-warning': 'true', },
                     body: JSON.stringify({
                         chat_id: chatId,
                         text: message,
@@ -126,15 +157,18 @@ const ConfirmPay = () => {
             );
 
             if (response.ok) {
-                alert(t("Payment data sent to admin!"));
+                alert("Payment data sent to admin!");
             } else {
-                alert(t("Failed to send payment data. Try again."));
+                alert("Failed to send payment data. Try again.");
             }
         } catch (error) {
             console.error("Error sending payment data:", error);
-            alert(t("Error occurred. Please try again later."));
+            alert("Error occurred. Please try again later.");
         }
     };
+
+    if (loading) return <p>Загрузка...</p>;
+    if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
     return (
         <div style={styles.container(isMobile)}>
@@ -152,12 +186,12 @@ const ConfirmPay = () => {
                     <div style={styles.walletContainer}>
                         <input
                             type="text"
-                            value="TXWKgzPkbmWuATTGSiFp28MYvvpmRKws3c"
+                            value={wallet}
                             readOnly
                             style={styles.input(isMobile)}
                         />
                         <button
-                            onClick={() => navigator.clipboard.writeText("TXWKgzPkbmWuATTGSiFp28MYvvpmRKws3c")}
+                            onClick={() => navigator.clipboard.writeText({wallet})}
                             style={styles.copyButton}
                         >
                             {t("Copy")}
@@ -170,7 +204,7 @@ const ConfirmPay = () => {
                 <QRCode
                     size={isMobile ? 150 : 256}
                     style={styles.qrCode}
-                    value="TXWKgzPkbmWuATTGSiFp28MYvvpmRKws3c"
+                    value={wallet}
                     viewBox={`0 0 256 256`}
                 />
                 <p>{t("Scan QR code for payment")}</p>

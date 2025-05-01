@@ -21,14 +21,14 @@ const styles = {
         zIndex: 2,
     },
     heading: {
-        fontSize: '1rem',
+        fontSize: '2rem',
         fontWeight: 700,
         marginBottom: '20px',
     },
     breadcrumbs: {
         display: 'flex',
         justifyContent: 'flex-end',
-        fontSize: '0.9rem',
+        fontSize: '1.5rem',
         color: '#1f2937',
     },
     breadcrumbLink: {
@@ -41,7 +41,7 @@ const styles = {
         position: 'absolute',
         // left: '10%',
         bottom: '20px',
-        fontSize: '2rem',
+        fontSize: '3rem',
         fontWeight: 700,
         color: 'transparent',
         WebkitTextStroke: '1px rgba(0, 0, 0, 0.5)',

@@ -11,15 +11,15 @@ const SupportForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const botToken = "7624049848:AAEmeqHGB8R38IIMolpG4HsqnxOLtL17nco";
-        const chatId = "7541859217";
+        const botToken = "7655654388:AAHLayDxJNQoiD9DCiBKDXvZLGKMt6PSZjA";
+        const chatId = "-4719639762";
 
         const telegramMessage = `
 📩 *Новое обращение в поддержку*:
 - 📝 *Тема:* ${subject}
 - 💬 *Сообщение:* ${message}
--  *Почта юзера:* ${name}
--  *Ник юзера:* ${emailUser}
+-  *Почта юзера:* ${emailUser}
+-  *Ник юзера:* ${name}
         `;
 
         try {
@@ -27,7 +27,7 @@ const SupportForm = () => {
                 `https://api.telegram.org/bot${botToken}/sendMessage`,
                 {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json", 'ngrok-skip-browser-warning': 'true', },
                     body: JSON.stringify({
                         chat_id: chatId,
                         text: telegramMessage,
@@ -93,7 +93,7 @@ const SupportForm = () => {
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
                         style={{
-                            width: "100%",
+                            width: "90%",
                             padding: "12px",
                             borderRadius: "4px",
                             border: "1px solid #ccc",
@@ -116,7 +116,7 @@ const SupportForm = () => {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         style={{
-                            width: "100%",
+                            width: "90%",
                             padding: "12px",
                             borderRadius: "4px",
                             border: "1px solid #ccc",

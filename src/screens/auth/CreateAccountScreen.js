@@ -3,12 +3,15 @@ import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import {AuthContext} from "../../context/AuthContext";
 import mainUrl from "../../constants";
 import AboutCompHedMob from "../../components/AboutCompHedMob";
+import {useLocation} from "react-router-dom";
 
 const styles = {
     container: {
         display: 'flex',
         minHeight: '90vh',
         paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
         paddingBottom: '5%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -43,7 +46,7 @@ const styles = {
         fontSize: '0.95rem',
     },
     input: {
-        width: '100%',
+        width: '95%',
         padding: '0.5rem 1rem',
         border: '1px solid #d1d5db',
         borderRadius: '6px',
@@ -76,6 +79,7 @@ const styles = {
 };
 export default function CreateAccountScreen() {
     const { login } = useContext(AuthContext);
+    const location = useLocation();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -89,8 +93,18 @@ export default function CreateAccountScreen() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const refFromUrl = queryParams.get("ref");
+
+        if (refFromUrl) {
+            setFormData(prev => ({ ...prev, ref: refFromUrl }));
+        }
+    }, [location.search]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formData.password !== formData.confirmPassword) {
             alert('Пароли не совпадают!');
             return;
@@ -101,6 +115,7 @@ export default function CreateAccountScreen() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true',
                 },
                 body: JSON.stringify({
                     username: formData.username,

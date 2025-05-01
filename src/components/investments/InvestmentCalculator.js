@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 const packages = {
     Standard: 0.017,
@@ -22,14 +22,30 @@ export default function InvestmentCalculator() {
         setTotalProfit(total.toFixed(2));
     };
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
-        <div style={{ display: "grid",paddingTop: '10rem', gridTemplateColumns: "1fr 1fr", gap: "2rem", padding: "2rem", paddingLeft: "20rem", paddingRight: "20rem" }}>
+        <div style={{ display: "flex",paddingTop: '10rem', justifyContent: 'space-around', gap: "2rem", padding: "2rem", paddingLeft: "20rem", paddingRight: "20rem", ...(isMobile && {flexDirection: "column", paddingLeft: "2rem", paddingRight: "0rem",}) }}>
             <div>
                 <h2 style={{ color: "#6b7280", marginBottom: "0.5rem", fontFamily: "Ubuntu", }}>Рассчитайте ваши доходы</h2>
-                <h1 style={{ fontSize: "3rem", fontWeight: "bold", fontFamily: "Ubuntu",}}>Калькулятор</h1>
+                <h1 style={{ fontSize: "3rem", fontWeight: "bold", fontFamily: "Ubuntu", ...(isMobile && { fontSize: "24px",})}}>Калькулятор</h1>
             </div>
 
-            <div style={{  borderRadius: "1rem", padding: "2rem" }}>
+            <div style={{  borderRadius: "1rem", padding: "2rem", ...(isMobile && {padding: "1rem",})}}>
                 <div style={{ marginBottom: "1rem" }}>
                     <label style={{ display: "block", marginBottom: "0.5rem" }}>Выберите инвестиционный пакет</label>
                     <select

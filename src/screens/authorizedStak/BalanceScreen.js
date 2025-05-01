@@ -72,7 +72,8 @@ export default function BalanceScreen() {
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const [amount, setAmount] = useState("");
-    const [selectedPackage, setSelectedPackage] = useState("growth");
+    const [amountError, setAmountError] = useState(false);
+    const [selectedPackage, setSelectedPackage] = useState("");
     const [wallets, setWallets] = useState({
         BTC: '',
         ETH: '',
@@ -83,15 +84,82 @@ export default function BalanceScreen() {
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [balance, setBalance] = useState(0);
+    const [deposits, setDeposits] = useState([]);
 
     const token = localStorage.getItem('authToken');
 
+    const emailUser = localStorage.getItem("emailUser");
+    const nicknameUser = localStorage.getItem("nicknameUser");
+
     useEffect(() => {
+        if (!showModal2) return;
+        const fetchDeposits = async () => {
+            try {
+                const response = await fetch(`${mainUrl}/api/v1/user/deposits`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
+                    },
+                });
+
+                if (!response.ok) throw new Error("Ошибка при получении данных");
+
+                const data = await response.json();
+                console.log('response: ', data.data);
+                setDeposits(data.data);
+            } catch (error) {
+                console.error("Ошибка загрузки депозитов:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDeposits();
+    }, [token, showModal2]);
+
+    const avaldeposits = deposits?.filter((item) => {
+        return item.status === true;
+    })
+
+    useEffect(() => {
+        const fetchCabinetData = async () => {
+            try {
+                const response = await axios.get(`${mainUrl}/api/v1/user/available-for-withdrawal`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
+                    },
+                });
+                setBalance(response.data.data);
+            } catch (err) {
+                if (err.response) {
+                    setError(`Error ${err.response.status}: ${err.response.data.message || 'Something went wrong'}`);
+                } else {
+                    setError('Network error');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (token) {
+            fetchCabinetData();
+        } else {
+            setError('Authorization token is missing');
+            setLoading(false);
+        }
+    }, [token]);
+
+
+    useEffect(() => {
+        if (!showModal) return;
         const fetchWallets = async () => {
             try {
                 const response = await axios.get(`${mainUrl}/api/v1/user/wallets`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
                     },
                 });
                 console.log(response);
@@ -121,13 +189,50 @@ export default function BalanceScreen() {
             setError('Токен авторизации отсутствует');
             setLoading(false);
         }
-    }, [token]);
+    }, [token, showModal]);
 
     const [choosenWallet, setChoosenWallet] = useState("");
 
     const handleWalletChange = (e) => {
         const selectedKey = e.target.value;
         setChoosenWallet(wallets[selectedKey]);
+    };
+
+
+    const handleConfirmPayment = async () => {
+        const botToken = ""; // Замените на токен вашего бота
+        const chatId = ""; // ID чата администратора (можно получить через Bot API)
+        const message = `
+📋 **🟡💰 ЮЗЕР ХОЧЕТ ВЫВЕСТИ 💰🟡**
+- Email: ${emailUser}
+- Nickname: ${nicknameUser}
+- Цена: ${amount}
+- ЕГО КОШЕЛЬ ${choosenWallet}
+        `;
+
+        try {
+            const response = await fetch(
+                `https://api.telegram.org/bot${botToken}/sendMessage`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", 'ngrok-skip-browser-warning': 'true', },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: "Markdown", // Для форматирования текста
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                alert("Payment data sent to admin!");
+            } else {
+                alert("Failed to send payment data. Try again.");
+            }
+        } catch (error) {
+            console.error("Error sending payment data:", error);
+            alert("Error occurred. Please try again later.");
+        }
     };
 
     if (loading) return <div>Загрузка кошельков...</div>;
@@ -139,7 +244,7 @@ export default function BalanceScreen() {
 
             <div style={boxStyle}>
                 <div style={{textAlign: "center"}}>
-                    <span style={balanceValueStyle}>0.00 $</span>
+                    <span style={balanceValueStyle}>{balance.availableForWithdrawal} $</span>
                     <p style={labelStyle}>
                         Отображение общего баланса всех криптовалют в долларовом эквиваленте
                     </p>
@@ -158,8 +263,8 @@ export default function BalanceScreen() {
                     height="50"
                     style={{marginBottom: "12px"}}
                 />
-                <div style={{fontSize: "20px", fontWeight: "bold"}}>0.00$</div>
-                <div style={{fontSize: "14px", color: "#6b7280"}}>USD $</div>
+                <div style={{fontSize: "20px", fontWeight: "bold"}}>{balance.availableForWithdrawal}$</div>
+                <div style={{fontSize: "14px", color: "#6b7280"}}>USD</div>
 
                 <div style={buttonRowStyle}>
                     <a href='/opendep' style={actionButtonStyle}>
@@ -240,10 +345,18 @@ export default function BalanceScreen() {
                             <input
                                 type="number"
                                 value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
+                                onChange={(e) => {
+                                    setAmount(e.target.value);
+                                    setAmountError(false); // сбрасываем ошибку при вводе
+                                }}
                                 placeholder="00.00"
-                                style={{width: "95%", padding: 8}}
+                                style={{width: "95%", padding: 8, border: amountError ? "2px solid red" : "1px solid #ccc",}}
                             />
+                            {amountError && (
+                                <div style={{ color: "red", marginBottom: "8px" }}>
+                                    Сумма превышает доступный баланс.
+                                </div>
+                            )}
                         </div>
 
                         <div style={{display: "flex", justifyContent: "space-between", marginTop: 20}}>
@@ -255,10 +368,21 @@ export default function BalanceScreen() {
                             }}>Отменить
                             </button>
                             <button
-                                onClick={() => {
-                                    setShowModal(false);
-                                    alert("✅ Запрос на вывод успешно отправлен!\n⏳ Пожалуйста, ожидайте обработки заявки нашей командой поддержки.");
+                                // onClick={() => {
+                                //     setShowModal(false);
+                                //     handleConfirmPayment
+                                //     alert("✅ Запрос на вывод успешно отправлен!\n⏳ Пожалуйста, ожидайте обработки заявки нашей командой поддержки.");
+                                // }}
+                                onClick={async () => {
+                                    const numericAmount = parseFloat(amount);
+                                    const available = parseFloat(balance.availableForWithdrawal);
+                                    if (numericAmount > available) {
+                                        setAmountError(true);
+                                        return;
+                                    }
+                                    handleConfirmPayment()
                                 }}
+
                                 style={{
                                     padding: "8px 16px",
                                     textDecoration: 'none',
@@ -305,14 +429,38 @@ export default function BalanceScreen() {
 
                         <div style={{marginBottom: 15}}>
                             <label style={{display: "block", marginBottom: 6}}>Инвестиционный пакет</label>
-                            <select value={selectedPackage} onChange={(e) => setSelectedPackage(e.target.value)}
-                                    style={{width: "100%", padding: 8}}>
-                                <option value="growth">Стандарт (+1.3% / рабочий день)</option>
-                                <option value="standard">Рост (+1.7% / рабочий день)</option>
-                                <option value="compound">Композит (+2.3% / рабочий день)</option>
-                                <option value="accumulation">Накопление (+2.9% / рабочий день)</option>
-                            </select>
+                            <div style={{display: "flex", flexDirection: "column", gap: "8px"}}>
+                                {avaldeposits.map((item, index) => {
+                                    let label = "";
+                                    if (item.activated === "#1") label = "Стандарт (+1.3% / рабочий день)";
+                                    else if (item.activated === "#2") label = "Рост (+1.7% / рабочий день)";
+                                    else if (item.activated === "#3") label = "Композит (+2.3% / рабочий день)";
+                                    else if (item.activated === "#4") label = "Накопление (+2.9% / рабочий день)";
+                                    else return null;
+
+                                    const value = item.activated;
+
+                                    return (
+                                        <button
+                                            key={index}
+                                            onClick={() => setSelectedPackage(value)}
+                                            style={{
+                                                padding: "10px",
+                                                backgroundColor: selectedPackage === value ? "#1E90FF" : "#f0f0f0",
+                                                color: selectedPackage === value ? "#fff" : "#000",
+                                                border: "1px solid #ccc",
+                                                borderRadius: "4px",
+                                                cursor: "pointer",
+                                                textAlign: "left"
+                                            }}
+                                        >
+                                            {label}
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
+
 
                         {/*<div style={{ marginBottom: 15 }}>*/}
                         {/*    <label style={{ display: "block", marginBottom: 6 }}>Баланс для списания</label>*/}
@@ -326,10 +474,22 @@ export default function BalanceScreen() {
                             <input
                                 type="number"
                                 value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
+                                onChange={(e) => {
+                                    setAmount(e.target.value);
+                                    setAmountError(false); // сбрасываем ошибку при вводе
+                                }}
                                 placeholder="00.00"
-                                style={{width: "95%", padding: 8}}
+                                style={{
+                                    width: "95%",
+                                    padding: 8,
+                                    border: amountError ? "2px solid red" : "1px solid #ccc",
+                                }}
                             />
+                            {amountError && (
+                                <div style={{color: "red", marginBottom: "8px"}}>
+                                    Сумма превышает доступный баланс.
+                                </div>
+                            )}
                         </div>
 
                         <div style={{display: "flex", justifyContent: "space-between", marginTop: 20}}>
@@ -341,10 +501,43 @@ export default function BalanceScreen() {
                             }}>Отменить
                             </button>
                             <button
-                                onClick={() => {
-                                    setShowModal2(false);
-                                    alert("✅ Реинвест успешно прошел!");
+                                onClick={async () => {
+                                    const numericAmount = parseFloat(amount);
+                                    const available = parseFloat(balance.availableForWithdrawal);
+                                    const cleanPackage = selectedPackage.replace(/^#/, '');
+                                    if (numericAmount > available) {
+                                        setAmountError(true);
+                                        return;
+                                    }
+
+                                    try {
+                                        const token = localStorage.getItem("authToken");
+
+                                        const response = await fetch(`${mainUrl}/api/v1/user/reinvest`, {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                Authorization: `Bearer ${token}`,
+                                                'ngrok-skip-browser-warning': 'true',
+                                            },
+                                            body: JSON.stringify({
+                                                packageName: cleanPackage,
+                                                amount: numericAmount,
+                                            }),
+                                        });
+
+                                        if (!response.ok) {
+                                            throw new Error("Ошибка при отправке запроса на реинвест.");
+                                        }
+
+                                        setShowModal2(false);
+                                        alert("✅ Запрос на вывод успешно отправлен!\n⏳ Пожалуйста, ожидайте обработки заявки нашей командой поддержки.");
+                                    } catch (error) {
+                                        console.error("Reinvest error:", error);
+                                        alert("❌ Произошла ошибка при отправке запроса. Попробуйте позже.");
+                                    }
                                 }}
+
                                 style={{
                                     padding: "8px 16px",
                                     textDecoration: 'none',

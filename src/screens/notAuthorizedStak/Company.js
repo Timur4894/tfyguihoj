@@ -7,6 +7,9 @@ import RoadMap from "../../components/company/RoadMap";
 import Partners from "../../components/company/Partners";
 import ReadyToStart from "../../components/ReadyToStart";
 import AboutCompHedMob from "../../components/AboutCompHedMob";
+import AboutSectionMobile from "../../components/company/AboutSectionMobile";
+import CompanyInfoSectionMob from "../../components/company/CompanyInfoSectionMob";
+import PartnersMob from "../../components/company/PartnersMob";
 
 const Company = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -28,11 +31,11 @@ const Company = () => {
         <div>
             {isMobile ? <AboutCompHedMob title='О Компании'
                               subtitle='Подробнее о компании'/> : <AboutCompanyHeader title='О Компании' subtitle='Подробнее о компании'/>}
-            <AboutSection/>
+            {!isMobile ? <AboutSection/> : <AboutSectionMobile/>}
             <MissionSection/>
-            <CompanyInfoSection/>
+            {isMobile ? <CompanyInfoSectionMob/> : <CompanyInfoSection/>}
             <RoadMap/>
-            <Partners/>
+            {isMobile ? <PartnersMob/> :  <Partners/>}
             <ReadyToStart/>
         </div>
     );

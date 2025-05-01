@@ -35,6 +35,53 @@ const labelStyle = {
     color: "#6b7280",
 };
 
+
+const tableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginBottom: '20px'
+};
+
+const thTdStyle = {
+    border: '1px solid #ddd',
+    padding: '8px',
+    textAlign: 'center'
+};
+
+const headerStyle = {
+    backgroundColor: '#f2f2f2',
+    fontWeight: 'bold'
+};
+
+const waitingStyle = {
+    color: '#1E90FF',
+    fontWeight: 'bold'
+};
+
+const tableWrapper = {
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    padding: "20px",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+    width: "95%",
+    overflowX: "auto",
+    maxWidth: "1200px", // Ограничение максимальной ширины на больших экранах
+    margin: "0 auto",   // Центрирование
+};
+
+const mobileTableWrapper = {
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    padding: "10px",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+    width: "95%",
+    overflowX: "auto",
+    // maxWidth: "70vw",   // Чуть меньше полной ширины экрана
+    margin: "0 auto",
+};
+
+
+
 const buttonStyle = {
     backgroundColor: "#f59e0b",
     color: "#000",
@@ -49,27 +96,47 @@ const buttonStyle = {
 
 export default function CabinetScreen() {
     const [cabinetData, setCabinetData] = useState(null);
-    const [balance, setBalance] = useState(999);
+    // const [balance, setBalance] = useState(999);
+    const [deposits, setDeposits] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const token = localStorage.getItem('authToken');
 
-
     useEffect(() => {
-        const fetchCabinetData = async () => {
+        const fetchData = async () => {
+            setLoading(true);
+
             try {
-                const response = await axios.get(`${mainUrl}/api/v1/user/cabinet`, {
+                // Первый запрос: кабинет
+                const cabinetResponse = await axios.get(`${mainUrl}/api/v1/user/cabinet`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
                     },
                 });
-                setCabinetData(response.data.data);
+                setCabinetData(cabinetResponse.data.data);
+                await new Promise(resolve => setTimeout(resolve, 20));
+                // Второй запрос: депозиты
+                const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'ngrok-skip-browser-warning': 'true',
+                    },
+                });
+
+                // if (!depositsResponse.ok) throw new Error("Ошибка при получении данных");
+
+                const depositsData = await depositsResponse.json();
+                console.log('deposits: ', depositsData.data);
+                setDeposits(depositsData.data);
+
             } catch (err) {
                 if (err.response) {
                     setError(`Error ${err.response.status}: ${err.response.data.message || 'Something went wrong'}`);
                 } else {
+                    console.error("Ошибка загрузки:", err);
                     setError('Network error');
                 }
             } finally {
@@ -78,42 +145,29 @@ export default function CabinetScreen() {
         };
 
         if (token) {
-            fetchCabinetData();
+            fetchData();
         } else {
             setError('Authorization token is missing');
             setLoading(false);
         }
     }, [token]);
 
-    // useEffect(() => {
-    //     const fetchCabinetBal = async () => {
-    //         try {
-    //             const response = await axios.get(`${mainUrl}/api/v1/user/available-for-withdrawal`, {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //             });
-    //             setBalance(response.data.data);
-    //         } catch (err) {
-    //             if (err.response) {
-    //                 setError(`Error ${err.response.status}: ${err.response.data.message || 'Something went wrong'}`);
-    //             } else {
-    //                 setError('Network error');
-    //             }
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //
-    //     if (token) {
-    //         fetchCabinetBal();
-    //     } else {
-    //         setError('Authorization token is missing');
-    //         setLoading(false);
-    //     }
-    // }, [token]);
 
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div style={{ color: 'red' }}>{error}</div>;
@@ -128,13 +182,15 @@ export default function CabinetScreen() {
             {/*    </p>*/}
             {/*    <button style={buttonStyle}>Поддержка →</button>*/}
             {/*</div>*/}
-            <div style={{...boxStyle, width: '40%',   borderWidth: 2,
+            <div style={{
+                ...boxStyle, borderWidth: 2,
                 borderColor: '#000',
                 marginTop: -40,
-                borderStyle: 'solid' }}>
+                borderStyle: 'solid'
+            }}>
                 <h3 style={titleStyle}>Ваши балансы</h3>
-                <p>Общий баланс: <strong>{balance} $</strong></p>
-                <div style={{display: "flex", gap: 16, marginTop: 12,  marginBottom: "12px",}}>
+                <p>Общий баланс: <strong>{cabinetData.availableForWithdrawal} $</strong></p>
+                <div style={{display: "flex", gap: 16, marginTop: 12, marginBottom: "12px",}}>
                     {["BTC", "ETH", "LTC", "TRX", "USDT"].map(coin => {
                         let iconSrc = "";
 
@@ -160,9 +216,9 @@ export default function CabinetScreen() {
                         }
 
                         return (
-                            <div key={coin} style={{ textAlign: "center" }}>
-                                <img src={iconSrc} alt={coin} width="40" />
-                                <p style={{ marginTop: 4, fontSize: 10, color: 'gray' }}>{coin}</p>
+                            <div key={coin} style={{textAlign: "center"}}>
+                                <img src={iconSrc} alt={coin} width="40"/>
+                                <p style={{marginTop: 4, fontSize: 10, color: 'gray'}}>{coin}</p>
                             </div>
                         );
                     })}
@@ -185,30 +241,70 @@ export default function CabinetScreen() {
             </div>
 
 
-            <div style={boxStyle}>
+            {/*<div style={boxStyle}>*/}
+            {/*    <h3 style={titleStyle}>Последние 5 событий</h3>*/}
+            {/*    <div style={{backgroundColor: "#fef2f2", color: "#b91c1c", padding: "10px", borderRadius: "6px"}}>*/}
+            {/*        У вас ещё нет активных событий. Откройте новый депозит на вкладке <a href="/opendep"*/}
+            {/*                                                                             style={{color: "#2563eb"}}>Открыть*/}
+            {/*        депозит</a>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <div style={isMobile ? mobileTableWrapper : tableWrapper}>
                 <h3 style={titleStyle}>Последние 5 событий</h3>
-                <div style={{backgroundColor: "#fef2f2", color: "#b91c1c", padding: "10px", borderRadius: "6px"}}>
-                    У вас ещё нет активных событий. Откройте новый депозит на вкладке <a href="/opendep"
-                                                                                         style={{color: "#2563eb"}}>Открыть
-                    депозит</a>
-                </div>
+                <table style={tableStyle}>
+                    <thead>
+                    <tr>
+                        {/*<th style={{...thTdStyle, ...headerStyle}}>Тип</th>*/}
+                        <th style={{...thTdStyle, ...headerStyle}}>Сумма</th>
+                        <th style={{...thTdStyle, ...headerStyle}}>Дата</th>
+                        <th style={{...thTdStyle, ...headerStyle}}>Статус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loading ? (
+                        <tr>
+                            <td colSpan="4" style={thTdStyle}>Загрузка...</td>
+                        </tr>
+                    ) : (deposits && deposits.length > 0 ? (
+                        deposits.slice(0, 5).map((event, index) => (
+                            <tr key={index}>
+                                {/*<td style={thTdStyle}>{event.type}</td>*/}
+                                <td style={thTdStyle}>{event.deposit} $</td>
+                                <td style={thTdStyle}>{new Date(event.activated).toLocaleDateString()}</td>
+                                <td style={{...thTdStyle, color: event.status ? 'green' : 'red'}}>
+                                    {event.status ? "Активен" : "Не активен"}
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="4" style={thTdStyle}>
+                                У вас ещё нет активных событий. Откройте новый депозит на вкладке{" "}
+                                <a href="/opendep" style={{color: "#2563eb"}}>Открыть депозит</a>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
 
-            <div style={boxStyle}>
-                <h3 style={titleStyle}>Вы не получаете доход!</h3>
-                <p>На данный момент у вас <strong>нет</strong> активных депозитов</p>
+
+            <div style={{...boxStyle, marginTop: "40px",}}>
+                {deposits && deposits.length > 0 ? <h3 style={titleStyle}>Вы получаете доход!</h3> :
+                    <h3 style={titleStyle}>Вы не получаете доход!</h3>}
+                {deposits && deposits.length > 0 ? <></> : <p>На данный момент у вас <strong>нет</strong> активных депозитов</p>}
                 <div style={{display: "flex", justifyContent: "space-between", marginTop: "16px"}}>
                     <div>
                         <p style={labelStyle}>Активных депозитов</p>
-                        <p style={valueStyle}>0</p>
+                        <p style={valueStyle}>{cabinetData.activeDeposits}</p>
                     </div>
-                    <div>
-                        <p style={labelStyle}>Ваш доход по бизнес дням</p>
-                        <p style={valueStyle}>0.00 $</p>
-                    </div>
+                    {/*<div>*/}
+                    {/*    <p style={labelStyle}>Ваш доход по бизнес дням</p>*/}
+                    {/*    <p style={valueStyle}>- $</p>*/}
+                    {/*</div>*/}
                     <div>
                         <p style={labelStyle}>Ближайшее начисление через:</p>
-                        <p style={valueStyle}>00:00:00</p>
+                        <p style={valueStyle}>В течении 24-х часов</p>
                     </div>
                 </div>
                 <a href='/mydeps' style={buttonStyle}>Мои депозиты →</a>

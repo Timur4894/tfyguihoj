@@ -5,9 +5,10 @@ import logo from '../../assets/img/fav.png'
 const styles = {
     section: {
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         padding: "6rem 0rem",
         paddingBottom: 0,
+        alignItems: "center",
         // maxWidth: "1300px",
         // alignSelf: "flex-start",
         margin: "0 auto",
@@ -20,22 +21,22 @@ const styles = {
     },
     imageWrapper: {
         position: "relative",
-      // marginLeft: -100,
-      //   backgroundColor: "#000",
-        width: "60%",
+        // marginLeft: -100,
+        //   backgroundColor: "#000",
+        width: "90%",
     },
     image: {
-        width: "90%",
+        width: "100%",
         // borderRadius: "1rem",
         boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
     },
     logoCircle: {
         position: "absolute",
-        right: -50,
+        right: -30,
         bottom: "40%",
         transform: "translateX(-50%)",
-        width: "96px",
-        height: "96px",
+        width: "46px",
+        height: "46px",
         backgroundColor: "#fff",
         borderRadius: "50%",
         display: "flex",
@@ -45,20 +46,21 @@ const styles = {
     },
     textBlock: {
         width: "100%",
-       marginRight: 40,
+        marginRight: 40,
         marginLeft: 50,
         // marginBottom: '12%',
         display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-start",
+        flexDirection: "column",
+        alignItems: "center",
     },
     paragraph: {
-        fontSize: "1.40rem",
-        lineHeight: "1.8",
+        fontSize: "1.20rem",
+        lineHeight: "1.5",
         fontFamily: "Ubuntu",
         color: "#111827",
+        // textAlign: "center",
         display: "flex",
-        width: "70%",
+        width: "90%",
         marginBottom: "2rem",
         fontWeight: 500,
     },
@@ -86,18 +88,20 @@ const styles = {
     button: {
         display: "inline-flex",
         alignItems: "center",
-        alignSelf: "flex-start",
+        alignSelf: "center",
         padding: "0.75rem 1.5rem",
         border: "1px solid #D1D5DB",
         color: "#111827",
         // borderRadius: "0.5rem",
         textDecoration: "none",
         fontWeight: 500,
+
+        width: "60%",
         transition: "background 0.2s ease",
     },
 };
 
-export default function AboutSection() {
+export default function AboutSectionMobile() {
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -127,7 +131,7 @@ export default function AboutSection() {
             <div style={styles.imageWrapper}>
                 <img src={build} alt="Building" style={styles.image}/>
                 <div style={styles.logoCircle}>
-                    <img src={logo} alt="Logo" style={{height: "48px"}}/>
+                    <img src={logo} alt="Logo" style={{height: "28px"}}/>
                 </div>
             </div>
 

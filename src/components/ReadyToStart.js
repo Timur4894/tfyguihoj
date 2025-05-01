@@ -28,7 +28,7 @@ const ReadyToStart = () => {
             </div>
 
             <div style={styles.right}>
-                <a href="/register" style={{...styles.circleButton, ...(isMobile && {width: '150px',
+                <a href="/createaccountscreen" style={{...styles.circleButton, ...(isMobile && {width: '150px',
                         height: '150px',}) }}>
                     РЕГИСТРАЦИЯ
                 </a>

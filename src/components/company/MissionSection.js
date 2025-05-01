@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 const styles = {
     section: {
@@ -42,8 +42,25 @@ const styles = {
 };
 
 const MissionSection = () => {
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
-        <section style={styles.section}>
+        <section style={{...styles.section, ...(isMobile && { padding: '20px 30px',})}}>
             <h2 style={styles.heading}>Наша миссия и цели</h2>
             <p style={styles.text}>
                 Наша миссия — сделать передовые технологии доступными для каждого, кто стремится к успеху на финансовых
