@@ -82,9 +82,10 @@ const HeaderMobile = () => {
                             <a href="/createaccountscreen" style={{ ...styles.actionButton, borderRadius: 10 }}>
                                 Регистрация <span style={styles.arrow}>↗</span>
                             </a>
-                            <a href="/login" style={{ ...styles.actionButton, borderRadius: 10 }}>
-                                Кабинет <span style={styles.arrow}>↗</span>
-                            </a>
+                            {!isAuthenticated ? <a href="/login" style={styles.button}>Кабинет <ion-icon
+                                    name="caret-forward-outline"></ion-icon></a> :
+                                <a href="/cabinetscreen" style={styles.button}>Кабинет <ion-icon
+                                    name="caret-forward-outline"></ion-icon></a>}
                         </div>
                     </div>
                 </div>

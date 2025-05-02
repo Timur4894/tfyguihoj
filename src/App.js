@@ -147,7 +147,10 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
+                                        {/*<CabinetScreen/>*/}
                                         {isMobile ? <CabinetMobScreen/> : <CabinetScreen/>}
+
+                                        {/*MainName10*/}
                                     </AuthorizedLayout>
                                 }
                             />

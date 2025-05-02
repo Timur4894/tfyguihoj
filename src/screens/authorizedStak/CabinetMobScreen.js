@@ -97,7 +97,6 @@ const buttonStyle = {
 
 export default function CabinetMobScreen() {
     const [cabinetData, setCabinetData] = useState(null);
-    // const [balance, setBalance] = useState(999);
     const [deposits, setDeposits] = useState([]);
 
     const [loading, setLoading] = useState(true);
@@ -191,7 +190,7 @@ export default function CabinetMobScreen() {
             }}>
                 <h3 style={titleStyle}>Ваши балансы</h3>
                 <p style={{marginLeft: '20%', color: "gray",}}>Общий баланс: <strong
-                    style={{color: "#000"}}>{cabinetData.availableForWithdrawal} $</strong></p>
+                    style={{color: "#000"}}>{cabinetData?.availableForWithdrawal} $</strong></p>
                 <p style={{marginLeft: '0%', color: "gray", fontSize: 12, textAlign: 'center'}}>Отображение общего баланса всех криптовалют в долларовом эквиваленте</p>
 
                 <div style={{
@@ -258,13 +257,13 @@ export default function CabinetMobScreen() {
 
             <div style={{display: "flex", gap: "20px", flexWrap: "wrap"}}>
                 <div style={{...boxStyle, flex: "1 1 300px", position: "relative"}}>
-                    <h3 style={valueStyle}>{cabinetData.invested}</h3>
-                    <p style={labelStyle}>Всего инвестировано, {cabinetData.invested} $</p>
+                    <h3 style={valueStyle}>{cabinetData?.invested}</h3>
+                    <p style={labelStyle}>Всего инвестировано, {cabinetData?.invested} $</p>
                     <img src={f} style={{width: '15%', position: 'absolute', right: 22, bottom: '30%'}}/>
                 </div>
                 <div style={{...boxStyle, flex: "1 1 300px", position: "relative"}}>
-                    <h3 style={valueStyle}>{cabinetData.totalEarned}</h3>
-                    <p style={labelStyle}>Всего заработано, {cabinetData.totalEarned} $</p>
+                    <h3 style={valueStyle}>{cabinetData?.totalEarned}</h3>
+                    <p style={labelStyle}>Всего заработано, {cabinetData?.totalEarned} $</p>
                     <img src={f2} style={{width: '15%', position: 'absolute', right: 22, bottom: '30%'}}/>
                 </div>
             </div>
@@ -282,7 +281,7 @@ export default function CabinetMobScreen() {
                 <h3 style={titleStyle}>Последние 5 событий</h3>
                 <table style={tableStyle}>
                     <thead>
-                    {deposits.length > 0 && <tr>
+                    {deposits?.length > 0 && <tr>
                         {/*<th style={{...thTdStyle, ...headerStyle}}>Тип</th>*/}
                         <th style={{...thTdStyle, ...headerStyle}}>Сумма</th>
                         <th style={{...thTdStyle, ...headerStyle}}>Дата</th>
@@ -356,7 +355,7 @@ export default function CabinetMobScreen() {
                 <div style={{display: "flex", justifyContent: "space-between", marginTop: "16px"}}>
                     <div>
                         <p style={labelStyle}>Активных депозитов</p>
-                        <p style={valueStyle}>{cabinetData.activeDeposits}</p>
+                        <p style={valueStyle}>{cabinetData?.activeDeposits}</p>
                     </div>
                     {/*<div>*/}
                     {/*    <p style={labelStyle}>Ваш доход по бизнес дням</p>*/}
