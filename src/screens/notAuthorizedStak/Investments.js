@@ -4,6 +4,7 @@ import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import Cards from "../../components/Cards";
 import CryptoScroll from "../../components/investments/CryptoScroll";
 import AboutCompHedMob from "../../components/AboutCompHedMob";
+import InvestmentCalculatorMob from "../../components/investments/InvestmentCalculatorMob";
 
 
 const styles = {
@@ -108,7 +109,7 @@ const Investments = () => {
             </div>
             <div style={{height: 100}}/>
             <CryptoScroll/>
-            <InvestmentCalculator/>
+            {isMobile ? <InvestmentCalculatorMob/> : <InvestmentCalculator/>}
         </div>
     );
 };

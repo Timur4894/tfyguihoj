@@ -74,6 +74,22 @@ export default function OfficesSection() {
     const sectionRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -95,12 +111,14 @@ export default function OfficesSection() {
             style={{
                 ...styles.section,
                 ...(isVisible ? styles.sectionVisible : {}),
+                ...(isMobile && {flexDirection: 'column'}),
             }}
         >
-            <div style={styles.card}>
+            <div style={{...styles.card, ...(isMobile && {flexDirection: 'column', marginBottom: '56px'}) ,}}>
                 <img
                     src={img1}
-                    style={styles.image}
+                    style={{...styles.image, ...(isMobile && { width: '100%',
+                            height: '100%',}) ,}}
                 />
                 <div style={styles.info}>
                     <div style={styles.title}>United States of America
@@ -114,10 +132,11 @@ export default function OfficesSection() {
                 </div>
             </div>
 
-            <div style={styles.card}>
+            <div style={{...styles.card, ...(isMobile && {flexDirection: 'column', marginBottom: '56px'}),}}>
                 <img
                     src={img2}
-                    style={styles.image}
+                    style={{...styles.image, ...(isMobile && { width: '100%',
+                            height: '100%',}) ,}}
                 />
                 <div style={styles.info}>
                     <div style={styles.title}>Japan</div>

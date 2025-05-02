@@ -1,10 +1,42 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import logo from '../assets/img/logo.png';
 import { AuthContext } from '../context/AuthContext';
 
 const HeaderMobile = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { isAuthenticated } = useContext(AuthContext);
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    const headerStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        transition: 'transform 0.3s ease-in-out',
+        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Прокрутка вниз
+                setShowHeader(false);
+            } else {
+                // Прокрутка вверх
+                setShowHeader(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
 
     const navItems = [
         { label: "Главная", href: "/" },
@@ -18,10 +50,10 @@ const HeaderMobile = () => {
     const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
     return (
-        <>
+        <div style={{...headerStyle, ...(isMenuOpen && {transform: null})}}>
             <header style={styles.header}>
                 <a href="/" style={styles.logoContainer}>
-                    <img src={logo} alt="White Lion" style={{ height: 40 }} />
+                    <img src={logo} alt="White Lion" style={{ height: 60 }} />
                 </a>
                 <button onClick={toggleMenu} style={styles.burgerButton}>
                     <div style={styles.burgerLine}></div>
@@ -47,17 +79,17 @@ const HeaderMobile = () => {
                         </div>
 
                         <div style={styles.actions}>
-                            <a href="/createaccountscreen" style={{ ...styles.actionButton, borderRadius: 20 }}>
+                            <a href="/createaccountscreen" style={{ ...styles.actionButton, borderRadius: 10 }}>
                                 Регистрация <span style={styles.arrow}>↗</span>
                             </a>
-                            <a href="/login" style={{ ...styles.actionButton, borderRadius: 20 }}>
+                            <a href="/login" style={{ ...styles.actionButton, borderRadius: 10 }}>
                                 Кабинет <span style={styles.arrow}>↗</span>
                             </a>
                         </div>
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
@@ -67,6 +99,7 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '12px 20px',
+        backgroundColor: '#fff',
         borderBottom: '1px solid #ccc',
     },
     logoContainer: {
@@ -100,7 +133,7 @@ const styles = {
         // alignItems: 'space-between',
     },
     menu: {
-        width: 280,
+        width: '100%',
         height: '100%',
         backgroundColor: '#fff',
         padding: 20,
@@ -153,7 +186,7 @@ const styles = {
         padding: '12px 16px',
         textAlign: 'center',
         fontWeight: '600',
-        fontSize: '15px',
+        fontSize: '13px',
         color: '#1a1a1a',
         textDecoration: 'none',
     },

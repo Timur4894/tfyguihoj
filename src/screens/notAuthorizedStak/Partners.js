@@ -4,6 +4,9 @@ import ClassicProgramSection2 from "../../components/partners/ClassicProgramSect
 import AboutCompanyHeader from "../../components/AboutCompanyHeader";
 import ReadyToStart from "../../components/ReadyToStart";
 import AboutCompHedMob from "../../components/AboutCompHedMob";
+import ClassicProgramSectionMob from "../../components/partners/ClassicProgramSectionMob";
+import ClassicProgramSectionMob2 from "../../components/partners/ClassicProgramSectionMob2";
+
 
 const Partners = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -25,8 +28,8 @@ const Partners = () => {
     return (
         <div>
             {isMobile ? <AboutCompHedMob title='Партнёрская программа' subtitle='Партнёрам'/> : <AboutCompanyHeader title='Партнёрская программа' subtitle='Партнёрам'/>}
-           <ClassicProgramSection/>
-            <ClassicProgramSection2/>
+            {isMobile ? <ClassicProgramSectionMob/> : <ClassicProgramSection/>}
+            {isMobile ? <ClassicProgramSectionMob2/> : <ClassicProgramSection2/>}
             <ReadyToStart/>
         </div>
     );

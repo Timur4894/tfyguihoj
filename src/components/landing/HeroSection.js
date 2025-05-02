@@ -35,7 +35,7 @@ const styles = {
         marginBottom: "24px",
         color: "#1F2937",
         alignItems: 'center',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         fontFamily: "Ubuntu",
         // color: "#4B5563",
     },
@@ -44,7 +44,7 @@ const styles = {
         lineHeight: "1",
         textDecoration: 'none',
         alignItems: 'center',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         fontFamily: "Ubuntu",
         color: "gray",
         marginBottom: "16px",
@@ -68,7 +68,7 @@ const styles = {
         fontSize: "1.2rem",
         // fontWeight: "600",
         border: "none",
-        borderRadius: "4px",
+        // borderRadius: "4px",
         fontWeight: 'bold',
         display: "flex",
         flexDirection: "row",
@@ -177,20 +177,18 @@ export default function HeroSection() {
                     с Prudential Invest
                 </h1>
                 <p style={{...styles.paragraph, ...(isMobile && {fontSize: "1.2rem",})}}>
-                    Мы — ведущая платформа на основе искусственного интеллекта...
+                    Мы — ведущая платформа на основе искусственного интеллекта, созданная для поддержки брокеров и инвесторов. Наша технология анализирует рынок и предоставляет точные прогнозы, помогая принимать обоснованные решения и увеличивать прибыль.
+                    Мы развиваем решения не только для финансового сектора, но и для других отраслей, таких как агросектор и медицина, делая наш продукт универсальным и инновационным.
                 </p>
                 <p style={styles.paragraph}>
-                    Мы развиваем решения не только для финансового сектора...
-                </p>
-                <p style={styles.paragraph}>
-                    Основной доход компания получает за счёт сдачи в аренду...
+                    Основной доход компания получает за счёт сдачи в аренду нашего уникального софта другим компаниям, а также комиссий за предоставление услуг частным инвесторам и фондам.
                 </p>
                 <div style={styles.linkGroup}>
                     <span style={styles.smallText}>
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
                     <button style={styles.button}>
-                        Больше о компании <ion-icon name="caret-forward-outline"></ion-icon>
+                        Больше о компании ↗
                     </button>
                 </div>
             </div>

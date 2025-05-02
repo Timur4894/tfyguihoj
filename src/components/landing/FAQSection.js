@@ -42,7 +42,7 @@ const styles = {
     },
     title: {
         fontSize: "48px",
-        fontWeight: "700",
+        fontWeight: "500",
         color: "#374151",
         fontFamily: "Ubuntu",
         marginBottom: "40px",
@@ -90,7 +90,7 @@ export default function FAQSection() {
 
     return (
         <section style={styles.section}>
-            <div style={styles.subtitle}>Answers to important questions about the platform and partnership</div>
+            <div style={styles.subtitle}>Ответы на важные вопросы о платформе и партнёрстве</div>
             <div style={styles.title}>F.A.Q.</div>
             {faqData.map((item, index) => (
                 <div key={index} style={styles.item}>

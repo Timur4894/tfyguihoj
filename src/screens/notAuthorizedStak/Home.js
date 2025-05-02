@@ -7,6 +7,8 @@ import FAQSection from "../../components/landing/FAQSection";
 import MarqueeText from "../../components/MarqueeText";
 import ReadyToStart from "../../components/ReadyToStart";
 import HeroSecMob from "../../components/landing/HeroSecMob";
+import Konsultacia from "../../components/Konsultacia";
+import MarqueeTextMob from "../../components/landing/MarqueeTextMob";
 
 const Home = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -26,13 +28,13 @@ const Home = () => {
     }, []);
     return (
         <div>
-            <MarqueeText/>
+            {isMobile ? <MarqueeTextMob/> : <MarqueeText/>}
             {isMobile ? <HeroSecMob/> : <HeroSection/>}
             <InvestmentProposals/>
             <HowItWorks/>
             <TeamPotentialSection/>
             <FAQSection/>
-            <ReadyToStart/>
+            <Konsultacia/>
         </div>
     );
 };

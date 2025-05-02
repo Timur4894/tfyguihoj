@@ -23,7 +23,7 @@ const styles = {
         position: "relative",
         // marginLeft: -100,
         //   backgroundColor: "#000",
-        width: "90%",
+        width: "100%",
     },
     image: {
         width: "100%",
@@ -130,9 +130,6 @@ export default function AboutSectionMobile() {
 
             <div style={styles.imageWrapper}>
                 <img src={build} alt="Building" style={styles.image}/>
-                <div style={styles.logoCircle}>
-                    <img src={logo} alt="Logo" style={{height: "28px"}}/>
-                </div>
             </div>
 
             <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%",}}>

@@ -31,10 +31,10 @@ export default function RoadMap() {
     return (
         <section style={{ padding: '80px 24px', background: 'white' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 style={{ color: '#6b7280', textTransform: 'uppercase', fontSize: '14px', marginBottom: '16px' }}>
+                <h2 style={{ color: '#6b7280', textTransform: 'uppercase', fontSize: '14px', marginBottom: '6px' }}>
                     Наши планы и цели
                 </h2>
-                <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '48px' }}>
+                <h1 style={{ fontSize: '50px', fontWeight: '400', marginBottom: '48px', fontFamily: 'Ubuntu', marginTop: '6px' }}>
                     Дорожная карта
                 </h1>
 
@@ -49,35 +49,35 @@ export default function RoadMap() {
                             style={{ position: 'relative' }}
                         >
                             {/* Кружок с номером */}
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    left: '-24px',
-                                    top: '-10px',
-                                    backgroundColor: 'black',
-                                    color: 'white',
-                                    width: '32px',
-                                    height: '32px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    // borderRadius: '50%',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold'
-                                }}
-                            >
-                                {String(index + 1).padStart(2, '0')}
-                            </div>
+                            {/*<div*/}
+                            {/*    style={{*/}
+                            {/*        position: 'absolute',*/}
+                            {/*        left: '-24px',*/}
+                            {/*        top: '-10px',*/}
+                            {/*        backgroundColor: 'black',*/}
+                            {/*        color: 'white',*/}
+                            {/*        width: '32px',*/}
+                            {/*        height: '32px',*/}
+                            {/*        display: 'flex',*/}
+                            {/*        alignItems: 'center',*/}
+                            {/*        justifyContent: 'center',*/}
+                            {/*        // borderRadius: '50%',*/}
+                            {/*        fontSize: '14px',*/}
+                            {/*        fontWeight: 'bold'*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    {String(index + 1).padStart(2, '0')}*/}
+                            {/*</div>*/}
 
                             {/* Карточка с текстом */}
                             <div style={{
-                                backgroundColor: '#f3f4f6',
-                                padding: '24px',
+                                // backgroundColor: '#f3f4f6',
+                                // padding: '24px',
                                 borderRadius: '12px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
                             }}>
-                                <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>{item.quarter}</h3>
-                                <h4 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>{item.title}</h4>
+                                <h3 style={{ fontSize: '50px', fontWeight: 'bold', marginBottom: '18px' }}>{item.quarter}</h3>
+                                <h4 style={{ fontSize: '40px', fontWeight: '500', marginBottom: '12px', marginTop:0 }}>{item.title}</h4>
                                 <p style={{ color: '#4b5563', fontSize: '16px', lineHeight: '1.6' }}>{item.description}</p>
                             </div>
                         </motion.div>

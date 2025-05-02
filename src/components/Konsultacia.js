@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-const ReadyToStart = () => {
+const Konsultacia = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -20,16 +20,16 @@ const ReadyToStart = () => {
     return (
         <section style={{...styles.section, ...(isMobile && {flexDirection: 'column',  padding: '20px 20px',}) }}>
             <div style={styles.left}>
-                <h2 style={styles.title}>Готовы начать?</h2>
+                <h2 style={styles.title}>Получите консультацию у менеджера</h2>
                 <p style={styles.subtitle}>
-                    Зарегистрируйтесь сегодня и получите доступ к современным инвестиционным решениям, которые помогут вам уверенно управлять капиталом и увеличивать доход.
-                </p>
+                    Выберите удобный способ связи, и наш менеджер проконсультирует вас, а также познакомит с инструментами и возможностями компании.
+                    </p>
             </div>
 
             <div style={styles.right}>
-                <a href="/createaccountscreen" style={{...styles.circleButton, ...(isMobile && {width: '250px',
+                <a href="/contact" style={{...styles.circleButton, ...(isMobile && {width: '250px',
                         height: '250px',}) }}>
-                    РЕГИСТРАЦИЯ
+                    Открыть контакты
                 </a>
             </div>
         </section>
@@ -50,14 +50,12 @@ const styles = {
     },
     title: {
         fontSize: '42px',
-        fontWeight: '400',
+        fontWeight: '500',
         marginBottom: '20px',
     },
     subtitle: {
-        fontSize: '16px',
+        fontSize: '18px',
         color: '#333',
-        lineHeight: '24px',
-        fontFamily: 'Ubuntu',
     },
     right: {
         display: 'flex',
@@ -80,4 +78,4 @@ const styles = {
     },
 };
 
-export default ReadyToStart;
+export default Konsultacia;

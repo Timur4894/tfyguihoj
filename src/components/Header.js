@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import logo from '../assets/img/logo.png'
 import bg from "../assets/img/download.jpg";
 import {AuthContext} from "../context/AuthContext";
@@ -7,6 +7,10 @@ const Header = () => {
     const [hoveredLink, setHoveredLink] = useState(null);
     // const navItems = ['Home', 'Company', 'Investments', 'Partners', 'FAQ', 'Contacts'];
     const { isAuthenticated } = useContext(AuthContext);
+
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
     const navItems = [
         { label: "Главная", href: "/" },
         { label: "Компании", href: "/aboutcompany" },
@@ -15,8 +19,41 @@ const Header = () => {
         { label: "FAQ", href: "/faq" },
         { label: "Контакты", href: "/contact" },
     ];
-    console.log('isAuthenticated: ', isAuthenticated);
+
+
+
+    const headerStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        transition: 'transform 0.3s ease-in-out',
+        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Прокрутка вниз
+                setShowHeader(false);
+            } else {
+                // Прокрутка вверх
+                setShowHeader(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
+
     return (
+        <div style={headerStyle}>
         <header style={{borderBottom: '1px solid #1a1a1a',backgroundImage: `url(${bg})`,
             backgroundSize: 'cover',
             }}>
@@ -70,6 +107,7 @@ const Header = () => {
                 </div>
             </div>
         </header>
+        </div>
     );
 };
 

@@ -107,7 +107,8 @@ const styles = {
 
     textBlock: {
         fontSize: '15px',
-        color: 'gray',
+        color: '#595959',
+        fontWeight: '500',
         marginBottom: '20px',
         lineHeight: '1.6',
     },
@@ -216,6 +217,12 @@ const CompanyInfoSection = () => {
             <div style={styles.right}>
                 {/*<img src={certificate1} alt="Документ 1" style={styles.docImage} />*/}
                 <img src={certificate2} alt="Документ 2" style={styles.docImage2}/>
+                <p style={{...styles.description, textAlign: 'center'}}>
+                    “Также на нашей платформе Prudent Financial вы можете оформить страхование и воспользоваться другими
+                    финансовыми услугами. Перейдите по ссылке, чтобы узнать больше и выбрать нужный вам сервис.”
+                </p>
+                <a style={{    color: '#595959',
+                    fontWeight: '500',marginLeft: 130}} href='https://www.prudential.com/'>https://www.prudential.com/</a>
             </div>
         </section>
     );

@@ -33,6 +33,9 @@ import ChangePasswordScreen from "./screens/auth/ChangePasswordScreen";
 import PrivacyPolicyScreen from "./screens/PPScreen";
 import CooperationTermsScreen from "./screens/CooperationTermsScreen";
 import HeaderMobile from "./components/HeaderMobile";
+import {createGlobalStyle} from "styled-components";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import CabinetMobScreen from "./screens/authorizedStak/CabinetMobScreen";
 
 const ProtectedRoute = ({ element }) => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -60,9 +63,21 @@ const App = () => {
     );
 };
 
+
+
+const GlobalStyle = createGlobalStyle`
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+`;
+
+
 const AppContent = () => {
     const location = useLocation();
-
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const hideHeaderFooterRoutes = ["/confirmPay", "/aduygihijfyyy", "/logInAsAdmin", "/test", '/cabinetscreen', '/balance', '/opendep', '/mydeps', '/refprogram', '/support', '/wallets'];
     const shouldHideHeaderFooter = hideHeaderFooterRoutes.includes(location.pathname);
 
@@ -88,7 +103,7 @@ const AppContent = () => {
         ::selection {
           color: white;
           background: gray;
-        }
+        },
       `}</style>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
@@ -96,12 +111,13 @@ const AppContent = () => {
                 href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
                 rel="stylesheet"/>
 
-            {/* Show Header unless explicitly hidden */}
-            {!shouldHideHeaderFooter && (
-                isMobile ? <HeaderMobile/> : <Header/>
-            )}
-
-            <main style={mainContentStyle}>
+            {/*<div style={headerStyle}>*/}
+                {!shouldHideHeaderFooter && (
+                    isMobile ? <HeaderMobile/> : <Header/>
+                )}
+            {/*</div>*/}
+            <GlobalStyle/>
+            <main style={{...mainContentStyle, ...(!isMobile && {marginTop:100})}}>
                 <ScrollToTop/>
                 <Routes>
 
@@ -131,7 +147,7 @@ const AppContent = () => {
                                 element={
                                     <AuthorizedLayout>
                                         <ProfHeader/>
-                                        <CabinetScreen/>
+                                        {isMobile ? <CabinetMobScreen/> : <CabinetScreen/>}
                                     </AuthorizedLayout>
                                 }
                             />
@@ -241,6 +257,7 @@ const AppContent = () => {
             </main>
             {/* Show Footer unless explicitly hidden */}
             {!shouldHideHeaderFooter && <Footer/>}
+            <ScrollToTopButton/>
         </div>
     );
 };

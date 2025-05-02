@@ -5,7 +5,7 @@ import mainUrl from "../../constants";
 
 const ReferralProgram = () => {
     const name = localStorage.getItem('nicknameUser');
-    const referralLink = `http://localhost:3000/createaccountscreen/?ref=${name}`;
+    const referralLink = `prudentialinvestmoney.com/createaccountscreen/?ref=${name}`;
     const [affiliateData, setAffiliateData] = useState({
         partnersInvited: 0,
         activePartners: 0,

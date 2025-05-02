@@ -26,7 +26,7 @@ const styles = {
     cardsContainer: {
         display: "flex",
         // flexWrap: "wrap",
-        // backgroundColor: "#fff",
+        // backgroundColor: "#000",
         gap: "24px",
         justifyContent: "center",
     },
@@ -35,7 +35,7 @@ const styles = {
         width: '20%',
         border: "1px solid #000",
         // borderRadius: "8px",
-        padding: "132px 24px",
+        padding: "132px 28px",
         backgroundColor: "#fff",
         boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
         display: "flex",
@@ -179,8 +179,8 @@ const Cards = ({authTrue = false, onActivate = null}) => {
                     style={{
                         ...styles.card,
                         ...(plan.dark ? styles.darkCard : {}),
-                        ...(isMobile && {maxWidth: '85%',
-                            width: '85%',}),
+                        ...(isMobile && {maxWidth: '82%',
+                            width: '82%',}),
                         position: "relative",
                     }}
                 >
@@ -192,6 +192,11 @@ const Cards = ({authTrue = false, onActivate = null}) => {
                             }}
                         >
                             {plan.type}
+                        </div>
+                    )}
+                    {plan.dark && (
+                        <div style={{position: 'absolute', top: 0, right: 0, padding: 10, backgroundColor: '#353a3e'}}>
+                            <p style={{fontFamily: 'Ubuntu', marginBottom: 0, marginTop: 0, fontWeight: '500'}}>Накопительный</p>
                         </div>
                     )}
                     <div style={styles.planTitle}>{plan.title}</div>
@@ -209,10 +214,10 @@ const Cards = ({authTrue = false, onActivate = null}) => {
 
                     <div style={styles.perDay}>{(index === 1 || index === 0) ? 'В ДЕНЬ' : ''}</div>
                     <div style={styles.details}>
-                        Deposits <strong>{plan.deposits}</strong>
+                        Депозит <strong>{plan.deposits}</strong>
                         <br/>
                         <br/>
-                        Working period <strong>{plan.days}</strong>
+                        Срок работы <strong>{plan.days}</strong>
                     </div>
                     <button
                         onClick={authTrue ? onActivate : () => navigate('/investments')}
@@ -221,7 +226,8 @@ const Cards = ({authTrue = false, onActivate = null}) => {
                             ...(plan.dark ? styles.darkButton : {}),
                         }}
                     >
-                        {authTrue ? 'Активировать' : 'Детали'}
+                        {authTrue && <ion-icon name="flash-outline"></ion-icon>}
+                        {authTrue ? 'Активировать' : 'Подробнее'}
                     </button>
                 </div>
             ))}

@@ -20,13 +20,14 @@ export default function PartnersMob() {
         <section style={{ padding: '80px 24px', background: 'white' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
                 <h2 style={{
-                    fontSize: '6vw',
+                    fontSize: '10vw',
                     width: '100%',
-                    fontWeight: '600',
-                    marginBottom: '48px',
+                    fontWeight: '500',
+                    marginBottom: '0px',
                     color: '#1f2937',
                     position: 'absolute',
-                    top: '0px',
+                    fontFamily: "Ubuntu",
+                    top: '-40px',
                     // right: '0'
                 }}>
                     Партнёры, которыми мы гордимся

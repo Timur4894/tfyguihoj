@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import lionImg from "../../assets/img/lion.png"; // замени на путь к твоему изображению
 import dots from "../../assets/img/pattern.png"; // замени на путь к твоему изображению
 import circ from "../../assets/img/circle.png"; // замени на путь к твоему изображению
+import circ2 from "../../assets/img/fav2.png"; // замени на путь к твоему изображению
 
 
 const styles = {
@@ -16,7 +17,7 @@ const styles = {
     },
     content: {
         flex: "1 1 50%",
-        padding: "20px 40px",
+        padding: "20px 20px",
         display: 'flex',
         flexDirection: 'column',
         boxSizing: "border-box",
@@ -29,22 +30,22 @@ const styles = {
         fontWeight: 'bold',
     },
     headline: {
-        fontSize: "35px",
+        fontSize: "30px",
         // fontWeight: "700",
-        lineHeight: "1.2",
+        // lineHeight: "1.2",
         marginBottom: "24px",
         color: "#1F2937",
         alignItems: 'center',
-        fontWeight: 'bold',
+        fontWeight: '400',
         fontFamily: "Ubuntu",
         // color: "#4B5563",
     },
     paragraph: {
-        fontSize: "1.2rem",
+        fontSize: "1rem",
         lineHeight: "1",
         textDecoration: 'none',
         alignItems: 'center',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         fontFamily: "Ubuntu",
         color: "gray",
         marginBottom: "16px",
@@ -57,19 +58,20 @@ const styles = {
         gap: "20px",
     },
     smallText: {
-        fontSize: "1rem",
-        color: "#4B5563",
-        fontWeight: 'bold',
+        fontSize: "12px",
+        color: "#aaa",
+        // fontWeight: 'bold',
         fontFamily: "Ubuntu",
     },
     button: {
         backgroundColor: "#111827",
         color: "#fff",
         padding: "12px 24px",
-        fontSize: "1.2rem",
+        fontSize: "1rem",
         // fontWeight: "600",
+        alignSelf: "flex-start",
         border: "none",
-        borderRadius: "4px",
+        // borderRadius: "4px",
         fontWeight: 'bold',
         display: "flex",
         flexDirection: "row",
@@ -153,45 +155,54 @@ export default function HeroSecMob() {
                     src={circ}
                     alt="Circle"
                     style={{
+                        width: "35%",
+                        height: "auto",
+                        position: "absolute",
+                        left: '10%',
+                        top: '0%',
+                        animation: 'spin 20s linear infinite', // 20s можно изменить на другую скорость
+                    }}
+                />
+                <img
+                    src={circ2}
+                    alt="Circle"
+                    style={{
                         width: "15%",
                         height: "auto",
                         position: "absolute",
-                        left: '30%',
-                        top: '10%',
-                        animation: 'spin 20s linear infinite', // 20s можно изменить на другую скорость
+                        left: '20%',
+                        top: '15%',
                     }}
                 />
 
                 <img src={lionImg} alt="Cyber Lion" style={styles.image}/>
                 <img src={dots} alt="Dots" style={{
-                    width: "40%",
+                    width: "80%",
                     height: "auto",
                     position: "absolute",
-                    left: '55%',
-                    top: '30%'
+                    left: '25%',
+                    top: '-10%'
                 }}/>
             </div>
             <div style={styles.content}>
-                <div style={styles.badge}>Leader of the direction since 2019</div>
                 <h1 style={styles.headline}>
-                    Возможности роста <br />
+                    Возможности роста <br/>
                     с Prudential Invest
                 </h1>
-                <p style={{...styles.paragraph, ...(isMobile && {fontSize: "1.2rem",})}}>
-                    Мы — ведущая платформа на основе искусственного интеллекта...
+                <p style={{...styles.paragraph, ...(isMobile && {fontSize: "1rem", lineHeight: "1.2"})}}>
+                    Мы — ведущая платформа на основе искусственного интеллекта, созданная для поддержки брокеров и инвесторов. Наша технология анализирует рынок и предоставляет точные прогнозы, помогая принимать обоснованные решения и увеличивать прибыль.
+                    Мы развиваем решения не только для финансового сектора, но и для других отраслей, таких как агросектор и медицина, делая наш продукт универсальным и инновационным.
+
                 </p>
                 <p style={styles.paragraph}>
-                    Мы развиваем решения не только для финансового сектора...
-                </p>
-                <p style={styles.paragraph}>
-                    Основной доход компания получает за счёт сдачи в аренду...
+                    Основной доход компания получает за счёт сдачи в аренду нашего уникального софта другим компаниям, а также комиссий за предоставление услуг частным инвесторам и фондам.
                 </p>
                 <div style={styles.linkGroup}>
                     <span style={styles.smallText}>
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
                     <button style={styles.button}>
-                        Больше о компании <ion-icon name="caret-forward-outline"></ion-icon>
+                        Больше о компании ↗
                     </button>
                 </div>
             </div>

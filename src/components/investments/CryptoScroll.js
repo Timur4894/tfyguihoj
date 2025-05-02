@@ -86,7 +86,7 @@ export default function CryptoScroll() {
     return (
         <div style={{ backgroundColor: "#f4f8ff", padding: "100px 0", position: "relative" }}>
             <div style={{ width: '100%', height: 1, backgroundColor: '#000', position: 'absolute', top: 0 }} />
-            <h2 style={{...styles.title, ...(isMobile && { fontSize: "24px",})}}>Поддерживаемые криптовалюты</h2>
+            <h2 style={{...styles.title, ...(isMobile && { fontSize: "40px",})}}>Поддерживаемые криптовалюты</h2>
             <div style={styles.wrapper}>
                 <style>
                     {`
@@ -102,8 +102,10 @@ export default function CryptoScroll() {
                 </style>
                 <div style={{ ...styles.scrollArea, width: "max-content" }} ref={scrollRef}>
                     {extendedList.map((crypto, index) => (
-                        <div style={styles.item} key={index}>
-                            <img src={crypto.icon} alt={crypto.name} style={styles.icon} />
+                        <div style={{...styles.item, ...(isMobile&& { minWidth: "100px",})}} key={index}>
+
+                            <img src={crypto.icon} alt={crypto.name} style={{...styles.icon, ...(isMobile && { width: "150px",
+                                    })}} />
                             {/*<div>*/}
                             {/*    <div style={styles.name}>{crypto.name}</div>*/}
                             {/*    <div style={styles.symbol}>{crypto.symbol}</div>*/}

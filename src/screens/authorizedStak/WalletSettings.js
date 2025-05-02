@@ -150,7 +150,7 @@ const WalletSettings = () => {
 
     return (
         <div style={{ display: 'flex', gap: '24px', padding: '24px', fontFamily: 'Arial, sans-serif', marginTop: -40, ...(isMobile && {flexDirection: 'column'}) }}>
-            <div style={{ flex: 1 }}>
+            <div>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Мои кошельки</h2>
                 <div
                     style={{
@@ -179,7 +179,7 @@ const WalletSettings = () => {
                             borderRadius: '4px',
                             fontWeight: 'bold',
                             fontSize: '14px',
-                            color: '#000',
+                            color: '#fff',
                             cursor: 'pointer',
                             marginTop: '16px',
                         }}
@@ -192,6 +192,7 @@ const WalletSettings = () => {
             <div
                 style={{
                     width: '360px',
+                    ...(isMobile && {width: '87%'}),
                     backgroundColor: '#fff',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
                     marginTop: 55,

@@ -43,6 +43,7 @@ const styles = {
         bottom: '20px',
         fontSize: '3rem',
         fontWeight: 700,
+        // fontFamily: 'Ubuntu',
         color: 'transparent',
         WebkitTextStroke: '1px rgba(0, 0, 0, 0.5)',
         zIndex: 1,

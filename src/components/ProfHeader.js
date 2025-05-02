@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import ava from "../assets/img/avatar.jpg";
 import {AuthContext} from "../context/AuthContext";
+import logo from "../assets/img/fav2.png";
 
 const styles = {
     header: {
@@ -20,6 +21,18 @@ const styles = {
         gap: 5,
         background: 'none',
         border: 'none',
+        cursor: 'pointer',
+    },
+    closeButton: {
+        background: 'none',
+        border: '1px solid #000',
+        borderRadius: '8px',
+        fontSize: '24px',
+        lineHeight: '1',
+        marginRight: 10,
+        width: '36px',
+        height: '36px',
+        textAlign: 'center',
         cursor: 'pointer',
     },
     burgerLine: {
@@ -80,11 +93,13 @@ export default function ProfHeader() {
         }}>
             {!isMobile && <div style={{fontSize: "18px", fontWeight: "bold", color: '#000'}}></div>}
             {isMobile &&
+                <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+                <img src={logo} alt="White Lion" style={{height: 30}}/>
                 <button onClick={toggleMenu} style={styles.burgerButton}>
                 <div style={styles.burgerLine}></div>
                 <div style={styles.burgerLine}></div>
                 <div style={styles.burgerLine}></div>
-            </button>}
+            </button></div>}
 
             <div style={{position: "relative"}}>
                 <button
@@ -115,22 +130,25 @@ export default function ProfHeader() {
                 </button>
 
                 {open && (
-                    <div style={{
-                        position: "absolute",
-                        right: 0,
-                        top: "45px",
-                        width: "220px",
-                        backgroundColor: "white",
-                        border: "1px solid #ccc",
-                        borderRadius: "8px",
-                        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
-                        zIndex: 1000,
-                        overflow: "hidden",
-                        color: "#000"
-                    }}>
-                        <div style={{ padding: "12px", borderBottom: "1px solid #eee" }}>
-                            <p style={{ fontSize: "12px", color: "#666" }}>Общий баланс:</p>
-                            <p style={{ fontWeight: "bold", fontSize: "16px" }}>0.00 $</p>
+                    <div
+                        style={{
+                            position: "absolute",
+                            right: 0,
+                            top: "45px",
+                            width: "220px",
+                            backgroundColor: "white",
+                            border: "1px solid #ccc",
+                            borderRadius: "8px",
+                            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
+                            zIndex: 1000,
+                            overflow: "hidden",
+                            color: "#000",
+                        }}
+                    >
+
+                        <div style={{padding: "12px", borderBottom: "1px solid #eee"}}>
+                            <p style={{fontSize: "12px", color: "#666"}}>Общий баланс:</p>
+                            <p style={{fontWeight: "bold", fontSize: "16px"}}>0.00 $</p>
                             <a
                                 href='/balance' style={{
                                 marginTop: "10px",
@@ -166,55 +184,88 @@ export default function ProfHeader() {
                 )}
             </div>
             {isMobile && isMenuOpen && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '70vw',
-                    height: '100vh',
-                    backgroundColor: '#fff',
-                    boxShadow: '2px 0 10px rgba(0, 0, 0, 0.2)',
-                    zIndex: 2000,
-                    padding: '20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}>
-                    <h4 style={{marginBottom: '20px', color: '#999'}}>МЕНЮ КАБИНЕТА</h4>
-                    <a href="/cabinetscreen" style={sidebarLinkStyle}>
-                        <ion-icon name="home-outline"></ion-icon>
-                        Панель управления</a>
-                    <a href="/balance" style={sidebarLinkStyle}>
-                        <ion-icon name="wallet-outline"></ion-icon>
-                        Балансы</a>
-                    <a href="/opendep" style={sidebarLinkStyle}>
-                        <ion-icon name="add-outline"></ion-icon>
-                        Открыть депозит</a>
-                    <a href="/mydeps" style={sidebarLinkStyle}>
-                        <ion-icon name="analytics-outline"></ion-icon>
-                        Мои депозиты</a>
-                    <a href="/refprogram" style={sidebarLinkStyle}>
-                        <ion-icon name="people-outline"></ion-icon>
-                        Моя команда</a>
-                    <a href="/support" style={sidebarLinkStyle}>
-                        <ion-icon name="help-outline"></ion-icon>
-                        Поддержка</a>
-                    <a href="/wallets" style={sidebarLinkStyle}>
-                        <ion-icon name="settings-outline"></ion-icon>
-                        Мои кошельки</a>
+                <div
+                    onClick={toggleMenu} // Закрывает при клике в любом месте
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '80vw',
+                        height: '100vh',
+                        backgroundColor: '#fff',
+                        boxShadow: '2px 0 10px rgba(0, 0, 0, 0.2)',
+                        zIndex: 2000,
+                        padding: '20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()} // Блокирует всплытие
+                        style={{display: 'flex', flexDirection: 'column', height: '100%', marginTop: 26}}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            // justifyContent: 'space-between',
+                            gap: 10,
+                            alignItems: 'center',
 
-                    <button onClick={toggleMenu} style={{
-                        marginTop: 'auto',
-                        padding: '10px',
-                        backgroundColor: '#f9b233',
-                        border: 'none',
-                        borderRadius: '4px',
-                        fontWeight: 'bold',
-                        cursor: 'pointer',
-                    }}>
-                        Закрыть меню
-                    </button>
+                        }}>
+                            <img src={logo} alt="White Lion" style={{height: 30}}/>
+                            <button onClick={toggleMenu} style={styles.burgerButton}>
+                                <div style={styles.burgerLine}></div>
+                                <div style={styles.burgerLine}></div>
+                                <div style={styles.burgerLine}></div>
+                            </button>
+                        </div>
+                        <h4 style={{marginBottom: '20px', color: '#999'}}>МЕНЮ КАБИНЕТА</h4>
+                        <a href="/cabinetscreen" style={sidebarLinkStyle}>
+                            <ion-icon name="home-outline"></ion-icon>
+                            Панель управления
+                        </a>
+                        <a href="/balance" style={sidebarLinkStyle}>
+                            <ion-icon name="wallet-outline"></ion-icon>
+                            Балансы
+                        </a>
+                        <a href="/opendep" style={sidebarLinkStyle}>
+                            <ion-icon name="add-outline"></ion-icon>
+                            Открыть депозит
+                        </a>
+                        <a href="/mydeps" style={sidebarLinkStyle}>
+                            <ion-icon name="analytics-outline"></ion-icon>
+                            Мои депозиты
+                        </a>
+                        <a href="/refprogram" style={sidebarLinkStyle}>
+                            <ion-icon name="people-outline"></ion-icon>
+                            Моя команда
+                        </a>
+                        <a href="/support" style={sidebarLinkStyle}>
+                            <ion-icon name="help-outline"></ion-icon>
+                            Поддержка
+                        </a>
+                        <a href="/wallets" style={sidebarLinkStyle}>
+                            <ion-icon name="settings-outline"></ion-icon>
+                            Мои кошельки
+                        </a>
+
+                        {/*<button*/}
+                        {/*    onClick={toggleMenu}*/}
+                        {/*    style={{*/}
+                        {/*        marginTop: 'auto',*/}
+                        {/*        padding: '10px',*/}
+                        {/*        backgroundColor: '#f9b233',*/}
+                        {/*        border: 'none',*/}
+                        {/*        borderRadius: '4px',*/}
+                        {/*        fontWeight: 'bold',*/}
+                        {/*        cursor: 'pointer',*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Закрыть меню*/}
+                        {/*</button>*/}
+                    </div>
                 </div>
             )}
+
 
         </div>
     );
