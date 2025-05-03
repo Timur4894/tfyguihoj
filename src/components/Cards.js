@@ -63,8 +63,8 @@ const styles = {
         color: "#fff",
     },
     planTitle: {
-        fontSize: "22px",
-        fontWeight: "600",
+        fontSize: "28px",
+        fontWeight: "500",
         marginBottom: "8px",
         fontFamily: "Ubuntu",
     },
@@ -113,7 +113,7 @@ const styles = {
 
 const investmentPlans = [
     {
-        title: "Стандарт",
+        title: "Standard",
         rate: "+1.3%",
         type: "Ежедневно",
         desc: "Ежедневные начисления доступны для вывода",
@@ -122,7 +122,7 @@ const investmentPlans = [
         dark: false,
     },
     {
-        title: "Рост",
+        title: "Growth",
         rate: "+1.7%",
         type: "Ежедневно",
         desc: "Ежедневные начисления доступны для вывода",
@@ -131,7 +131,7 @@ const investmentPlans = [
         dark: false,
     },
     {
-        title: "Композит",
+        title: "Compound",
         rate: "+2.3%",
         type: "Накопительный",
         desc: "Ежедневное увеличение тела депозита",
@@ -140,11 +140,11 @@ const investmentPlans = [
         dark: true,
     },
     {
-        title: "Накопление",
+        title: "Accumulatio",
         rate: "+2.9%",
         type: "Накопительный",
         desc: "Ежедневное увеличение тела депозита",
-        deposits: "от 100000$",
+        deposits: "от 50000$",
         days: "20 рабочих дней",
         dark: true,
     },

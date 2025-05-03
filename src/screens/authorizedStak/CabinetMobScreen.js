@@ -117,7 +117,7 @@ export default function CabinetMobScreen() {
                     },
                 });
                 setCabinetData(cabinetResponse.data.data);
-                await new Promise(resolve => setTimeout(resolve, 20));
+                await new Promise(resolve => setTimeout(resolve, 500));
                 // Второй запрос: депозиты
                 const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
                     headers: {

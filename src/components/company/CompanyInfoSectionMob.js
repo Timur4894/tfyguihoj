@@ -1,19 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 // import certificate1 from './path-to-doc1.png';
 import certificate2 from '../../assets/img/doc_promo.png';
+import AArrow from "../../assets/svg/AArrow";
 
 const styles = {
-    section: {
-        backgroundColor: '#f6f9fc',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: '100px 40px',
-        paddingLeft: '100px',
-        // flexWrap: 'wrap',
-        fontFamily: 'sans-serif',
-    },
+
     left: {
         // maxWidth: '50%',
     },
@@ -100,6 +91,8 @@ const styles = {
         color: '#fff',
         padding: '10px 18px',
         fontSize: '12px',
+        display: 'flex',
+        alignItems: 'center',
         fontWeight: '900',
         borderRadius: '8px',
         textDecoration: 'none',
@@ -184,11 +177,11 @@ const CompanyInfoSectionMob = () => {
                 <div style={styles.buttons}>
                     <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001137774&type=10-K&dateb=&owner=exclude&count=40"
                        target="_blank" rel="noreferrer" style={styles.button}>
-                        UNITED STATES SECURITIES AND EXCHANGE COMMISSION ↗
+                        UNITED STATES SECURITIES AND EXCHANGE COMMISSION <AArrow width={24} height={24} color='#fff'/>
                     </a>
                     <a href="https://d18rn0p25nwr6d.cloudfront.net/CIK-0001137774/31d1fb8d-f0e4-4986-aa28-e60869a98738.pdf"
                        target="_blank" rel="noreferrer" style={styles.button}>
-                        Открыть документ .PDF ↗
+                        Открыть документ .PDF <AArrow width={24} height={24} color='#fff'/>
                     </a>
                 </div>
 
@@ -199,7 +192,8 @@ const CompanyInfoSectionMob = () => {
 
                 <a href="https://www.reuters.com/markets/companies/PRU.N/" target="_blank" rel="noreferrer"
                    style={styles.button}>
-                    Котировки на бирже ↗
+                    Котировки на бирже <AArrow width={24} height={24} color='#fff'/>
+
                 </a>
 
                 <p style={styles.description}>
@@ -209,9 +203,9 @@ const CompanyInfoSectionMob = () => {
 
                 <div style={styles.secLinks}>
                     <a href="https://www.sec.gov/Archives/edgar/data/1137774/000119312506041378/d10k.htm"
-                       style={styles.secButton}>SEC 2005 ↗</a>
+                       style={styles.secButton}>SEC 2005 <AArrow width={24} height={24} color='#fff'/></a>
                     <a href="https://www.sec.gov/Archives/edgar/data/1137774/000113777416000226/pfi201510-k.htm"
-                       style={styles.secButton}>SEC 2015 ↗</a>
+                       style={styles.secButton}>SEC 2015 <AArrow width={24} height={24} color='#fff'/></a>
                 </div>
             </div>
 

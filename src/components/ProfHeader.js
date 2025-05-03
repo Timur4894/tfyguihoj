@@ -94,12 +94,15 @@ export default function ProfHeader() {
             {!isMobile && <div style={{fontSize: "18px", fontWeight: "bold", color: '#000'}}></div>}
             {isMobile &&
                 <div style={{display: "flex", gap: 10, alignItems: "center"}}>
-                <img src={logo} alt="White Lion" style={{height: 30}}/>
-                <button onClick={toggleMenu} style={styles.burgerButton}>
-                <div style={styles.burgerLine}></div>
-                <div style={styles.burgerLine}></div>
-                <div style={styles.burgerLine}></div>
-            </button></div>}
+                    <a href="/">
+                        <img src={logo} alt="White Lion" style={{height: 30, cursor: "pointer"}}/>
+                    </a>
+                    <button onClick={toggleMenu} style={styles.burgerButton}>
+                        <div style={styles.burgerLine}></div>
+                        <div style={styles.burgerLine}></div>
+                        <div style={styles.burgerLine}></div>
+                    </button>
+                </div>}
 
             <div style={{position: "relative"}}>
                 <button
@@ -211,7 +214,9 @@ export default function ProfHeader() {
                             alignItems: 'center',
 
                         }}>
-                            <img src={logo} alt="White Lion" style={{height: 30}}/>
+                            <a href="/">
+                                <img src={logo} alt="White Lion" style={{height: 30, cursor: "pointer"}}/>
+                            </a>
                             <button onClick={toggleMenu} style={styles.burgerButton}>
                                 <div style={styles.burgerLine}></div>
                                 <div style={styles.burgerLine}></div>

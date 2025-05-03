@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import usd from '../../assets/img/usd.png'
 import {Link} from "react-router-dom";
 import {Button} from "@react-pdf-viewer/core";
@@ -66,6 +66,100 @@ const actionButtonStyle = {
     justifyContent: "center",
     alignItems: "center",
     gap: "6px",
+};
+
+
+const WalletSelect = ({ wallets, selected, onSelect }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const ref = useRef();
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const handleSelect = (value) => {
+        onSelect(value);
+        setIsOpen(false);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const filteredOptions = Object.entries(wallets)
+        .filter(([_, address]) => address.trim() !== "")
+        .map(([key, address]) => ({
+            value: key,
+            label: `${key} (${address})`,
+            address
+        }));
+
+    return (
+        <div style={{ marginBottom: "1rem", position: 'relative' }} ref={ref}>
+            <label style={{ display: "block", marginBottom: "0.5rem", fontFamily: "Ubuntu" }}>
+                Выберите кошелек
+            </label>
+            <div
+                onClick={toggleDropdown}
+                style={{
+                    width: "90%",
+                    padding: "1rem",
+                    border: "1px solid #C1C1C1FF",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    position: "relative",
+                    backgroundColor: "#fff",
+                    fontFamily: "Ubuntu",
+                }}
+            >
+                {filteredOptions.find(o => o.value === selected)?.label || "-- Выберите валюту --"}
+                <span style={{ position: "absolute", right: "1rem", top: "1.2rem" }}>▾</span>
+            </div>
+
+            {isOpen && (
+                <div
+                    style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        width: "100%",
+                        border: "1px solid #C1C1C1FF",
+                        borderRadius: "6px",
+                        backgroundColor: "#fff",
+                        zIndex: 10,
+                        marginTop: "0.2rem",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+                    }}
+                >
+                    {filteredOptions.map((option) => (
+                        <div
+                            key={option.value}
+                            onClick={() => handleSelect(option.value)}
+                            style={{
+                                padding: "1rem",
+                                cursor: "pointer",
+                                fontWeight: option.value === selected ? "bold" : "normal",
+                                fontFamily: "Ubuntu",
+                            }}
+                        >
+                            {option.label}
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {selected && (
+                <p style={{ marginTop: 10 }}>
+                    <strong>Выбранный адрес:</strong>{" "}
+                    {wallets[selected]}
+                </p>
+            )}
+        </div>
+    );
 };
 
 export default function BalanceScreen() {
@@ -296,7 +390,9 @@ export default function BalanceScreen() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    zIndex: 1000
+                    zIndex: 1000,
+                    paddingLeft: 10,
+                    paddingRight: 10,
                 }}>
                     <div style={{
                         background: "#fff",
@@ -306,34 +402,39 @@ export default function BalanceScreen() {
                         boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                         fontFamily: "sans-serif"
                     }}>
-                        <h3 style={{fontSize: 18, marginBottom: 20}}>Вывод средств USD</h3>
-                        <h4 style={{display: "block", marginBottom: 40}}>
+                        <h3 style={{fontSize: 20, fontWeight: '400', fontFamily: 'Ubuntu', marginBottom: 20}}>Вывод средств USD</h3>
+                        <h4 style={{display: "block", marginBottom: 40, fontFamily: 'Ubuntu', fontWeight: '400', color: '#3a3a3a'}}>
                             Вы собираетесь отправить заявку на выплату средств с баланса USD. Пожалуйста, укажите в поле ниже желаемую сумму выплаты.
                         </h4>
 
-                        <div style={{marginBottom: 15}}>
-                            <label style={{display: "block", marginBottom: 6}}>
-                                Выберите кошелек
-                            </label>
-                            <select onChange={handleWalletChange} style={{width: "100%", padding: 8}}>
-                                <option value="">-- Выберите валюту --</option>
-                                {Object.entries(wallets)
-                                    .filter(([_, address]) => address.trim() !== "")
-                                    .map(([key, address]) => (
-                                        <option key={key} value={key}>
-                                            {key} ({address})
-                                        </option>
-                                    ))
-                                }
+                        {/*<div style={{marginBottom: 15}}>*/}
+                        {/*    <label style={{display: "block", marginBottom: 6}}>*/}
+                        {/*        Выберите кошелек*/}
+                        {/*    </label>*/}
+                        {/*    <select onChange={handleWalletChange} style={{width: "100%", padding: 8}}>*/}
+                        {/*        <option value="">-- Выберите валюту --</option>*/}
+                        {/*        {Object.entries(wallets)*/}
+                        {/*            .filter(([_, address]) => address.trim() !== "")*/}
+                        {/*            .map(([key, address]) => (*/}
+                        {/*                <option key={key} value={key}>*/}
+                        {/*                    {key} ({address})*/}
+                        {/*                </option>*/}
+                        {/*            ))*/}
+                        {/*        }*/}
 
-                            </select>
+                        {/*    </select>*/}
 
-                            {choosenWallet && (
-                                <p style={{marginTop: 10}}>
-                                    <strong>Выбранный адрес:</strong> {choosenWallet}
-                                </p>
-                            )}
-                        </div>
+                        {/*    {choosenWallet && (*/}
+                        {/*        <p style={{marginTop: 10}}>*/}
+                        {/*            <strong>Выбранный адрес:</strong> {choosenWallet}*/}
+                        {/*        </p>*/}
+                        {/*    )}*/}
+                        {/*</div>*/}
+                        <WalletSelect
+                            wallets={wallets}
+                            selected={choosenWallet}
+                            onSelect={setChoosenWallet}
+                        />
 
                         {/*<div style={{ marginBottom: 15 }}>*/}
                         {/*    <label style={{ display: "block", marginBottom: 6 }}>Баланс для списания</label>*/}
@@ -352,7 +453,13 @@ export default function BalanceScreen() {
                                     setAmountError(false); // сбрасываем ошибку при вводе
                                 }}
                                 placeholder="00.00"
-                                style={{width: "95%", padding: 8, border: amountError ? "2px solid red" : "1px solid #ccc",}}
+                                style={{width: "90%",
+                                    padding: "1rem",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    position: "relative",
+                                    backgroundColor: "#fff",
+                                    fontFamily: "Ubuntu", border: amountError ? "2px solid red" : "1px solid #ccc",}}
                             />
                             {amountError && (
                                 <div style={{ color: "red", marginBottom: "8px" }}>

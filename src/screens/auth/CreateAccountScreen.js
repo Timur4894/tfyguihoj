@@ -59,7 +59,7 @@ const styles = {
         backgroundColor: '#111827',
         color: '#fff',
         fontWeight: '600',
-        borderRadius: '6px',
+        // borderRadius: '6px',
         cursor: 'pointer',
         border: 'none',
         marginTop: '1rem',

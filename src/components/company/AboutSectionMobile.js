@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import build from '../../assets/img/office.jpg'
 import logo from '../../assets/img/fav.png'
+import AArrow from "../../assets/svg/AArrow";
 
 const styles = {
     section: {
@@ -151,7 +152,7 @@ export default function AboutSectionMobile() {
                     </div>
                 </div>
                 <a href="/contact" style={styles.button}>
-                    Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}>↗</span>
+                    Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}><AArrow width={24} height={24} color='#fff'/></span>
                 </a>
             </div>
         </section>

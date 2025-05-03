@@ -3,7 +3,8 @@ import lionImg from "../../assets/img/lion.png"; // замени на путь �
 import dots from "../../assets/img/pattern.png"; // замени на путь к твоему изображению
 import circ from "../../assets/img/circle.png"; // замени на путь к твоему изображению
 import circ2 from "../../assets/img/fav2.png"; // замени на путь к твоему изображению
-
+import {ReactComponent as RightUpIcon} from "../../assets/svg/arrow-up.svg";
+import AArrow from "../../assets/svg/AArrow";
 
 const styles = {
     imageWrapper: {
@@ -202,7 +203,7 @@ export default function HeroSecMob() {
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
                     <button style={styles.button}>
-                        Больше о компании ↗
+                        Больше о компании <AArrow width={24} height={24} color='#fff'/>
                     </button>
                 </div>
             </div>

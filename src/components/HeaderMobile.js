@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import logo from '../assets/img/logo.png';
 import { AuthContext } from '../context/AuthContext';
+import AArrow from "../assets/svg/AArrow";
 
 const HeaderMobile = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,8 +15,8 @@ const HeaderMobile = () => {
         left: 0,
         right: 0,
         zIndex: 1000,
-        transition: 'transform 0.3s ease-in-out',
-        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0s ease-in-out',
+        // transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
     };
 
     useEffect(() => {
@@ -50,7 +51,7 @@ const HeaderMobile = () => {
     const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
     return (
-        <div style={{...headerStyle, ...(isMenuOpen && {transform: null})}}>
+        <div style={{...headerStyle, transform: showHeader ? 'translateY(0)' : 'translateY(-100%)', ...(isMenuOpen && {transform: null}),}}>
             <header style={styles.header}>
                 <a href="/" style={styles.logoContainer}>
                     <img src={logo} alt="White Lion" style={{ height: 60 }} />
@@ -79,13 +80,11 @@ const HeaderMobile = () => {
                         </div>
 
                         <div style={styles.actions}>
-                            <a href="/createaccountscreen" style={{ ...styles.actionButton, borderRadius: 10 }}>
-                                Регистрация <span style={styles.arrow}>↗</span>
+                            <a href="/createaccountscreen" style={{ ...styles.actionButton}}>
+                                Регистрация <AArrow width={24} height={24} color='#000'/>
                             </a>
-                            {!isAuthenticated ? <a href="/login" style={styles.button}>Кабинет <ion-icon
-                                    name="caret-forward-outline"></ion-icon></a> :
-                                <a href="/cabinetscreen" style={styles.button}>Кабинет <ion-icon
-                                    name="caret-forward-outline"></ion-icon></a>}
+                            {!isAuthenticated ? <a href="/login" style={styles.actionButton}>Кабинет <AArrow width={24} height={24} color='#000'/></a> :
+                                <a href="/cabinetscreen" style={styles.actionButton}>Кабинет <AArrow width={24} height={24} color='#000'/></a>}
                         </div>
                     </div>
                 </div>
@@ -185,9 +184,12 @@ const styles = {
         flex: 1,
         border: '1px solid #ddd',
         padding: '12px 16px',
+        display: 'flex',
+        alignItems: 'center',
         textAlign: 'center',
         fontWeight: '600',
         fontSize: '13px',
+        justifyContent: 'center',
         color: '#1a1a1a',
         textDecoration: 'none',
     },

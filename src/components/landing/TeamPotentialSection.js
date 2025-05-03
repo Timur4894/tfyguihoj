@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/img/partners.png";
 import circ from "../../assets/img/shape-1.png";
 import a from "../../assets/img/a.png";
+import AArrow from "../../assets/svg/AArrow";
 
 const baseSection = {
     padding: "100px 40px",
@@ -58,10 +59,12 @@ const styles = {
         color: "#ffffff",
         fontFamily: "Ubuntu",
         padding: "14px 28px",
-        borderRadius: "10px",
+        // borderRadius: "10px",
         fontWeight: "600",
         fontSize: "16px",
         cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
         border: "none",
     },
 };
@@ -130,7 +133,7 @@ export default function TeamPotentialSection() {
                     Раскройте потенциал дохода с нашей уникальной трёхуровневой партнёрской программой! Каждый уровень приносит вам солидные бонусы. И это ещё не всё! Мы предлагаем матчинг-бонус, который позволяет зарабатывать каждый раз, когда ваш реферал получает доход. Присоединяйтесь к нам, приглашайте партнёров и стройте свою команду, где каждый шаг увеличивает ваш заработок. Эта программа создана, чтобы ваш успех рос вместе с успехом ваших партнёров!
                 </div>
                 <button style={styles.button}>
-                    Узнать больше &rarr;
+                    Узнать больше <AArrow width={24} height={24} color='#fff'/>
                 </button>
             </div>
         </section>

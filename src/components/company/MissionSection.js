@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import AArrow from "../../assets/svg/AArrow";
 
 const styles = {
     section: {
@@ -148,7 +149,7 @@ const MissionSection = () => {
             </p>
             <a href="https://www.forbes.com/companies/prudential-financial/" target="_blank" rel="noreferrer"
                style={styles.button}>
-                Forbes Global 2000 ↗
+                Forbes Global 2000 <AArrow width={24} height={24} color='#fff'/>
             </a>
         </section>
 

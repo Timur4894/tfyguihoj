@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import lionImg from "../../assets/img/lion.png"; // замени на путь к твоему изображению
 import dots from "../../assets/img/pattern.png"; // замени на путь к твоему изображению
-import circ from "../../assets/img/circle.png"; // замени на путь к твоему изображению
+import circ from "../../assets/img/circle.png";
+import AArrow from "../../assets/svg/AArrow"; // замени на путь к твоему изображению
 
 
 const styles = {
@@ -188,7 +189,7 @@ export default function HeroSection() {
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
                     <button style={styles.button}>
-                        Больше о компании ↗
+                        Больше о компании <AArrow width={24} height={24} color='#fff'/>
                     </button>
                 </div>
             </div>

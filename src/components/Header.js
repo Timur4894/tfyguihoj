@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import logo from '../assets/img/logo.png'
 import bg from "../assets/img/download.jpg";
 import {AuthContext} from "../context/AuthContext";
+import AArrow from "../assets/svg/AArrow";
 
 const Header = () => {
     const [hoveredLink, setHoveredLink] = useState(null);
@@ -97,13 +98,10 @@ const Header = () => {
                     ))}
                 </nav>
                 <div style={styles.buttons}>
-                    {!isAuthenticated && <a href="/createaccountscreen" style={styles.button}>Регистрация <ion-icon
-                        name="caret-forward-outline"></ion-icon></a>}
+                    {!isAuthenticated && <a href="/createaccountscreen" style={styles.button}>Регистрация <AArrow width={24} height={24} color='#000'/></a>}
 
-                    {!isAuthenticated ? <a href="/login" style={styles.button}>Кабинет <ion-icon
-                            name="caret-forward-outline"></ion-icon></a> :
-                        <a href="/cabinetscreen" style={styles.button}>Кабинет <ion-icon
-                            name="caret-forward-outline"></ion-icon></a>}
+                    {!isAuthenticated ? <a href="/login" style={styles.button}>Кабинет <AArrow width={24} height={24} color='#000'/></a> :
+                        <a href="/cabinetscreen" style={styles.button}>Кабинет <AArrow width={24} height={24} color='#000'/></a>}
                 </div>
             </div>
         </header>
