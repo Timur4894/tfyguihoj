@@ -123,7 +123,7 @@ export default function OfficesSection() {
                 <div style={styles.info}>
                     <div style={styles.title}>United States of America
                     </div>
-                    <div style={styles.email}>support@whitelion-invest.com</div>
+                    <div style={styles.email}>prudentialinvestmoney@gmail.com</div>
                     <div style={styles.phone}>+1 (617) 236-3100</div>
                     <div style={styles.address}>
                         800 Boylston St, Boston, MA<br/>
@@ -140,7 +140,7 @@ export default function OfficesSection() {
                 />
                 <div style={styles.info}>
                     <div style={styles.title}>Japan</div>
-                    <div style={styles.email}>support@whitelion-invest.com</div>
+                    <div style={styles.email}>prudentialinvestmoney@gmail.com</div>
                     <div style={styles.phone}>+(248) 251 7412</div>
                     <div style={styles.address}>
                         Nagatachō, Chiyoda City, Tokyo<br/>

@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import Cards from "../../components/Cards";
 import {Link} from "react-router-dom";
+import CardsMob from "../../components/CardsMob";
 
 const CustomSelect = ({ options, selected, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -126,7 +127,7 @@ const OpenDepScreen = () => {
                     Ознакомьтесь с нашими инвестиционными предложениями, выберите подходящее и активируйте его. Перед активацией, пожалуйста, пополните необходимый баланс в разделе Балансы . После подтверждения активации с баланса будет списана сумма, равная сумме депозита. Инвестиционные пакеты Standard и Growth обеспечивают ежедневные начисления на баланс, с которого средства доступны к выводу. Пакеты Compound и Accumulation предлагают накопительный эффект: начисления также происходят каждый бизнес-день, но автоматически добавляются к телу депозита, работая по принципу сложного процента.                </p>
             </div>
 
-            <Cards authTrue={true} onActivate={() => setShowModal(true)} />
+            {isMobile ? <CardsMob authTrue={true} onActivate={() => setShowModal(true)} /> : <Cards authTrue={true} onActivate={() => setShowModal(true)} />}
 
             {showModal && (
                 <div style={{

@@ -117,7 +117,7 @@ export default function CabinetScreen() {
                     },
                 });
                 setCabinetData(cabinetResponse.data.data);
-                await new Promise(resolve => setTimeout(resolve, 20));
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 // Второй запрос: депозиты
                 const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
                     headers: {
@@ -168,6 +168,14 @@ export default function CabinetScreen() {
             mediaQuery.removeEventListener("change", handleResize);
         };
     }, []);
+
+    const formatMillisecondsToTime = (ms: number) => {
+        const totalSeconds = Math.floor(ms / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div style={{ color: 'red' }}>{error}</div>;
@@ -256,7 +264,7 @@ export default function CabinetScreen() {
                     <tr>
                         {/*<th style={{...thTdStyle, ...headerStyle}}>Тип</th>*/}
                         <th style={{...thTdStyle, ...headerStyle}}>Сумма</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Дата</th>
+                        <th style={{...thTdStyle, ...headerStyle}}>Выплата через</th>
                         <th style={{...thTdStyle, ...headerStyle}}>Статус</th>
                     </tr>
                     </thead>
@@ -270,7 +278,10 @@ export default function CabinetScreen() {
                             <tr key={index}>
                                 {/*<td style={thTdStyle}>{event.type}</td>*/}
                                 <td style={thTdStyle}>{event.deposit} $</td>
-                                <td style={thTdStyle}>{new Date(event.activated).toLocaleDateString()}</td>
+                                <td style={thTdStyle}>
+                                    {formatMillisecondsToTime(Number(event.nextPayment))}
+                                </td>
+
                                 <td style={{...thTdStyle, color: event.status ? 'green' : 'red'}}>
                                     {event.status ? "Активен" : "Не активен"}
                                 </td>
@@ -278,7 +289,7 @@ export default function CabinetScreen() {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="4" style={thTdStyle}>
+                        <td colSpan="4" style={thTdStyle}>
                                 У вас ещё нет активных событий. Откройте новый депозит на вкладке{" "}
                                 <a href="/opendep" style={{color: "#2563eb"}}>Открыть депозит</a>
                             </td>
@@ -304,7 +315,11 @@ export default function CabinetScreen() {
                     {/*</div>*/}
                     <div>
                         <p style={labelStyle}>Ближайшее начисление через:</p>
-                        <p style={valueStyle}>В течении 24-х часов</p>
+                        <p style={valueStyle}>
+                            {deposits?.length > 0 && deposits[0]?.nextPayment
+                                ? formatMillisecondsToTime(Number(deposits[0].nextPayment))
+                                : '00:00:00'}
+                        </p>
                     </div>
                 </div>
                 <a href='/mydeps' style={buttonStyle}>Мои депозиты →</a>

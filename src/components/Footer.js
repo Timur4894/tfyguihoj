@@ -152,7 +152,7 @@ export default function Footer() {
                 <div style={styles.contactBlock}>
                     <div style={styles.iconText}>
                         <MdEmail/>
-                        <span>support@prudential-invest.com</span>
+                        <span>prudentialinvestmoney@gmail.com</span>
                     </div>
                     <div style={styles.iconText}>
                         <MdLocationOn/>

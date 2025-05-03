@@ -117,8 +117,8 @@ export default function CabinetMobScreen() {
                     },
                 });
                 setCabinetData(cabinetResponse.data.data);
-                await new Promise(resolve => setTimeout(resolve, 500));
-                // Второй запрос: депозиты
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
                 const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -151,6 +151,15 @@ export default function CabinetMobScreen() {
             setLoading(false);
         }
     }, [token]);
+
+
+    const formatMillisecondsToTime = (ms: number) => {
+        const totalSeconds = Math.floor(ms / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    };
 
 
     const [isMobile, setIsMobile] = useState(false);
@@ -284,7 +293,7 @@ export default function CabinetMobScreen() {
                     {deposits?.length > 0 && <tr>
                         {/*<th style={{...thTdStyle, ...headerStyle}}>Тип</th>*/}
                         <th style={{...thTdStyle, ...headerStyle}}>Сумма</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Дата</th>
+                        <th style={{...thTdStyle, ...headerStyle}}>Выплата через</th>
                         <th style={{...thTdStyle, ...headerStyle}}>Статус</th>
                     </tr>}
                     </thead>
@@ -297,7 +306,7 @@ export default function CabinetMobScreen() {
                         deposits.slice(0, 5).map((event, index) => (
                             <tr key={index}>
                                 <td style={thTdStyle}>{event.deposit} $</td>
-                                <td style={thTdStyle}>{new Date(event.activated).toLocaleDateString()}</td>
+                                <td style={thTdStyle}>{formatMillisecondsToTime(Number(event.nextPayment))}</td>
                                 <td style={{...thTdStyle, color: event.status ? 'green' : 'red'}}>
                                     {event.status ? "Активен" : "Не активен"}
                                 </td>
@@ -363,7 +372,12 @@ export default function CabinetMobScreen() {
                     {/*</div>*/}
                     <div>
                         <p style={labelStyle}>Ближайшее начисление через:</p>
-                        <p style={valueStyle}>00:00:00</p>
+                        <p style={valueStyle}>
+                            {deposits?.length > 0 && deposits[0]?.nextPayment
+                                ? formatMillisecondsToTime(Number(deposits[0].nextPayment))
+                                : '00:00:00'}
+                        </p>
+
                     </div>
                 </div>
                 <a href='/mydeps' style={buttonStyle}>Мои депозиты →</a>

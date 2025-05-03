@@ -70,9 +70,9 @@ const Header = () => {
                     </div>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <ion-icon name="mail-outline"></ion-icon>
-                        <a href="mailto:support@whitelion-invest.com" style={{
+                        <a href="mailto:prudentialinvestmoney@gmail.com" style={{
                             ...styles.navLink, marginLeft: 4, fontWeight: '300'
-                        }}> support@whitelion-invest.com</a>
+                        }}> prudentialinvestmoney@gmail.com</a>
                     </div>
                 </div>
             </div>

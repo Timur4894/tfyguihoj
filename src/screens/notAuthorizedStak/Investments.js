@@ -5,6 +5,7 @@ import Cards from "../../components/Cards";
 import CryptoScroll from "../../components/investments/CryptoScroll";
 import AboutCompHedMob from "../../components/AboutCompHedMob";
 import InvestmentCalculatorMob from "../../components/investments/InvestmentCalculatorMob";
+import CardsMob from "../../components/CardsMob";
 
 
 const styles = {
@@ -105,7 +106,7 @@ const Investments = () => {
 
             </div>
             <div style={{...(isMobile && { paddingLeft: '0.7rem', paddingRight: '1rem'}) }}>
-                <Cards/>
+                {isMobile ? <CardsMob/> : <Cards/>}
             </div>
             <div style={{height: 100}}/>
             <CryptoScroll/>

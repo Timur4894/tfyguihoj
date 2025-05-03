@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Cards from "../Cards";
+import CardsMob from "../CardsMob";
 
 const styles = {
     section: {
@@ -170,7 +171,7 @@ export default function InvestmentProposals() {
                 <div style={styles.subTitle}>Выгодные инвестиции с Prudential Invest</div>
                 <h1 style={{...styles.title, ...( isMobile && {fontSize: "25px", marginTop: 50})}}>Инвестиционные <br/>предложения</h1>
             </div>
-            <Cards/>
+            {isMobile ? <CardsMob/> : <Cards/>}
             <div style={{width: '80%', height: 1, backgroundColor: '#aaa', marginLeft: '10%', marginTop: 40}}/>
 
         </section>
