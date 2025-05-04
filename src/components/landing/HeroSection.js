@@ -68,6 +68,7 @@ const styles = {
         padding: "12px 24px",
         fontSize: "1.2rem",
         // fontWeight: "600",
+        textDecoration: "none",
         border: "none",
         // borderRadius: "4px",
         fontWeight: 'bold',
@@ -188,9 +189,9 @@ export default function HeroSection() {
                     <span style={styles.smallText}>
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
-                    <button style={styles.button}>
+                    <a href='/aboutcompany' style={styles.button}>
                         Больше о компании <AArrow width={24} height={24} color='#fff'/>
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>

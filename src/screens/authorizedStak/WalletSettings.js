@@ -116,7 +116,7 @@ const WalletSettings = () => {
         gap: '12px',
         border: '1px solid #ddd',
         borderRadius: '6px',
-        padding: '10px 12px',
+        // padding: '10px 12px',
         fontSize: '14px',
         marginBottom: '16px',
         backgroundColor: '#fff',
@@ -128,7 +128,9 @@ const WalletSettings = () => {
                 Кошелек {label}
             </label>
             <div style={inputStyle}>
-                <img src={icon} alt={coin} style={{ width: '24px', height: '24px' }} />
+                <div style={{width: '24px', height: '24px', backgroundColor: '#ebeff7', padding: '12px',borderTopLeftRadius: 6, borderBottomLeftRadius: 6}}>
+                    <img src={icon} alt={coin} style={{width: '24px', height: '24px'}}/>
+                </div>
                 <input
                     type="text"
                     value={wallets[coin]}
@@ -149,7 +151,7 @@ const WalletSettings = () => {
     if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
     return (
-        <div style={{ display: 'flex', gap: '24px', padding: '24px', fontFamily: 'Arial, sans-serif', marginTop: -40, ...(isMobile && {flexDirection: 'column'}) }}>
+        <div style={{ display: 'flex', gap: '24px', padding: '24px', fontFamily: 'Arial, sans-serif', marginTop: -40, ...(isMobile && {flexDirection: 'column', width: '100%', paddingLeft: '0px',}) }}>
             <div>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Мои кошельки</h2>
                 <div

@@ -69,14 +69,14 @@ const styles = {
         display: "flex",
         // gap: "3rem",
         // alignItems: "flex-start",
-        flexDirection: "column",
-        marginLeft: 50,
-        marginRight: 50,
+        flexDirection: "row",
+        marginLeft: 20,
+        marginRight: 20,
         marginBottom: "2rem",
     },
     statBlock: {
         fontSize: "4rem",
-        fontWeight: "bold",
+        fontWeight: "300",
         color: "#111827",
         fontFamily: "Ubuntu",
     },
@@ -87,16 +87,18 @@ const styles = {
         marginTop: "0.25rem",
     },
     button: {
-        display: "inline-flex",
+        display: "flex",
         alignItems: "center",
-        alignSelf: "center",
+        // alignSelf: "center",
+
         padding: "0.75rem 1.5rem",
         border: "1px solid #D1D5DB",
         color: "#111827",
         // borderRadius: "0.5rem",
         textDecoration: "none",
         fontWeight: 500,
-
+        justifyContent: "center",
+        alignSelf: "center",
         width: "60%",
         transition: "background 0.2s ease",
     },
@@ -144,7 +146,7 @@ export default function AboutSectionMobile() {
                             <div style={styles.statText}>Партнёров, использующих наш софт
                             </div>
                         </div>
-                        <div style={{width: '100%', backgroundColor: "#aaa", height: 1, marginTop: 20}}/>
+                        {/*<div style={{width: '100%', backgroundColor: "#aaa", height: 1, marginTop: 20}}/>*/}
                         <div>
                             <div style={styles.statBlock}>150+</div>
                             <div style={styles.statText}>Лет профессионального опыта</div>
@@ -152,7 +154,7 @@ export default function AboutSectionMobile() {
                     </div>
                 </div>
                 <a href="/contact" style={styles.button}>
-                    Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}><AArrow width={24} height={24} color='#fff'/></span>
+                    Свяжитесь с нами <span style={{marginLeft: "0.5rem"}}><AArrow width={24} height={24} color='#000'/></span>
                 </a>
             </div>
         </section>

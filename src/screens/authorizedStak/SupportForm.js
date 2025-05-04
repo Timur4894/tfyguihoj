@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 const SupportForm = () => {
     const [subject, setSubject] = useState("");
@@ -50,8 +50,24 @@ const SupportForm = () => {
         }
     };
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => {
+            setIsMobile(mediaQuery.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    }, []);
+
     return (
-        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111", marginTop: -40 }}>
+        <div style={{ padding: "24px", fontFamily: "Arial, sans-serif", color: "#111", marginTop: -40 , ...(isMobile && {paddingLeft: "0px",}),}}>
             <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>
                 Техническая поддержка
             </h2>
@@ -61,7 +77,9 @@ const SupportForm = () => {
                     border: "1px solid #000",
                     padding: "16px",
                     marginBottom: "24px",
+                    // width: "100%",
                     backgroundColor: "#fefefe",
+                    ...(isMobile && {width: "100%"}),
                 }}
             >
                 <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#222", textAlign: "center" }}>
@@ -78,13 +96,16 @@ const SupportForm = () => {
                     backgroundColor: "#fff",
                     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
                     padding: "24px",
+                    display: "flex",
+                    flexDirection: "column",
                     maxWidth: "100%",
+                    ...(isMobile && {width: "96%"}),
                 }}
             >
                 <div style={{ marginBottom: "16px" }}>
                     <label
                         htmlFor="subject"
-                        style={{ display: "block", marginBottom: "8px", fontSize: "14px", fontWeight: "600" }}
+                        style={{ display: "block",color:'gray', marginBottom: "8px", fontSize: "14px", fontWeight: "600" }}
                     >
                         Тема обращения
                     </label>
@@ -107,7 +128,7 @@ const SupportForm = () => {
                 <div style={{ marginBottom: "24px" }}>
                     <label
                         htmlFor="message"
-                        style={{ display: "block", marginBottom: "8px", fontSize: "14px", fontWeight: "600" }}
+                        style={{ display: "block", color:'gray', marginBottom: "8px", fontSize: "14px", fontWeight: "600" }}
                     >
                         Ваше сообщение
                     </label>
@@ -138,10 +159,14 @@ const SupportForm = () => {
                         color: "#000",
                         fontWeight: "bold",
                         fontSize: "14px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                         cursor: "pointer",
+                        gap: 4,
                     }}
                 >
-                    Создать обращение
+                    Создать обращение <ion-icon name="mail-outline"></ion-icon>
                 </button>
             </form>
         </div>

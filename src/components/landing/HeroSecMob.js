@@ -67,6 +67,7 @@ const styles = {
     button: {
         backgroundColor: "#111827",
         color: "#fff",
+        textDecoration: "none",
         padding: "12px 24px",
         fontSize: "1rem",
         // fontWeight: "600",
@@ -202,9 +203,9 @@ export default function HeroSecMob() {
                     <span style={styles.smallText}>
                         Узнайте больше о нас и тех возможностях, которые мы предлагаем
                     </span>
-                    <button style={styles.button}>
+                    <a href='/aboutcompany' style={styles.button}>
                         Больше о компании <AArrow width={24} height={24} color='#fff'/>
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>

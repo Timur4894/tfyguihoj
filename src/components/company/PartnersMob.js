@@ -6,6 +6,16 @@ import logo5 from '../../assets/img/0005.png';
 import logo6 from '../../assets/img/0006.png';
 import bg from '../../assets/img/map.png';
 
+const cornerStyle = (vertical, horizontal) => ({
+    position: 'absolute',
+    [vertical]: '-28px',
+    [horizontal]: '-15px',
+    color: '#9ca3af',
+    fontSize: '40px',
+    fontWeight: '500',
+});
+
+
 export default function PartnersMob() {
     const partners = [
         { name: "Vanguard", logo: logo1 },
@@ -17,63 +27,131 @@ export default function PartnersMob() {
     ];
 
     return (
-        <section style={{ padding: '80px 24px', background: 'white' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        <section style={{padding: '80px 24px', background: 'white', position: 'relative'}}>
+            <div style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative'
+            }}>
                 <h2 style={{
                     fontSize: '10vw',
                     width: '100%',
-                    fontWeight: '500',
+                    fontWeight: '400',
                     marginBottom: '0px',
                     color: '#1f2937',
                     position: 'absolute',
                     fontFamily: "Ubuntu",
-                    top: '-40px',
-                    // right: '0'
+                    top: '-40px'
                 }}>
                     Партнёры, которыми мы гордимся
                 </h2>
 
-                <img
-                    src={bg}
-                    style={{
-                        width: '100%',
-                        // height: '70%',
-                        // position: 'absolute',
-                        // top: '-50px',
-                        // right: '0px'
-                    }}
-                    alt="background"
-                />
+                <img src={bg} style={{width: '100%'}} alt="background"/>
 
+                {/* Сетка с плюсиками */}
                 <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr',
                     borderTop: '1px solid #e5e7eb',
                     borderLeft: '1px solid #e5e7eb'
                 }}>
-                    {partners.map((partner, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                borderRight: '1px solid #e5e7eb',
-                                borderBottom: '1px solid #e5e7eb',
-                                padding: '32px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                height: '150px',
-                                backgroundColor: 'white'
-                            }}
-                        >
-                            <img
-                                src={partner.logo}
-                                alt={partner.name}
-                                style={{ maxWidth: '100%', maxHeight: '60px', objectFit: 'contain' }}
-                            />
-                        </div>
-                    ))}
+                    {partners.map((partner, index) => {
+                        const isFirst = index === 0;
+                        const isLast = index === partners.length - 1;
+                        return (
+                            <div
+                                key={index}
+                                style={{
+                                    borderRight: '1px solid #e5e7eb',
+                                    borderBottom: '1px solid #e5e7eb',
+                                    padding: '32px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: '150px',
+                                    backgroundColor: 'white',
+                                    position: 'relative'
+                                }}
+                            >
+                                <img
+                                    src={partner.logo}
+                                    alt={partner.name}
+                                    style={{maxWidth: '100%', maxHeight: '60px', objectFit: 'contain'}}
+                                />
+
+
+                                    <>
+                                        <span style={cornerStyle('top', 'left')}>+</span>
+                                        <span style={cornerStyle('top', 'right')}>+</span>
+                                    </>
+
+
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
+
+        // <section style={{ padding: '80px 24px', background: 'white' }}>
+        //     <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        //         <h2 style={{
+        //             fontSize: '10vw',
+        //             width: '100%',
+        //             fontWeight: '500',
+        //             marginBottom: '0px',
+        //             color: '#1f2937',
+        //             position: 'absolute',
+        //             fontFamily: "Ubuntu",
+        //             top: '-40px',
+        //             // right: '0'
+        //         }}>
+        //             Партнёры, которыми мы гордимся
+        //         </h2>
+        //
+        //         <img
+        //             src={bg}
+        //             style={{
+        //                 width: '100%',
+        //                 // height: '70%',
+        //                 // position: 'absolute',
+        //                 // top: '-50px',
+        //                 // right: '0px'
+        //             }}
+        //             alt="background"
+        //         />
+        //
+        //         <div style={{
+        //             display: 'flex',
+        //             flexDirection: 'column',
+        //             borderTop: '1px solid #e5e7eb',
+        //             borderLeft: '1px solid #e5e7eb'
+        //         }}>
+        //             {partners.map((partner, index) => (
+        //                 <div
+        //                     key={index}
+        //                     style={{
+        //                         borderRight: '1px solid #e5e7eb',
+        //                         borderBottom: '1px solid #e5e7eb',
+        //                         padding: '32px',
+        //                         display: 'flex',
+        //                         alignItems: 'center',
+        //                         justifyContent: 'center',
+        //                         height: '150px',
+        //                         backgroundColor: 'white'
+        //                     }}
+        //                 >
+        //                     <img
+        //                         src={partner.logo}
+        //                         alt={partner.name}
+        //                         style={{ maxWidth: '100%', maxHeight: '60px', objectFit: 'contain' }}
+        //                     />
+        //                 </div>
+        //             ))}
+        //         </div>
+        //     </div>
+        // </section>
     );
 }

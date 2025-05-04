@@ -214,12 +214,12 @@ const Cards = ({authTrue = false, onActivate = null}) => {
 
                     <div style={styles.perDay}>{(index === 1 || index === 0) ? 'В ДЕНЬ' : ''}</div>
                     <div style={styles.details}>
-                        Депозит <strong>{plan.deposits}</strong>
+                        Депозит <strong style={{color: plan.dark ? '#fff' : '#000'}}>{plan.deposits}</strong>
                         <br/>
                         <br/>
-                        Срок работы <strong>{plan.days}</strong>
-                    </div>
-                    <button
+                        Срок работы <strong style={{color: plan.dark ? '#fff' : '#000'}}>{plan.days}</strong>
+                </div>
+                <button
                         onClick={authTrue ? onActivate : () => navigate('/investments')}
                         style={{
                             ...styles.button,

@@ -39,6 +39,10 @@ const warningTextStyle = {
 const cardStyle = {
     ...boxStyle,
     display: "flex",
+    paddingBottom: "0px",
+    paddingLeft: "0px",
+    paddingRight: "0px",
+    paddingTop: "20px",
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
@@ -46,7 +50,7 @@ const cardStyle = {
 
 const buttonRowStyle = {
     display: "flex",
-    borderTop: "1px solid #e5e7eb",
+    // borderTop: "1px solid #e5e7eb",
     marginTop: "16px",
     width: "100%",
 };
@@ -55,13 +59,14 @@ const actionButtonStyle = {
     flex: 1,
     padding: "12px 0",
     backgroundColor: "#fff",
-    border: "1px solid #d8d8d8",
+    border: "2px solid #eaeaea",
     textDecoration: 'none',
     color: "#000",
-    borderRight: "1px solid #e5e7eb",
+    borderRight: "0px solid #e5e7eb",
     cursor: "pointer",
-    fontWeight: "500",
-    fontSize: "14px",
+    fontWeight: "600",
+    fontFamily: "Ubuntu",
+    fontSize: "12px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -360,19 +365,26 @@ export default function BalanceScreen() {
                     style={{marginBottom: "12px"}}
                 />
                 <div style={{fontSize: "20px", fontWeight: "bold"}}>{balance.availableForWithdrawal}$</div>
-                <div style={{fontSize: "14px", color: "#6b7280"}}>USD</div>
+                <div style={{fontSize: "14px", color: "#6b7280"}}>USD $</div>
 
                 <div style={buttonRowStyle}>
                     <a href='/opendep' style={actionButtonStyle}>
-                        <i className="fas fa-wallet"></i> Пополнить
+                        <ion-icon name="cash-outline"></ion-icon>
+                        Пополнить
                     </a>
 
-                    <button onClick={()=>{setShowModal(true)}} style={actionButtonStyle}>
-                        <i className="fas fa-credit-card"></i> Вывести
+                    <button onClick={() => {
+                        setShowModal(true)
+                    }} style={actionButtonStyle}>
+                        <ion-icon name="wallet-outline"></ion-icon>
+                        Вывести
                     </button>
 
-                    <div onClick={()=>{setShowModal2(true)}} style={{...actionButtonStyle, borderRight: "none", cursor: "pointer"}}>
-                        <i className="fas fa-sync-alt"></i> Реинвест
+                    <div onClick={() => {
+                        setShowModal2(true)
+                    }} style={{...actionButtonStyle}}>
+                        <ion-icon name="repeat-outline"></ion-icon>
+                        Реинвест
                     </div>
                 </div>
 

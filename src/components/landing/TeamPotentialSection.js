@@ -41,7 +41,7 @@ const styles = {
     },
     title: {
         fontSize: "56px",
-        fontWeight: "700",
+        fontWeight: "400",
         color: "#111827",
         fontFamily: "Ubuntu",
         marginBottom: "24px",
@@ -128,7 +128,7 @@ export default function TeamPotentialSection() {
             />
             <div style={styles.content}>
                 <div style={styles.subtitle}>Умножай свой заработок с каждым партнёром</div>
-                <div style={{...styles.title, ...(isMobile && { fontSize: "25px", marginTop: 50})}}>Твоя команда — твой потенциал</div>
+                <div style={{...styles.title, ...(isMobile && { fontSize: "35px", marginTop: 50})}}>Твоя команда — твой потенциал</div>
                 <div style={styles.paragraph}>
                     Раскройте потенциал дохода с нашей уникальной трёхуровневой партнёрской программой! Каждый уровень приносит вам солидные бонусы. И это ещё не всё! Мы предлагаем матчинг-бонус, который позволяет зарабатывать каждый раз, когда ваш реферал получает доход. Присоединяйтесь к нам, приглашайте партнёров и стройте свою команду, где каждый шаг увеличивает ваш заработок. Эта программа создана, чтобы ваш успех рос вместе с успехом ваших партнёров!
                 </div>

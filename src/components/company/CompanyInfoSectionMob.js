@@ -90,7 +90,7 @@ const styles = {
         backgroundColor: '#000',
         color: '#fff',
         padding: '10px 18px',
-        fontSize: '12px',
+        fontSize: '14px',
         display: 'flex',
         alignItems: 'center',
         fontWeight: '900',
@@ -215,11 +215,16 @@ const CompanyInfoSectionMob = () => {
                 <p style={{...styles.description, textAlign: 'center'}}>
                     “Также на нашей платформе Prudent Financial вы можете оформить страхование и воспользоваться другими
                     финансовыми услугами. Перейдите по ссылке, чтобы узнать больше и выбрать нужный вам сервис.”
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a style={{
+                        color: '#595959',
+                        fontWeight: '500',
+                    }} href='https://www.prudential.com/'>https://www.prudential.com/</a>
                 </p>
-                <a style={{
-                    color: '#595959',
-                    fontWeight: '500', marginLeft: 50
-                }} href='https://www.prudential.com/'>https://www.prudential.com/</a>
+
 
             </div>
         </section>

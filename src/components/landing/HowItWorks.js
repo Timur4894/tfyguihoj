@@ -27,7 +27,7 @@ const styles = {
     },
     titleLarge: {
         fontSize: "48px",
-        fontWeight: "700",
+        fontWeight: "400",
         fontFamily: "Ubuntu",
         width: "80%",
         marginBottom: "60px",
@@ -108,7 +108,7 @@ export default function HowItWorks() {
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: 'row'}}>
                 <div style={{display: "flex", alignItems: 'flex-start', flexDirection: "column"}}>
                     <div style={styles.titleSmall}>Почему мы</div>
-                    <h2 style={{...styles.titleLarge, ...(isMobile && { fontSize: "25px", marginTop: 50})}}>Преимущества работы с нами</h2>
+                    <h2 style={{...styles.titleLarge, ...(isMobile && { fontSize: "35px", marginTop: 50})}}>Преимущества работы с нами</h2>
                 </div>
                 {!isMobile && <div style={styles.stepsContainer}>
                     <div style={styles.step}>

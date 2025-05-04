@@ -8,6 +8,7 @@ import f from '../../assets/img/tyuw2.png'
 import f2 from '../../assets/img/fqwf.png'
 import axios from "axios";
 import mainUrl from "../../constants";
+import SlideSection from "../../components/SlideSection";
 
 
 const boxStyle = {
@@ -190,10 +191,11 @@ export default function CabinetScreen() {
             {/*    </p>*/}
             {/*    <button style={buttonStyle}>Поддержка →</button>*/}
             {/*</div>*/}
+            <SlideSection/>
             <div style={{
                 ...boxStyle, borderWidth: 2,
                 borderColor: '#000',
-                marginTop: -40,
+                marginTop: 40,
                 borderStyle: 'solid'
             }}>
                 <h3 style={titleStyle}>Ваши балансы</h3>
@@ -259,51 +261,83 @@ export default function CabinetScreen() {
             {/*</div>*/}
             <div style={isMobile ? mobileTableWrapper : tableWrapper}>
                 <h3 style={titleStyle}>Последние 5 событий</h3>
-                <table style={tableStyle}>
-                    <thead>
-                    <tr>
-                        {/*<th style={{...thTdStyle, ...headerStyle}}>Тип</th>*/}
-                        <th style={{...thTdStyle, ...headerStyle}}>Сумма</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Выплата через</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Статус</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {loading ? (
-                        <tr>
-                            <td colSpan="4" style={thTdStyle}>Загрузка...</td>
-                        </tr>
-                    ) : (deposits && deposits.length > 0 ? (
-                        deposits.slice(0, 5).map((event, index) => (
-                            <tr key={index}>
-                                {/*<td style={thTdStyle}>{event.type}</td>*/}
-                                <td style={thTdStyle}>{event.deposit} $</td>
-                                <td style={thTdStyle}>
-                                    {formatMillisecondsToTime(Number(event.nextPayment))}
-                                </td>
-
-                                <td style={{...thTdStyle, color: event.status ? 'green' : 'red'}}>
-                                    {event.status ? "Активен" : "Не активен"}
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                        <td colSpan="4" style={thTdStyle}>
-                                У вас ещё нет активных событий. Откройте новый депозит на вкладке{" "}
-                                <a href="/opendep" style={{color: "#2563eb"}}>Открыть депозит</a>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                {loading ? (
+                    <div style={{fontFamily: "Ubuntu", fontSize: "14px"}}>Загрузка...</div>
+                ) : deposits && deposits.length > 0 ? (
+                    deposits.slice(0, 5).map((event, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                marginBottom: "12px",
+                                fontFamily: "Ubuntu",
+                                fontSize: "14px",
+                                lineHeight: "1.5",
+                                color: "#374151", // темно-серый
+                            }}
+                        >
+                            <div style={{marginRight: "16px"}}>
+                                <strong>Сумма:</strong> {event.deposit} $
+                            </div>
+                            <div style={{marginRight: "16px"}}>
+                                <strong>Выплата через:</strong> {formatMillisecondsToTime(Number(event.nextPayment))}
+                            </div>
+                            <div>
+                                <strong>Статус:</strong>{" "}
+                                <span style={{color: event.status ? "green" : "red"}}>
+            {event.status ? "Активен" : "Не активен"}
+          </span>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div
+                        style={{
+                            backgroundColor: "#e5e7eb",
+                            padding: "12px 16px",
+                            borderRadius: "8px",
+                            color: "#ef4444",
+                            position: "relative",
+                            fontSize: "14px",
+                            fontFamily: "Ubuntu",
+                        }}
+                    >
+                        <button
+                            onClick={() => {
+                                // можно реализовать скрытие
+                            }}
+                            style={{
+                                position: "absolute",
+                                top: "8px",
+                                right: "10px",
+                                background: "transparent",
+                                border: "none",
+                                fontSize: "16px",
+                                cursor: "pointer",
+                                color: "#6b7280",
+                            }}
+                        >
+                            ×
+                        </button>
+                        У вас ещё нет активных событий. <br/>
+                        Откройте новый депозит на вкладке{" "}
+                        <a
+                            href="/opendep"
+                            style={{color: "#2563eb", textDecoration: "none", fontWeight: "500"}}
+                        >
+                            Открыть депозит
+                        </a>
+                    </div>
+                )}
             </div>
 
 
             <div style={{...boxStyle, marginTop: "40px",}}>
                 {deposits && deposits.length > 0 ? <h3 style={titleStyle}>Вы получаете доход!</h3> :
                     <h3 style={titleStyle}>Вы не получаете доход!</h3>}
-                {deposits && deposits.length > 0 ? <></> : <p>На данный момент у вас <strong>нет</strong> активных депозитов</p>}
+                {deposits && deposits.length > 0 ? <></> :
+                    <p>На данный момент у вас <strong>нет</strong> активных депозитов</p>}
                 <div style={{display: "flex", justifyContent: "space-between", marginTop: "16px"}}>
                     <div>
                         <p style={labelStyle}>Активных депозитов</p>

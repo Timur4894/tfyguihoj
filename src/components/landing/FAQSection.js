@@ -42,7 +42,7 @@ const styles = {
     },
     title: {
         fontSize: "48px",
-        fontWeight: "500",
+        fontWeight: "400",
         color: "#374151",
         fontFamily: "Ubuntu",
         marginBottom: "40px",
@@ -58,7 +58,7 @@ const styles = {
     question: {
         padding: "20px 24px",
         fontSize: "20px",
-        fontWeight: "700",
+        fontWeight: "400",
         color: "#374151",
         fontFamily: "Ubuntu",
         cursor: "pointer",
@@ -94,8 +94,11 @@ export default function FAQSection() {
             <div style={styles.title}>F.A.Q.</div>
             {faqData.map((item, index) => (
                 <div key={index} style={styles.item}>
-                    <div style={{width: "100%", height: 1, backgroundColor: '#000'}} />
-                        <div style={styles.question} onClick={() => toggle(index)}>
+
+                    {openIndex === index && (
+                        <div style={{width: "100%", height: 1, backgroundColor: '#000'}}/>
+                    )}
+                    <div style={styles.question} onClick={() => toggle(index)}>
                             {item.question}
                             <span style={{...styles.arrow, ...(openIndex === index ? styles.rotated : {})}}>↓</span>
                         </div>

@@ -74,7 +74,7 @@ const MyDepsScreen = () => {
         backgroundColor: "#fff",
         borderRadius: "10px",
         padding: "20px",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+        // boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         width: "100%",
         overflowX: "auto",
         maxWidth: "1200px", // Ограничение максимальной ширины на больших экранах
@@ -85,23 +85,31 @@ const MyDepsScreen = () => {
         backgroundColor: "#fff",
         borderRadius: "10px",
         padding: "10px",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+        // boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
         width: "100%",
         overflowX: "auto",
-        maxWidth: "70vw",   // Чуть меньше полной ширины экрана
+        // maxWidth: "70vw",   // Чуть меньше полной ширины экрана
         margin: "0 auto",
     };
 
 
+    const formatMillisecondsToTime = (ms: number) => {
+        const totalSeconds = Math.floor(ms / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    };
+
     return (
-        <div style={{ padding: "0px", paddingTop: 0, marginTop: -40, fontFamily: "Arial, sans-serif" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>Мои депозиты</h2>
+        <div style={{padding: "0px", paddingTop: 0, marginTop: -40, fontFamily: "Arial, sans-serif"}}>
+            <h2 style={{fontSize: "20px", fontWeight: "bold", marginBottom: "16px"}}>Мои депозиты</h2>
 
             <div
                 style={{
                     backgroundColor: "#fff",
                     padding: "16px",
-                    fontSize: "14px",
+                    fontSize: "13px",
                     lineHeight: "1.6",
                     textAlign: "center",
                     marginBottom: "32px",
@@ -109,47 +117,119 @@ const MyDepsScreen = () => {
                     border: "1px solid #000",
                 }}
             >
-                {/* Описание */}
-                Ознакомьтесь с нашими инвестиционными предложениями...
+                Ознакомьтесь с нашими инвестиционными предложениями, выберите подходящее и активируйте его. Перед активацией, пожалуйста, пополните необходимый баланс в разделе Балансы . После подтверждения активации с баланса будет списана сумма, равная сумме депозита. Инвестиционные пакеты Standard и Growth обеспечивают ежедневные начисления на баланс, с которого средства доступны к выводу. Пакеты Compound и Accumulation предлагают накопительный эффект: начисления также происходят каждый бизнес-день, но автоматически добавляются к телу депозита, работая по принципу сложного процента.
             </div>
             {/*nextPayment*/}
             {/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}{/*nextPayment*/}
+            {/*<div style={isMobile ? mobileTableWrapper : tableWrapper}>*/}
+            {/*    <table style={tableStyle}>*/}
+            {/*        <thead>*/}
+            {/*        <tr>*/}
+            {/*            <th style={{...thTdStyle, ...headerStyle}}>№ Заказа</th>*/}
+            {/*            <th style={{...thTdStyle, ...headerStyle}}>Депозит</th>*/}
+            {/*            <th style={{...thTdStyle, ...headerStyle}}>Статус заказа</th>*/}
+            {/*            <th style={{...thTdStyle, ...headerStyle}}>Выплачено</th>*/}
+            {/*            <th style={{...thTdStyle, ...headerStyle}}>Активирован</th>*/}
+            {/*        </tr>*/}
+            {/*        </thead>*/}
+            {/*        <tbody>*/}
+            {/*        {loading ? (*/}
+            {/*            <tr>*/}
+            {/*                <td colSpan="5" style={thTdStyle}>Загрузка...</td>*/}
+            {/*            </tr>*/}
+            {/*        ) : deposits.length === 0 ? (*/}
+            {/*            <tr>*/}
+            {/*                <td colSpan="5" style={thTdStyle}>Нет данных о депозитах</td>*/}
+            {/*            </tr>*/}
+            {/*        ) : (*/}
+            {/*            deposits.map((dep, index) => (*/}
+            {/*                <tr key={index}>*/}
+            {/*                    <td style={thTdStyle}>№{index + 1}</td>*/}
+            {/*                    <td style={thTdStyle}>{dep.deposit.toFixed(2)} $</td>*/}
+            {/*                    <td style={{...thTdStyle, ...(dep.status ? {} : waitingStyle)}}>*/}
+            {/*                        {dep.status ? "Активен" : "Не активен"}*/}
+            {/*                    </td>*/}
+            {/*                    <td style={thTdStyle}>{dep.paidOut} $</td>*/}
+            {/*                    <td style={thTdStyle}>{formatMillisecondsToTime(Number(dep.nextPayment))}</td>*/}
+            {/*                </tr>*/}
+            {/*            ))*/}
+            {/*        )}*/}
+            {/*        </tbody>*/}
+            {/*    </table>*/}
+            {/*</div>*/}
             <div style={isMobile ? mobileTableWrapper : tableWrapper}>
-                <table style={tableStyle}>
-                    <thead>
-                    <tr>
-                        <th style={{...thTdStyle, ...headerStyle}}>№ Заказа</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Депозит</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Статус заказа</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Выплачено</th>
-                        <th style={{...thTdStyle, ...headerStyle}}>Активирован</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {loading ? (
-                        <tr>
-                            <td colSpan="5" style={thTdStyle}>Загрузка...</td>
-                        </tr>
-                    ) : deposits.length === 0 ? (
-                        <tr>
-                            <td colSpan="5" style={thTdStyle}>Нет данных о депозитах</td>
-                        </tr>
-                    ) : (
-                        deposits.map((dep, index) => (
-                            <tr key={index}>
-                                <td style={thTdStyle}>№{index + 1}</td>
-                                <td style={thTdStyle}>{dep.deposit.toFixed(2)} $</td>
-                                <td style={{...thTdStyle, ...(dep.status ? {} : waitingStyle)}}>
-                                    {dep.status ? "Активен" : "Не активен"}
-                                </td>
-                                <td style={thTdStyle}>{dep.paidOut} $</td>
-                                <td style={thTdStyle}>{new Date(dep.activated).toLocaleDateString()}</td>
-                            </tr>
-                        ))
-                    )}
-                    </tbody>
-                </table>
+                {loading ? (
+                    <div style={{fontFamily: "Ubuntu", fontSize: "14px"}}>Загрузка...</div>
+                ) : deposits.length === 0 ? (
+                    <div style={{fontFamily: "Ubuntu", fontSize: "14px"}}>Нет данных о депозитах</div>
+                ) : (
+                    deposits.map((dep, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                position: "relative",
+                                marginBottom: "50px",
+                                fontFamily: "Ubuntu",
+                                fontSize: "14px",
+                                lineHeight: "1.6",
+                                color: "#374151",
+                            }}
+                        >
+                            <div style={{marginRight: "36px", marginBottom: 20, fontFamily: "Ubuntu", color: "#4a4a4a", display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                <strong>№ Заказа:</strong> {index + 1}
+                            </div>
+                            <div style={{
+                                marginRight: "36px",
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center"
+                            }}>
+                                <strong>Депозит:</strong> {dep.deposit.toFixed(2)} $
+                            </div>
+                            <div style={{
+                                marginRight: "36px",
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center"
+                            }}>
+                                <strong>Статус заказа:</strong>{" "}
+                                <span style={{color: '#4a4a4a'}}>
+            {dep.status ? "Активен" : "Не активен"}
+          </span>
+                            </div>
+                            <div style={{
+                                marginRight: "36px",
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center"
+                            }}>
+                                <strong>Выплачено:</strong> {dep.paidOut} $
+                            </div>
+                            <div style={{
+                                marginRight: "36px",
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                marginBottom: 20,
+                            }}>
+                                <strong>Следующая выплата:</strong> {formatMillisecondsToTime(Number(dep.nextPayment))}
+                            </div>
+                            <div style={{width: '100%', height: 2, backgroundColor: "#aaa", position: "absolute", bottom: "0px", left: -10}} />
+                        </div>
+                    ))
+                )}
             </div>
+
         </div>
     );
 };
