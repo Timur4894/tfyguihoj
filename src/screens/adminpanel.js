@@ -7,7 +7,7 @@ const AdminPanel = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [error, setError] = useState('');
     const [newWallet, setNewWallet] = useState('');
-
+    const [selectedDate, setSelectedDate] = useState("");
 
     const [confirmData, setConfirmData] = useState({
         username: '',
@@ -78,6 +78,23 @@ const AdminPanel = () => {
         }
     };
 
+    const updateInvestmentDate = async (investmentId, newDateISO) => {
+        try {
+            const response = await axios.patch(`${mainUrl}/api/v1/admin/investments/${investmentId}`, {
+                dateOfCreation: newDateISO,
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Authorization": `Bearer ${token}` // если нужно
+                },
+            });
+
+            console.log("Успешно обновлено:", response.data);
+        } catch (error) {
+            console.error("Ошибка при обновлении:", error.response?.data || error.message);
+        }
+    };
+
 
 
     if (!isAuthenticated) {
@@ -137,7 +154,7 @@ const AdminPanel = () => {
             </div>
 
             <div style={styles.block}>
-                <h3>❌ Удалить инвестицию</h3>
+                <h3>❌ Удалить инвестицию / Обновить дату пакета</h3>
                 <input
                     type="text"
                     placeholder="Логин пользователя"
@@ -158,12 +175,32 @@ const AdminPanel = () => {
                                 <li key={inv._id} style={{marginBottom: 10}}>
                                     <strong>ID:</strong> {inv._id} <br/>
                                     <strong>Пакет:</strong> {inv.packageName}, <strong>Сумма:</strong> {inv.depositAmount}$ <br/>
+
+                                    <input
+                                        type="datetime-local"
+                                        value={selectedDate}
+                                        onChange={(e) => setSelectedDate(e.target.value)}
+                                        style={{marginTop: 8, marginBottom: 8}}
+                                    />
+                                    <br/>
+                                    <button
+                                        onClick={() => {
+                                            if (!selectedDate) return alert("Выберите дату!");
+                                            const isoDate = new Date(selectedDate).toISOString();
+                                            updateInvestmentDate(inv._id, isoDate);
+                                        }}
+                                        style={{...styles.button, backgroundColor: "#10b981", marginRight: 10}}
+                                    >
+                                        Обновить дату
+                                    </button>
+
                                     <button
                                         onClick={() => handleDeleteInvestmentById(inv._id)}
                                         style={{...styles.button, backgroundColor: '#dc2626'}}
                                     >
                                         Удалить
                                     </button>
+
                                 </li>
                             ))}
                         </ul>

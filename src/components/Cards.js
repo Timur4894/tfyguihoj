@@ -140,7 +140,7 @@ const investmentPlans = [
         dark: true,
     },
     {
-        title: "Accumulatio",
+        title: "Accumulatiom",
         rate: "+2.9%",
         type: "Накопительный",
         desc: "Ежедневное увеличение тела депозита",

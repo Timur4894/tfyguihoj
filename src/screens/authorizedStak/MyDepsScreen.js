@@ -177,7 +177,15 @@ const MyDepsScreen = () => {
                                 color: "#374151",
                             }}
                         >
-                            <div style={{marginRight: "36px", marginBottom: 20, fontFamily: "Ubuntu", color: "#4a4a4a", display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <div style={{
+                                marginRight: "36px",
+                                marginBottom: 20,
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center"
+                            }}>
                                 <strong>№ Заказа:</strong> {index + 1}
                             </div>
                             <div style={{
@@ -220,11 +228,30 @@ const MyDepsScreen = () => {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
+                            }}>
+                                <strong>Выплата через:</strong> {formatMillisecondsToTime(Number(dep.nextPayment))}
+                            </div>
+
+                            <div style={{
+                                marginRight: "36px",
+                                fontFamily: "Ubuntu",
+                                color: "#4a4a4a",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
                                 marginBottom: 20,
                             }}>
-                                <strong>Следующая выплата:</strong> {formatMillisecondsToTime(Number(dep.nextPayment))}
+                                <strong>Дата активации:</strong> {new Date(dep.dateOfCreation).toLocaleString("ru-RU", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}
                             </div>
-                            <div style={{width: '100%', height: 2, backgroundColor: "#aaa", position: "absolute", bottom: "0px", left: -10}} />
+
+                            <div style={{
+                                width: '100%',
+                                height: 2,
+                                backgroundColor: "#aaa",
+                                position: "absolute",
+                                bottom: "0px",
+                                left: -10
+                            }}/>
                         </div>
                     ))
                 )}

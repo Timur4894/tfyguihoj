@@ -98,7 +98,7 @@ const buttonStyle = {
 export default function CabinetScreen() {
     const [cabinetData, setCabinetData] = useState(null);
     // const [balance, setBalance] = useState(999);
-    const [deposits, setDeposits] = useState([]);
+    // const [deposits, setDeposits] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -118,20 +118,20 @@ export default function CabinetScreen() {
                     },
                 });
                 setCabinetData(cabinetResponse.data.data);
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // await new Promise(resolve => setTimeout(resolve, 1000));
                 // Второй запрос: депозиты
-                const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'ngrok-skip-browser-warning': 'true',
-                    },
-                });
-
-                // if (!depositsResponse.ok) throw new Error("Ошибка при получении данных");
-
-                const depositsData = await depositsResponse.json();
-                console.log('deposits: ', depositsData.data);
-                setDeposits(depositsData.data);
+                // const depositsResponse = await fetch(`${mainUrl}/api/v1/user/deposits`, {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`,
+                //         'ngrok-skip-browser-warning': 'true',
+                //     },
+                // });
+                //
+                // // if (!depositsResponse.ok) throw new Error("Ошибка при получении данных");
+                //
+                // const depositsData = await depositsResponse.json();
+                // console.log('deposits: ', depositsData.data);
+                // setDeposits(depositsData.data);
 
             } catch (err) {
                 if (err.response) {
@@ -263,8 +263,8 @@ export default function CabinetScreen() {
                 <h3 style={titleStyle}>Последние 5 событий</h3>
                 {loading ? (
                     <div style={{fontFamily: "Ubuntu", fontSize: "14px"}}>Загрузка...</div>
-                ) : deposits && deposits.length > 0 ? (
-                    deposits.slice(0, 5).map((event, index) => (
+                ) : cabinetData.deposits && cabinetData.deposits.length > 0 ? (
+                    cabinetData.deposits.slice(0, 5).map((event, index) => (
                         <div
                             key={index}
                             style={{
@@ -334,9 +334,9 @@ export default function CabinetScreen() {
 
 
             <div style={{...boxStyle, marginTop: "40px",}}>
-                {deposits && deposits.length > 0 ? <h3 style={titleStyle}>Вы получаете доход!</h3> :
+                {cabinetData.deposits && cabinetData.deposits.length > 0 ? <h3 style={titleStyle}>Вы получаете доход!</h3> :
                     <h3 style={titleStyle}>Вы не получаете доход!</h3>}
-                {deposits && deposits.length > 0 ? <></> :
+                {cabinetData.deposits && cabinetData.deposits.length > 0 ? <></> :
                     <p>На данный момент у вас <strong>нет</strong> активных депозитов</p>}
                 <div style={{display: "flex", justifyContent: "space-between", marginTop: "16px"}}>
                     <div>
@@ -350,8 +350,8 @@ export default function CabinetScreen() {
                     <div>
                         <p style={labelStyle}>Ближайшее начисление через:</p>
                         <p style={valueStyle}>
-                            {deposits?.length > 0 && deposits[0]?.nextPayment
-                                ? formatMillisecondsToTime(Number(deposits[0].nextPayment))
+                            {cabinetData.deposits?.length > 0 && cabinetData.deposits[0]?.nextPayment
+                                ? formatMillisecondsToTime(Number(cabinetData.deposits[0].nextPayment))
                                 : '00:00:00'}
                         </p>
                     </div>
